@@ -1,0 +1,192 @@
+/* Variables */
+$pristine-vertical-navigation-width: 280px;
+$pristine-vertical-navigation-dense-width: 80px;
+
+pristine-vertical-navigation {
+
+    /* Dense appearance overrides */
+    &.pristine-vertical-navigation-appearance-dense {
+
+        &:not(.pristine-vertical-navigation-mode-over) {
+            width: $pristine-vertical-navigation-dense-width;
+            min-width: $pristine-vertical-navigation-dense-width;
+            max-width: $pristine-vertical-navigation-dense-width;
+
+            /* Left positioned */
+            &.pristine-vertical-navigation-position-left {
+
+                /* Side mode */
+                &.pristine-vertical-navigation-mode-side {
+                    margin-left: -$pristine-vertical-navigation-dense-width;
+                }
+
+                /* Opened */
+                &.pristine-vertical-navigation-opened {
+                    margin-left: 0;
+                }
+            }
+
+            /* Right positioned */
+            &.pristine-vertical-navigation-position-right {
+
+                /* Side mode */
+                &.pristine-vertical-navigation-mode-side {
+                    margin-right: -$pristine-vertical-navigation-dense-width;
+                }
+
+                /* Opened */
+                &.pristine-vertical-navigation-opened {
+                    margin-right: 0;
+                }
+
+                /* Aside wrapper */
+                .pristine-vertical-navigation-aside-wrapper {
+                    left: auto;
+                    right: $pristine-vertical-navigation-dense-width;
+                }
+
+                &.pristine-vertical-navigation-hover {
+
+                    .pristine-vertical-navigation-aside-wrapper {
+                        left: auto;
+                        right: $pristine-vertical-navigation-width;
+                    }
+                }
+            }
+        }
+
+        /* Wrapper */
+        .pristine-vertical-navigation-wrapper {
+
+            /* Content */
+            .pristine-vertical-navigation-content {
+
+                pristine-vertical-navigation-aside-item,
+                pristine-vertical-navigation-basic-item,
+                pristine-vertical-navigation-collapsable-item,
+                pristine-vertical-navigation-group-item {
+
+                    .pristine-vertical-navigation-item-wrapper {
+
+                        .pristine-vertical-navigation-item {
+                            width: $pristine-vertical-navigation-dense-width - 24px;
+                            min-width: $pristine-vertical-navigation-dense-width - 24px;
+                            max-width: $pristine-vertical-navigation-dense-width - 24px;
+
+                            .pristine-vertical-navigation-item-arrow,
+                            .pristine-vertical-navigation-item-badge,
+                            .pristine-vertical-navigation-item-title-wrapper {
+                                transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+                            }
+                        }
+                    }
+                }
+
+                pristine-vertical-navigation-group-item {
+
+                    &:first-of-type {
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+
+        &:not(.pristine-vertical-navigation-hover):not(.pristine-vertical-navigation-mode-over) {
+
+            /* Wrapper */
+            .pristine-vertical-navigation-wrapper {
+
+                /* Content */
+                .pristine-vertical-navigation-content {
+
+                    .pristine-vertical-navigation-item-wrapper {
+
+                        .pristine-vertical-navigation-item {
+                            padding: 10px 16px;
+
+                            .pristine-vertical-navigation-item-arrow,
+                            .pristine-vertical-navigation-item-badge,
+                            .pristine-vertical-navigation-item-title-wrapper {
+                                white-space: nowrap;
+                                opacity: 0;
+                            }
+                        }
+                    }
+
+                    pristine-vertical-navigation-collapsable-item {
+
+                        .pristine-vertical-navigation-item-children {
+                            display: none;
+                        }
+                    }
+
+                    pristine-vertical-navigation-group-item {
+
+                        > .pristine-vertical-navigation-item-wrapper {
+
+                            .pristine-vertical-navigation-item {
+
+                                &:before {
+                                    content: '';
+                                    position: absolute;
+                                    top: 20px;
+                                    width: 23px;
+                                    border-top-width: 2px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /* Aside wrapper */
+        .pristine-vertical-navigation-aside-wrapper {
+            left: $pristine-vertical-navigation-dense-width;
+        }
+
+        /* Hover */
+        &.pristine-vertical-navigation-hover {
+
+            .pristine-vertical-navigation-wrapper {
+                width: $pristine-vertical-navigation-width;
+
+                .pristine-vertical-navigation-content {
+
+                    .pristine-vertical-navigation-item-wrapper {
+
+                        .pristine-vertical-navigation-item {
+                            width: $pristine-vertical-navigation-width - 24px;
+                            min-width: $pristine-vertical-navigation-width - 24px;
+                            max-width: $pristine-vertical-navigation-width - 24px;
+
+                            .pristine-vertical-navigation-item-arrow,
+                            .pristine-vertical-navigation-item-badge,
+                            .pristine-vertical-navigation-item-title-wrapper {
+                                white-space: nowrap;
+                                animation: removeWhiteSpaceNoWrap 1ms linear 350ms;
+                                animation-fill-mode: forwards;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .pristine-vertical-navigation-aside-wrapper {
+                left: $pristine-vertical-navigation-width;
+            }
+        }
+    }
+}
+
+@keyframes removeWhiteSpaceNoWrap {
+    0% {
+        white-space: nowrap
+    }
+    99% {
+        white-space: nowrap
+    }
+    100% {
+        white-space: normal;
+    }
+}

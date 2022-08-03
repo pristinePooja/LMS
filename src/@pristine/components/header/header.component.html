@@ -1,0 +1,28 @@
+<div class="w-full flex place-content-between items-center bg-white min-h-14 border-b py-2 px-6">
+    <div class="flex space-x-4">
+<!--        button-->
+        <button *ngIf="filterIcon.type=='filter'"
+                [class]="filterIcon.active?classes.active:classes.unactive" (click)="toggleFilter()">
+            <mat-icon class="icon-size-5 " [svgIcon]="filterIcon.icon"></mat-icon>
+        </button>
+        <a *ngIf="filterIcon.type =='back'" class="hover:text-sky-500" (click)="previousLoaction()">
+            <mat-icon class="hover:text-sky-200"  [svgIcon]="filterIcon.icon"></mat-icon>
+        </a>
+<!--        filter drop down-->
+        <div>
+           <div *ngIf="filterIcon.filterOptions?.length>0" [@expandCollapse]="'expanded'" class="font-medium border border-zinc-400 py-0.5 px-2 hover:border-zinc-700 justify-center rounded-md">
+               <button [matMenuTriggerFor]="menu">{{selectedFilterOption}}</button>
+           </div>
+        </div>
+    </div>
+    <div>
+aaaaaaaaaaaa
+    </div>
+</div>
+
+
+<!--<ng-template>-->
+    <mat-menu [@expandCollapse]="menuState" #menu="matMenu">
+        <button mat-menu-item *ngFor="let ele of filterIcon.filterOptions" >{{ele}}</button>
+    </mat-menu>
+<!--</ng-template>-->
