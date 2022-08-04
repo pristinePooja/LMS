@@ -2,3 +2,8 @@
 /*  @ Import/write your custom styles here.
 /*  @ Styles from this file will override 'vendors.scss' and Pristine's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
+body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}

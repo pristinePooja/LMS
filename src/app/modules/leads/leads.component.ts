@@ -7,10 +7,15 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
     encapsulation: ViewEncapsulation.None
 })
 export class LeadsComponent implements OnInit {
-
+    filterOpen:boolean = true
+    headerData: any={type:'filter',active:this.filterOpen, icon:'filter',url:''};
   constructor() { }
 
   ngOnInit(): void {
   }
 
+    getTOggler($event: any) {
+        console.log($event)
+        this.filterOpen = $event
+    }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {pristineAnimations} from "../../animations";
 
 @Component({
@@ -12,15 +12,17 @@ export class HeaderComponent implements OnInit {
   constructor() { }
   @Input() values: any
   @Input() filterIcon: {type:string,active:boolean, icon:string,filterOptions?: Array<any>, url?:string, class?: string }
+  @Output() filterViewToggle : EventEmitter<boolean> = new EventEmitter<boolean>();
   commomClassesfilter= 'flex text-zinc-700 items-end bg-white rounded-md px-2 py-1 hover:border-zinc-700'
   classes= {
       active: this.commomClassesfilter + ' '+'shadow-inner shadow-zinc-600',
       unactive:this.commomClassesfilter + ' '+'shadow-none border border-solid border-zinc-400'
   }
     selectedFilterOption: any;
-    menuState: 'expanded'|'collapsed'='expanded';
+    menuState: 'expanded'|'collapsed'='collapsed';
+
   ngOnInit(): void {
-     this.filterIcon ={type:'filter',active:false, icon:'filter',url:''}
+
      if(this.filterIcon.type=='back'){
          this.filterIcon.icon='feather:arrow-left'
      }else if(this.filterIcon.type=='filter'){
@@ -33,6 +35,7 @@ export class HeaderComponent implements OnInit {
     toggleFilter() {
       this.filterIcon.active = !this.filterIcon.active
         console.log(this.filterIcon.active)
+        this.filterViewToggle.emit(this.filterIcon.active)
     }
 
     previousLoaction() {
