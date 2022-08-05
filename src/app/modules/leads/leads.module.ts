@@ -7,6 +7,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {HeaderModule} from "../../../@pristine/components/header/header.module";
 import {PristineDrawerModule} from "../../../@pristine/components/drawer";
 import {LeadsFilterComponent} from "./leads-filter/leads-filter.component";
+import {MatIconModule} from "@angular/material/icon";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 
@@ -22,6 +24,8 @@ import {LeadsFilterComponent} from "./leads-filter/leads-filter.component";
         HeaderModule,
         MatSidenavModule,
         PristineDrawerModule,
+        MatIconModule,
+        MatTooltipModule
     ]
 })
 export class LeadsModule { }

@@ -2,12 +2,12 @@
     <app-header [filterIcon]="headerData" (filterViewToggle)="getTOggler($event)"></app-header>
 <!--    <mat-drawer-contanier></mat-drawer-contanier>-->
 
-    <div class="overflow-hidden border-2 border-pink-400 grow flex flex-col bg-green-400">
+    <div class="overflow-hidden grow flex flex-col bg-green-400">
         <mat-drawer-container class="shadow grow overflow-hidden">
 
             <!-- Drawer -->
             <mat-drawer
-                class="w-72 dark:bg-gray-900 border-2 overscroll-contain border-yellow-200"
+                class="w-72 dark:bg-gray-900"
                 [autoFocus]="false"
                 [mode]="'side'"
                 [opened]="filterOpen"
@@ -22,7 +22,7 @@
             <mat-drawer-content class="flex border-solid flex-col">
 
                 <!-- Main -->
-                <div class="flex flex-col grow border-2 min-h-10 border-green-700 border-solid p-6 sm:p-10">
+                <div class="flex flex-col grow min-h-10 p-6 sm:p-10">
 
                 </div>
 
