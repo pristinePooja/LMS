@@ -3,9 +3,13 @@
     mat-icon-button
     [matMenuTriggerFor]="userActions">
     <span class="relative">
+         <img
+             class="w-7 h-7 rounded-full"
+             *ngIf="showAvatar && user.avatar"
+             [src]="user.avatar">
         <span
             class="text-xl w-full h-full rounded-full text-primary-400"
-            *ngIf="showAvatar">
+            *ngIf="user.avatar==''">
             {{user.name.charAt(0)| uppercase}}
         </span>
         <mat-icon

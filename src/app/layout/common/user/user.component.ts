@@ -50,9 +50,13 @@ export class UserComponent implements OnInit, OnDestroy
             id:this._session.getRoleId,
             name:this._session.getName,
             email:this._session.getEmail,
-            avatar:'',
+            avatar:this._session.getUserImg,
             status:'online',
         };
+        console.log(this.user.avatar)
+        if(this.user.avatar==null){
+            this.showAvatar=false
+        }
         // Subscribe to user changes
         // this._userService.user$
         //     .pipe(takeUntil(this._unsubscribeAll))

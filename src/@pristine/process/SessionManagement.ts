@@ -95,6 +95,17 @@ export class SessionManagement {
       return '';
     }
   }
+  get getUserImg(): string {
+    try {
+      let name: string = this._encriptDecript.decrypt(localStorage.getItem('img').toString());
+      if (name != null && name != '' && name != undefined && name != '  ')
+        return name;
+      else
+        return '';
+    } catch (e) {
+      return '';
+    }
+  }
 
   get getLocationId(): string {
     try {
@@ -131,6 +142,9 @@ export class SessionManagement {
 
   setNameSession(name: string) {
     localStorage.setItem('name', this._encriptDecript.encrypt(name));
+  }
+  setUserImage(name: string) {
+    localStorage.setItem('img', this._encriptDecript.encrypt(name));
   }
   setLocationNameSession(locationname: string) {
     localStorage.setItem('locName', this._encriptDecript.encrypt(locationname));

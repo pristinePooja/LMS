@@ -105,6 +105,7 @@ export class AuthSignInComponent implements OnInit
                     this._sessionManageMent.setMenuSession(result[0].menu);
                     // this._sessionManageMent.setMenuSession(navigation);
                     this._sessionManageMent.setNameSession(result[0].name);
+                    this._sessionManageMent.setUserImage(this._webApiHttp.globalurl+'/'+result[0].display_picture);
                     this._sessionManageMent.setLocationId(result[0].locationId);
                     this._sessionManageMent.setAuthToken(result[0].jwt_token);
                     // this._authService.accessToken = this._sessionManageMent.getAuthToken

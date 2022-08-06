@@ -9,13 +9,15 @@ import {PristineDrawerModule} from "../../../@pristine/components/drawer";
 import {LeadsFilterComponent} from "./leads-filter/leads-filter.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {LeadsListComponent} from "./leads-list/leads-list.component";
 
 
 
 @NgModule({
   declarations: [
     LeadsComponent,
-      LeadsFilterComponent
+      LeadsFilterComponent,
+      LeadsListComponent
   ],
     imports: [
         CommonModule,
