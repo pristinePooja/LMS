@@ -1,3 +1,35 @@
-<div class="flex  overscroll-contain bg-pink-400 h-full grow flex-col min-h-4 relativep-2">
+<!-- <div class="flex overscroll-contain h-full flex-col min-h-4 relative bg-white p-2">
+    <div class="w-full h-70 top-0 sticky">
+        <h2 class="font-bold mb-4">Filter Leads By</h2>
+        <span class="rounded-3xl flex items-center justify-between mt-4 px-4 py-2 border border-gray-500 w-full">
+            <input placeholder="Search Filter" />
+            <mat-icon class="icon-size-4 hover:text-sky-400"
+             [matTooltip]="'Clear Filters'" svgIcon="feather:x"></mat-icon>
 
+        </span>
+    </div>
+    <div class="flex h-full py-4 overflow-hidden flex-col">
+        <ng-container >
+            <span class="h-full w-full overflow-auto overscroll-contain">
+                        <div *ngFor="let ele of filterArray"  class="{{'bg-amber-'+ele.toString()}} border p-10 flex grow  w-full">
+                            {{'bg-amber-'+ele.toString()}}
+                        </div>
+            </span>
+        </ng-container>
+
+    </div>
+    <div class="w-full h-70 py-4 bottom-0 sticky flex justify-around">
+        <button class="w-2/5" mat-stroked-button>Apply</button>
+        <button class="w-2/5" mat-stroked-button>Clears</button>
+    </div>
+</div> -->
+
+<div class="p-2 mb-0 items-start bg-purple-50 border-4 flex grow h-full overscroll-contain overflow-hidden border-dotted border-yellow-300">
+    <div class="overflow-auto bg-green-300 flex flex-col h-9/10 grow-0 w-full max-h-9/10">
+        <!-- <ng-container > -->
+            <span *ngFor="let ele of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]"
+            class="p-4 rounded-3xl mb-2 bg-card">{{ele}}</span><br>
+        <!-- </ng-container> -->
+      
+    </div>
 </div>

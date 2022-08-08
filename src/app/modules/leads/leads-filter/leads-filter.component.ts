@@ -11,12 +11,12 @@ export class LeadsFilterComponent implements OnInit {
   constructor() { }
   clearData: string = ''
   filterSearch: string=''
-  filterArray: Array<any>=[50,100,200,'a200',600,50,900,200,100]
+  filterArray: Array<any>=[50,100,200,'400',600,50,900,200,100]
   ngOnInit(): void {
   }
 
   clearFilter(){
-  this.clearData ='animate-spin'
+  // this.clearData ='animate-spin'
   this.filterSearch =''
   setTimeout(()=>{
     this.clearData =''

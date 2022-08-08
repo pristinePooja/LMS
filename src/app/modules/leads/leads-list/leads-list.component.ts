@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'leads-list',
@@ -9,17 +9,12 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 export class LeadsListComponent implements OnInit {
 
   constructor() { }
-  clearData: string = ''
-  filterSearch: string=''
+  view: string = 'list';
+  @Input() height: any ='';
   filterArray: Array<any>=[50,100,200,'a200',600,50,900,200,100]
   ngOnInit(): void {
+    console.log(this.height.elementRef)
+    console.log(this.height.elementRef.nativeElement.clientHeight)
   }
 
-  clearFilter(){
-  this.clearData ='animate-spin'
-  this.filterSearch =''
-  setTimeout(()=>{
-    this.clearData =''
-  },600)
-  }
 }
