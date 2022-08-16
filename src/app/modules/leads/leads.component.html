@@ -1,13 +1,13 @@
-<div class="flex w-full flex-col">
+<div class="w-full">
     <app-header [filterIcon]="headerData" (filterViewToggle)="getTOggler($event)"></app-header>
 <!--    <mat-drawer-contanier></mat-drawer-contanier>-->
 
-    <div class="overflow-hidden grow flex flex-col bg-green-400">
-        <mat-drawer-container class="flex flex-col flex-auto">
+    <!-- <div class="overflow-hidden  bg-green-400"> -->
+        <mat-sidenav-container class="h-full">
             <!-- <mat-drawer-container class="shadow grow overflow-hidden"> -->
 
             <!-- Drawer -->
-            <mat-drawer
+            <mat-sidenav
                 class="w-72 dark:bg-gray-900"
                 [autoFocus]="false"
                 [mode]="'side'"
@@ -17,24 +17,17 @@
                 <app-leads-filter></app-leads-filter>
 
                 <!-- Demo sidebar -->
-            </mat-drawer>
+            </mat-sidenav>
 
             <!-- Drawer content -->
-            <mat-drawer-content class="flex-0 flex-x-col overflow-hidden   flex-col border-emerald-600 border-4  
-            border-dashed flex-grow-0 bg-slate-700" #drawer>
-                <div class="h-9/10 overflow-auto {{getHeight}} relative">
-                    <leads-list [height]="drawer"> </leads-list>
-                </div>
-                <!-- <div class="flex-auto p-6 sm:p-10 overflow-y-auto">
-                    <div class="h-{{drawer}} min-h-100  border-2 border-dashed border-gray-300 rounded-2xl">
+            <mat-sidenav-content  id="drawer_content" class="bg-gray-200 p-4 container" #drawer>
+                          <div class="h-[100%] pb-10">
+                            <leads-list></leads-list>
+                          </div>
+            </mat-sidenav-content>
 
-                    </div> -->
-                <!-- </div> -->
-                <!-- Main -->
-                <!-- <div class="h-full min-h-400  border-2 border-dashed border-gray-300 rounded-2xl"></div> -->
-            </mat-drawer-content>
 
-        </mat-drawer-container>
-    </div>
+        </mat-sidenav-container>
+    <!-- </div> -->
 </div>
 

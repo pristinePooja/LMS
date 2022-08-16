@@ -13,6 +13,8 @@ export class HeaderComponent implements OnInit {
   @Input() values: any
   @Input() filterIcon: {type:string,active:boolean, icon:string,filterOptions?: Array<any>, url?:string, class?: string }
   @Output() filterViewToggle : EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() ViewPage : EventEmitter<boolean> = new EventEmitter<boolean>();
+
   commomClassesfilter= 'flex text-zinc-700 items-end bg-white rounded-md px-2 py-1 hover:border-zinc-700'
   classes= {
       active: this.commomClassesfilter + ' '+'shadow-inner shadow-zinc-600',
