@@ -8,9 +8,9 @@
 
         </span>
     </div>
-    <div class="flex h-full py-4 overflow-hidden flex-col">
+    <div class="h-4/5 py-4 mb-16 block overflow-auto">
         <ng-container >
-            <span class="h-full w-full overflow-auto overscroll-contain">
+            <span class="h-3/4 w-full overflow-auto overscroll-contain">
                         <div *ngFor="let ele of filterArray"  class="{{'bg-amber-'+ele.toString()}} border p-10 flex grow  w-full">
                             {{'bg-amber-'+ele.toString()}}
                         </div>
@@ -18,7 +18,7 @@
         </ng-container>
 
     </div>
-    <div class="w-70 h-70 py-4 bottom-0 sticky flex justify-around">
+    <div class="w-70 h-70 py-4 bottom-16 sticky flex justify-around">
         <button class="w-2/5" mat-stroked-button>Apply</button>
         <button class="w-2/5" mat-stroked-button>Clear</button>
     </div>
