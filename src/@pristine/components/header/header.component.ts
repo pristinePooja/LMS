@@ -10,11 +10,12 @@ import {pristineAnimations} from "../../animations";
 export class HeaderComponent implements OnInit {
 
   constructor() { }
-  @Input() values: any
+  @Input() pageName: any
   @Input() filterIcon: {type:string,active:boolean, icon:string,filterOptions?: Array<any>, url?:string, class?: string }
   @Output() filterViewToggle : EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() ViewPage : EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  create: boolean = false
   commomClassesfilter= 'flex text-zinc-700 items-end bg-white rounded-md px-2 py-1 hover:border-zinc-700'
   classes= {
       active: this.commomClassesfilter + ' '+'shadow-inner shadow-zinc-600',
@@ -42,5 +43,10 @@ export class HeaderComponent implements OnInit {
 
     previousLoaction() {
      window.history.back()
+    }
+
+    toggleCreate(openView){
+      this.create= !this.create
+      this.ViewPage.emit(openView)
     }
 }

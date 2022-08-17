@@ -1,33 +1,38 @@
-<div class="w-full">
-    <app-header [filterIcon]="headerData" (filterViewToggle)="getTOggler($event)"></app-header>
-<!--    <mat-drawer-contanier></mat-drawer-contanier>-->
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
 
-    <!-- <div class="overflow-hidden  bg-green-400"> -->
-        <mat-sidenav-container class="h-full">
-            <!-- <mat-drawer-container class="shadow grow overflow-hidden"> -->
+    <!-- Header -->
+    <div class="flex flex-col flex-0 pb-16  bg-default dark:bg-transparent">
+        <app-header [filterIcon]="headerData" (ViewPage)="switchView($event)" [pageName]="'Lead'" (filterViewToggle)="getTOggler($event)"></app-header>
+    </div>
 
-            <!-- Drawer -->
-            <mat-sidenav
-                class="w-72 dark:bg-gray-900"
-                [autoFocus]="false"
-                [mode]="'side'"
-                [opened]="filterOpen"
-                #matDrawer>
+    <mat-drawer-container class="flex flex-col flex-auto -mt-16  shadow bg-card">
 
-                <app-leads-filter></app-leads-filter>
+        <!-- Drawer -->
+        <mat-drawer
+            class="w-72 dark:bg-gray-900"
+            [autoFocus]="false"
+            [mode]="'side'"
+            [opened]="filterOpen && view"
+            #matDrawer>
+            <app-leads-filter></app-leads-filter>
+            
+        </mat-drawer>
 
-                <!-- Demo sidebar -->
-            </mat-sidenav>
+        <!-- Drawer content -->
+        <mat-drawer-content class="flex flex-col overflow-hidden">
 
-            <!-- Drawer content -->
-            <mat-sidenav-content  id="drawer_content" class="bg-gray-200 p-4 container" #drawer>
-                          <div class="h-[100%] pb-10">
-                            <leads-list></leads-list>
-                          </div>
-            </mat-sidenav-content>
+            <!-- Main -->
+            <div
+                class="flex-auto p-6 sm:p-1 overflow-y-auto"
+                cdkScrollable>
+                <leads-list *ngIf="view"></leads-list>
+                <!-- CONTENT GOES HERE -->
+                <create-edit-leads *ngIf="!view"></create-edit-leads>
 
+            </div>
 
-        </mat-sidenav-container>
-    <!-- </div> -->
+        </mat-drawer-content>
+
+    </mat-drawer-container>
+
 </div>
-

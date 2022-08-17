@@ -13,8 +13,7 @@ export class LeadsListComponent implements OnInit {
   @Input() height: any ='';
   filterArray: Array<any>=[50,100,200,'a200',600,50,900,200,100]
   ngOnInit(): void {
-    console.log(this.height.elementRef)
-    console.log(this.height.elementRef.nativeElement.clientHeight)
+  
   }
 
 }

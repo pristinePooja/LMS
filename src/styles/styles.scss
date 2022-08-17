@@ -7,3 +7,33 @@ body{
     padding: 0;
     overflow: hidden;
 }
+.input_field{
+    border-color: grey;
+    border-width: 1px;
+    border-style: solid;
+    border-radius:8px;
+    padding: 8px;
+    &:focus{
+        border-color: black;
+        border-width: 1px;
+        box-shadow: 0 0 8px skyblue;
+    }
+    &:required{
+        border-left-color: orangered   ;
+        border-left-width: 4px;
+    }
+}
+.input_label{
+    flex-basis: 50%;
+    font-weight: 500;
+    text-align: right;
+   padding-right: 1.5em;
+    
+}
+.field_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px
+}

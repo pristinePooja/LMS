@@ -10,6 +10,9 @@ import {LeadsFilterComponent} from "./leads-filter/leads-filter.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {LeadsListComponent} from "./leads-list/leads-list.component";
+import { CreateEditLeadsComponent } from './create-edit-leads/create-edit-leads.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -17,7 +20,8 @@ import {LeadsListComponent} from "./leads-list/leads-list.component";
   declarations: [
     LeadsComponent,
       LeadsFilterComponent,
-      LeadsListComponent
+      LeadsListComponent,
+      CreateEditLeadsComponent
   ],
     imports: [
         CommonModule,
@@ -27,7 +31,9 @@ import {LeadsListComponent} from "./leads-list/leads-list.component";
         MatSidenavModule,
         PristineDrawerModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatFormFieldModule,
+        MatInputModule
     ]
 })
 export class LeadsModule { }

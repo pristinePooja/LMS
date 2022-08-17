@@ -1,5 +1,7 @@
 <div class="w-full flex place-content-between items-center bg-white min-h-14 border-b py-2 px-6">
-    <div class="flex space-x-4">
+    <div  class="flex space-x-4">
+        <div *ngIf="create" class="text-2xl font-bold">Create {{pageName}}</div>
+        <ng-container *ngIf="!create">
 <!--        button-->
         <button *ngIf="filterIcon.type=='filter'"
                 [class]="filterIcon.active?classes.active:classes.unactive" (click)="toggleFilter()">
@@ -14,9 +16,12 @@
                <button [matMenuTriggerFor]="menu"  >{{selectedFilterOption}}</button>
            </div>
         </div>
+    </ng-container>
     </div>
-    <div>
-        <button class="bg-sky-600 text-white px-4 py-1 rounded-lg" >Create Leads</button>
+    <div class="space-x-4">
+        <button *ngIf="!create" (click)="toggleCreate(false); " mat-button class="bg-sky-600 text-white " >Create {{pageName}}</button>
+        <button *ngIf="create" (click)="toggleCreate(true)" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 " mat-button>Cancel</button>
+        <button *ngIf="create" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 " mat-button>Save</button>
     </div>
 </div>
 

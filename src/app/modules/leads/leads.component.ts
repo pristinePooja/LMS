@@ -11,6 +11,7 @@ export class LeadsComponent implements OnInit {
     filterOpen:boolean = true;
     @ViewChild('drawer', {static: true}) drawer: ElementRef<any> 
     getHeight: string =   'max-h-[485px]'
+    view:boolean= true
     headerData: any={type:'filter',active:this.filterOpen, icon:'filter',url:''};
   constructor() { }
 
@@ -26,5 +27,9 @@ export class LeadsComponent implements OnInit {
     getTOggler($event: any) {
         console.log($event)
         this.filterOpen = $event
+    }
+
+    switchView($event){
+      this.view=$event
     }
 }
