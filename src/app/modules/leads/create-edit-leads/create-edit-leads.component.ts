@@ -12,9 +12,9 @@ export class CreateEditLeadsComponent implements OnInit {
   constructor(private _fb: FormBuilder) { }
   image: string ='mat_solid:person'
   uploadedImage: any
-  fromControl: FormGroup
+  LeadCreate: FormGroup
   ngOnInit(): void {
-    this.fromControl = this._fb.group({
+    this.LeadCreate = this._fb.group({
       lead_owner: ['',Validators.required],
       company: ['',Validators.required],
       first_name: ['',Validators.required],

@@ -1,18 +1,40 @@
 
- <div class="w-full border-b font-bold text-2xl px-4 py-2">Lead List</div>
- <div class="border rounded-sm p-2 h-28 flex justify-evenly space-x-1">
-   <div class="rounded-xl flex  basis-24 h-24 bg-zinc-500"></div>
-   <div class="flex basis-full">
-      <div class="flex basis-3/4 flex-col ">
-         <div class="font-semibold text-xl">
-            Christopher Maclead
-         </div>
-         <div class="flex items-center text-sm">
-            <span class="mx-1 text-zinc-500">Phone :</span> {{'555-555-5555'}} <mat-icon class="scale-75" svgIcon="mat_outline:phone"></mat-icon>
-         </div>
+ <!-- <div class="w-full border-b font-bold text-2xl px-4 py-2 absolute  bg-white">Lead List</div> -->
 
+   <div class="border my-2 rounded-md p-2 min-h-28 h-fit flex
+    hover:bg-slate-50  hover:shadow-lg snap-start scroll-m-3
+   justify-evenly items-center space-x-1 shadow-md" 
+   @slideInLeft
+   *ngFor="let ele of DataArray">
+      <div class=" flex  min-h-20 min-w-20 h-20 w-20 p-2 rounded-full overflow-hidden border-zinc-500 border-2 border-solid">
+         <img src="./../../../../assets/images/avatars/avatar.png">
       </div>
-      <div class="flex basis-1/4 flex-cols">ssss</div>
-   </div>
- </div>
+      <div class="flex basis-full w-fit justify-between ">
+         <div class="flex basis-3/4 shrink-0 flex-col pl-2 py-2 justify-between">
+            <div class="font-semibold text-xl">
+               {{ele?.first_name}} {{ele?.last_name}} ({{ele?.rating}})
+            </div>
+            <div class="flex items-center flex-wrap">
+               <span class ="flex items-center text-sm whitespace-nowrap"><span class="mx-1 text-zinc-500">Phone :</span> {{ele?.phone}} <mat-icon class="scale-75" svgIcon="mat_outline:phone"></mat-icon> | </span>
+               <span class ="flex items-center text-sm whitespace-nowrap"><span class="mx-1 text-zinc-500">Email :</span> {{ele?.email}} <mat-icon class="scale-75" svgIcon="mat_outline:mail"></mat-icon> | </span>
+               <span class ="flex items-center text-sm whitespace-nowrap"><span class="mx-1 text-zinc-500">Mobile :</span> {{ele?.mobile}} <mat-icon class="scale-75" svgIcon="mat_outline:phone"></mat-icon>  </span>
+            </div>
+            <div class="flex items-center flex-wrap">
+               <span class ="flex items-center text-sm whitespace-nowrap"><span class="mx-1 text-zinc-500">Company  :</span> {{ele?.company}} | </span>
+               <span class ="flex items-center text-sm whitespace-nowrap"><span class="mx-1 text-zinc-500">Title :</span> {{ele?.title}} | </span>
+               <span class ="flex items-center text-sm whitespace-nowrap"><span class="mx-1 text-zinc-500">Lead Source :</span> {{ele?.lead_source}}</span>
+            </div>
+   
+         </div>
+         <div class="md:flex hidden basis-1/6 py-2 shrink-0 flex-col justify-start">
+            <div class="font-semibold text-md">
+               {{ele?.lead_owner}}
+            </div>
+            <div class="flex items-center text-sm whitespace-nowrap ">
+               <span class="mx-1 text-zinc-500">{{'2022/08/12'|date:'MMM dd,yyyy HH:mm aa'}}</span>
+            </div>
+         </div>
+      </div>
+    </div>   
+
 

@@ -1,4 +1,4 @@
-<div class="w-full flex place-content-between items-center bg-white min-h-14 border-b py-2 px-6">
+<div class="w-full flex place-content-between items-center bg-white min-h-14 border-b py-2 px-6" @zoomIn>
     <div  class="flex space-x-4">
         <div *ngIf="create" class="text-2xl font-bold">Create {{pageName}}</div>
         <ng-container *ngIf="!create">
@@ -19,9 +19,9 @@
     </ng-container>
     </div>
     <div class="space-x-4">
-        <button *ngIf="!create" (click)="toggleCreate(false); " mat-button class="bg-sky-600 text-white " >Create {{pageName}}</button>
-        <button *ngIf="create" (click)="toggleCreate(true)" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 " mat-button>Cancel</button>
-        <button *ngIf="create" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 " mat-button>Save</button>
+        <button *ngIf="!create" (click)="toggleCreate(false); " mat-button class="bg-sky-600 text-white leading-3 " >Create {{pageName}}</button>
+        <button *ngIf="create" (click)="toggleCreate(true)" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3 " mat-button>Cancel</button>
+        <button *ngIf="create" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3" mat-button>Save</button>
     </div>
 </div>
 

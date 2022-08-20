@@ -9,27 +9,35 @@
 
         <!-- Drawer -->
         <mat-drawer
-            class="w-72 dark:bg-gray-900"
+            class="w-60 dark:bg-gray-900"
             [autoFocus]="false"
             [mode]="'side'"
             [opened]="filterOpen && view"
             #matDrawer>
-            <app-leads-filter></app-leads-filter>
+            <app-leads-filter ></app-leads-filter>
             
         </mat-drawer>
 
         <!-- Drawer content -->
         <mat-drawer-content class="flex flex-col overflow-hidden">
-
             <!-- Main -->
             <div
-                class="flex-auto p-6 sm:p-1 overflow-y-auto"
+                class="flex-auto  p-6 sm:p-1 pt-0 sm:pt-0 overflow-y-auto snap-y snap-mandatory "
                 cdkScrollable>
-                <leads-list *ngIf="view"></leads-list>
+                
+                <leads-list [DataArray]="paggedData" *ngIf="view"></leads-list>
                 <!-- CONTENT GOES HERE -->
                 <create-edit-leads *ngIf="!view"></create-edit-leads>
 
             </div>
+            <mat-paginator
+            *ngIf="view"
+            class="border-t-zinc-200 border-t-2 border-t-solid"
+             [length]="listData?.data.length"
+             pageSize="5"
+             (page)="changePage()"
+             [pageSizeOptions]="[5,10,15,20]"
+             #paginatorRef></mat-paginator>
 
         </mat-drawer-content>
 

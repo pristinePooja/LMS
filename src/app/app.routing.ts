@@ -5,8 +5,7 @@ import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
 import {ExampleComponent} from "./modules/admin/example/example.component";
 import {LeadsComponent} from "./modules/leads/leads.component";
-import {LandingHomeModule} from "./modules/landing/home/home.module";
-
+import {LandingHomeModule} from "./modules/landing/home/home.module"
 // @formatter:off
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -31,6 +30,15 @@ export const appRoutes: Route[] = [
         // component: LeadsComponent
         children: [
             {path: 'lead_list',component: LeadsComponent},
+            ]
+
+    },
+    {
+        path:'users',
+        // canActivate: [AuthGuard],
+        // component: LeadsComponent
+        children: [
+            {path: '',loadChildren :()=>import('app/modules/users/users.module').then(m => m.UsersModule)},
             ]
 
     },

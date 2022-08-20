@@ -7,15 +7,19 @@ import {MatButtonModule} from "@angular/material/button";
 import {HeaderModule} from "../../../@pristine/components/header/header.module";
 import {PristineDrawerModule} from "../../../@pristine/components/drawer";
 import {LeadsFilterComponent} from "./leads-filter/leads-filter.component";
-import {MatIconModule} from "@angular/material/icon";
-import {MatTooltipModule} from "@angular/material/tooltip";
 import {LeadsListComponent} from "./leads-list/leads-list.component";
 import { CreateEditLeadsComponent } from './create-edit-leads/create-edit-leads.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatTableModule } from '@angular/material/table'
+import { NgForm } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
-
-
+const route: Routes =[{
+  path:'lead_list',
+  component: LeadsComponent
+}]
 @NgModule({
   declarations: [
     LeadsComponent,
@@ -30,10 +34,11 @@ import { MatInputModule } from '@angular/material/input';
         HeaderModule,
         MatSidenavModule,
         PristineDrawerModule,
-        MatIconModule,
-        MatTooltipModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatPaginatorModule,
+        MatTableModule,
+        RouterModule.forChild(route)
     ]
 })
 export class LeadsModule { }

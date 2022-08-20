@@ -1,9 +1,9 @@
 <!-- <div class="  rounded-t-xl overflow-hidden h-200 min-h-0 max-h-screen"> -->
     <!-- <div class="w-full h-[5em] border-b"></div> -->
        <!-- <div class="overflow-visible p-[10%] pt-0 box-content h-full"> -->
-          <div class="h-fit p-4  w-full ">
+          <div class="h-fit p-4  w-full " [formGroup]="LeadCreate">
             <div>
-                <h1 class="text-xl font-medium py-4">Lead Image</h1>
+                <h1 class="text-xl snap-start font-medium scroll-m-1 py-4">Lead Image</h1>
                 <div class="p-4">
                   <div class="h-14 w-10 flex justify-center items-center
                    min-w-14 p-1 border max-h-14 max-w-14 rounded-full overflow-hidden"
@@ -17,67 +17,67 @@
                 </div>
             </div>
             <div>
-                <h1 class="text-xl font-medium py-4">Lead Information</h1>
+                <h1 class="text-xl snap-start font-medium py-4">Lead Information</h1>
                 <div class="px-4 flex space-x-3">
                   <div class="flex  flex-col basis-2/4">
                       <div class="field_container">
                           <p class="input_label">Lead Owner</p>
-                          <input class="input_field basis-2/4"/>
+                          <input formControlName="lead_owner" class="input_field basis-2/4"/>
                       </div>
                       <div class="field_container">
                           <p class="input_label">First Name</p>
-                          <input class="input_field basis-2/4" />
+                          <input formControlName="first_name" class="input_field basis-2/4" />
                       </div>
                       <div class="field_container">
                           <p class="input_label">Title</p>
-                          <input class="input_field basis-2/4" />
+                          <input formControlName="title" class="input_field basis-2/4" />
                       </div>
                       <div class="field_container">
                           <p class="input_label">Phone</p>
-                          <input  class="input_field basis-2/4 "/>
+                          <input formControlName="phone" class="input_field basis-2/4 "/>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Mobile</p>
-                          <input class="input_field basis-2/4"/>
+                          <input formControlName="mobile" class="input_field basis-2/4"/>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Lead Source</p>
-                          <input class="input_field basis-2/4" />
+                          <input formControlName="lead_source" class="input_field basis-2/4" />
                       </div>
                       <div class="field_container">
                           <p class="input_label">Industry</p>
-                          <input class="input_field basis-2/4" />
+                          <input formControlName="industry" class="input_field basis-2/4" />
                       </div>
                       <div class="field_container">
                           <p class="input_label">Annual Revenue</p>
-                          <input  class="input_field basis-2/4 "/>
+                          <input formControlName="annual_revenue" class="input_field basis-2/4 "/>
                       </div>
                   </div>
       
                   <div class="px-4 flex flex-col basis-2/4">
                       <div class="field_container">
                           <p class="input_label">Company</p>
-                          <input required class="input_field basis-2/4"/>
+                          <input formControlName="company" required class="input_field basis-2/4"/>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Last Name</p>
-                          <input required class="input_field basis-2/4" />
+                          <input formControlName="last_name" required class="input_field basis-2/4" />
                       </div>
                       <div class="field_container">
                           <p class="input_label">Email</p>
-                          <input class="input_field basis-2/4" />
+                          <input formControlName="email" class="input_field basis-2/4" />
                       </div>
                       <div class="field_container">
                           <p class="input_label">Fax</p>
-                          <input  class="input_field basis-2/4 "/>
+                          <input formControlName="fax" class="input_field basis-2/4 "/>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Website</p>
-                          <input class="input_field basis-2/4"/>
+                          <input formControlName="website" class="input_field basis-2/4"/>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Lead Status</p>
-                          <input class="input_field basis-2/4" />
+                          <input formControlName="lead_status" class="input_field basis-2/4" />
                       </div>
                       <div class="field_container">
                           <p class="input_label">No. of Employees</p>
@@ -97,13 +97,54 @@
                       </div>
                       <div class="field_container">
                           <p class="input_label">Twitter</p>
-                          <input required class="input_field basis-2/4 "/>
+                          <input  class="input_field basis-2/4 "/>
                       </div>
                   </div>
                 </div>
             </div> 
             <div> 
-                <h1 class="text-xl font-medium py-4">Address Information</h1>
+                <h1 class="text-xl snap-start font-medium py-4">Address Information</h1>
+                <div class="px-4 flex space-x-3">
+                    <div class="flex  flex-col basis-2/4">
+                        <div class="field_container">
+                            <p class="input_label">Street</p>
+                            <input class="input_field basis-2/4"/>
+                        </div>
+                        <div class="field_container">
+                            <p class="input_label">State</p>
+                            <input class="input_field basis-2/4" />
+                        </div>
+                        <div class="field_container">
+                            <p class="input_label">Country</p>
+                            <input class="input_field basis-2/4" />
+                        </div>
+                    </div>
+        
+                    <div class="px-4  flex flex-col basis-2/4">
+                        <div class="field_container">
+                            <p class="input_label">City</p>
+                            <input  class="input_field basis-2/4"/>
+                        </div>
+                        <div class="field_container">
+                            <p class="input_label">Zip Code</p>
+                            <input  class="input_field basis-2/4" />
+                        </div>
+                    </div>
+                  </div>
+            </div>
+
+            <div> 
+                <h1 class="text-xl snap-start font-medium py-4">Description Details</h1>
+                <div class="px-4 flex space-x-3">
+                    <div class="flex  flex-col basis-full">
+                        <div class="field_container items-start">
+                            <p class="input_label basis-1/5">Description</p>
+                            <textarea class="input_field basis-full"></textarea>
+                        </div>
+                        
+                    </div>
+        
+                  </div>
             </div>
         </div>
        <!-- </div>
