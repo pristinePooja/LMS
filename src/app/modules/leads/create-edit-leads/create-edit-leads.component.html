@@ -81,23 +81,23 @@
                       </div>
                       <div class="field_container">
                           <p class="input_label">No. of Employees</p>
-                          <input class="input_field basis-2/4" />
+                          <input formControlName="no_of_employees" class="input_field basis-2/4" />
                       </div>
                       <div class="field_container">
                           <p class="input_label">Raiting</p>
-                          <input  class="input_field basis-2/4 "/>
+                          <input formControl="rating"  class="input_field basis-2/4 "/>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Skype ID</p>
-                          <input class="input_field basis-2/4" />
+                          <input formControl="skype_id" class="input_field basis-2/4" />
                       </div>
                       <div class="field_container">
                           <p class="input_label">Secondary Email</p>
-                          <input class="input_field basis-2/4" />
+                          <input formControl="secondary_email" class="input_field basis-2/4" />
                       </div>
                       <div class="field_container">
                           <p class="input_label">Twitter</p>
-                          <input  class="input_field basis-2/4 "/>
+                          <input formControl="twitter"  class="input_field basis-2/4 "/>
                       </div>
                   </div>
                 </div>
@@ -108,26 +108,26 @@
                     <div class="flex  flex-col basis-2/4">
                         <div class="field_container">
                             <p class="input_label">Street</p>
-                            <input class="input_field basis-2/4"/>
+                            <input formControl="street" class="input_field basis-2/4"/>
                         </div>
                         <div class="field_container">
                             <p class="input_label">State</p>
-                            <input class="input_field basis-2/4" />
+                            <input formControl="state" class="input_field basis-2/4" />
                         </div>
                         <div class="field_container">
                             <p class="input_label">Country</p>
-                            <input class="input_field basis-2/4" />
+                            <input formControl="country" class="input_field basis-2/4" />
                         </div>
                     </div>
         
                     <div class="px-4  flex flex-col basis-2/4">
                         <div class="field_container">
                             <p class="input_label">City</p>
-                            <input  class="input_field basis-2/4"/>
+                            <input formControl="city"  class="input_field basis-2/4"/>
                         </div>
                         <div class="field_container">
                             <p class="input_label">Zip Code</p>
-                            <input  class="input_field basis-2/4" />
+                            <input formControl="zipcode"  class="input_field basis-2/4" />
                         </div>
                     </div>
                   </div>
@@ -139,7 +139,7 @@
                     <div class="flex  flex-col basis-full">
                         <div class="field_container items-start">
                             <p class="input_label basis-1/5">Description</p>
-                            <textarea class="input_field basis-full"></textarea>
+                            <textarea formControl="description" class="input_field basis-full"></textarea>
                         </div>
                         
                     </div>

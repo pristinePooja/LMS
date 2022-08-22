@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LeadsService } from '../leads.service';
 
 
 @Component({
@@ -9,38 +10,46 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateEditLeadsComponent implements OnInit {
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(
+    private _fb: FormBuilder,
+    private leadService: LeadsService
+    ) { }
   image: string ='mat_solid:person'
   uploadedImage: any
   LeadCreate: FormGroup
+  @Input() set saveChanges (val: boolean){
+    if(val){
+      this.SubmitChanges()
+    }
+  }
   ngOnInit(): void {
     this.LeadCreate = this._fb.group({
-      lead_owner: ['',Validators.required],
+      lead_owner: [''],
       company: ['',Validators.required],
-      first_name: ['',Validators.required],
+      first_name: [''],
       last_name: ['',Validators.required],
-      title: ['',Validators.required],
-      email: ['',Validators.required],
-      fax: ['',Validators.required],
-      phone: ['',Validators.required],
-      mobile: ['',Validators.required],
-      website: ['',Validators.required],
-      lead_source: ['',Validators.required],
-      lead_status: ['',Validators.required],
-      industry: ['',Validators.required],
-      no_of_employees: ['',Validators.required],
-      annual_revenue: ['',Validators.required],
-      rating: ['',Validators.required],
-      email_opt_out: ['',Validators.required],
-      skype_id: ['',Validators.required],
-      secondary_email: ['',Validators.required],
-      twitter: ['',Validators.required],
-      street: ['',Validators.required],
-      city: ['',Validators.required],
-      state: ['',Validators.required],
-      zipcode: ['',Validators.required],
-      country: ['',Validators.required],
-      description: ['',Validators.required],
+      title: [''],
+      email: [''],
+      fax: [''],
+      phone: [''],
+      mobile: [''],
+      website: [''],
+      lead_source: [''],
+      lead_status: [''],
+      industry: [''],
+      no_of_employees: [''],
+      annual_revenue: [''],
+      rating: [''],
+      // email_opt_out: [''],
+      skype_id: [''],
+      secondary_email: [''],
+      twitter: [''],
+      street: [''],
+      city: [''],
+      state: [''],
+      zipcode: [''],
+      country: [''],
+      description: [''],
     })
   }
 
@@ -61,5 +70,13 @@ export class CreateEditLeadsComponent implements OnInit {
           }
        
     })
+  }
+
+  SubmitChanges(){
+    if(this.LeadCreate.invalid){
+      return
+    }
+
+    this.leadService.createLead(this.LeadCreate.getRawValue)
   }
 }

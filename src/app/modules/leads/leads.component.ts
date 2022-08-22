@@ -13,6 +13,7 @@ import { LeadsService } from './leads.service';
 })
 export class LeadsComponent implements OnInit,AfterViewInit {
     filterOpen:boolean = true;
+    saveChanges:boolean = false;
     @ViewChild('drawer', {static: true}) drawer: ElementRef<any>
     @ViewChild('paginatorRef', {static: false}) paginator: MatPaginator
     view:boolean= true
@@ -36,11 +37,22 @@ export class LeadsComponent implements OnInit,AfterViewInit {
   }
 
     getTOggler($event: any) {
-
         this.filterOpen = $event
     }
 
+    headerSave($event){
+      this.saveChanges = $event
+      console.log($event)
+    }
+
     switchView($event){
-      this.view=$event
+      console.log($event)
+      if($event.source=='view'){
+        this.view=$event.bool      
+      }
+      if($event.source=='save '){
+        this.saveChanges = $event.bool       
+      }
+
     }
 }

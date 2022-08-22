@@ -13,7 +13,8 @@ export class HeaderComponent implements OnInit {
   @Input() pageName: any
   @Input() filterIcon: {type:string,active:boolean, icon:string,filterOptions?: Array<any>, url?:string, class?: string }
   @Output() filterViewToggle : EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() ViewPage : EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() SaveChanges : EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() ViewPage : EventEmitter<{"bool":boolean ,source:string}> = new EventEmitter<{"bool":boolean ,source:string}>();
 
   create: boolean = false
   commomClassesfilter= 'flex text-zinc-700 items-end bg-white rounded-md px-2 py-1 hover:border-zinc-700'
@@ -41,12 +42,20 @@ export class HeaderComponent implements OnInit {
         this.filterViewToggle.emit(this.filterIcon.active)
     }
 
+    save(){
+      this.SaveChanges.emit(true)
+    }
+
     previousLoaction() {
      window.history.back()
     }
 
-    toggleCreate(openView){
+    toggleCreate(openView, source){
+      console.log(openView)
+      if(source == 'view'){
       this.create= !this.create
-      this.ViewPage.emit(openView)
+    }
+    let json = {bool:openView,source:source}
+      this.ViewPage.emit(json)
     }
 }

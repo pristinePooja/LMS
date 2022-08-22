@@ -19,9 +19,9 @@
     </ng-container>
     </div>
     <div class="space-x-4">
-        <button *ngIf="!create" (click)="toggleCreate(false); " mat-button class="bg-sky-600 text-white leading-3 " >Create {{pageName}}</button>
-        <button *ngIf="create" (click)="toggleCreate(true)" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3 " mat-button>Cancel</button>
-        <button *ngIf="create" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3" mat-button>Save</button>
+        <button *ngIf="!create" (click)="toggleCreate(false,'view'); " mat-button class="bg-sky-600 text-white leading-3 " >Create {{pageName}}</button>
+        <button *ngIf="create" (click)="toggleCreate(true,'view')" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3 " mat-button>Cancel</button>
+        <button *ngIf="create" (click)="toggleCreate(true,'save')" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3" mat-button>Save</button>
     </div>
 </div>
 

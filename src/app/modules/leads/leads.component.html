@@ -2,7 +2,7 @@
 
     <!-- Header -->
     <div class="flex flex-col flex-0 pb-16  bg-default dark:bg-transparent">
-        <app-header [filterIcon]="headerData" (ViewPage)="switchView($event)" [pageName]="'Lead'" (filterViewToggle)="getTOggler($event)"></app-header>
+        <app-header [filterIcon]="headerData"  (ViewPage)="switchView($event)" [pageName]="'Lead'" (filterViewToggle)="getTOggler($event)"></app-header>
     </div>
 
     <mat-drawer-container class="flex flex-col flex-auto -mt-16  shadow bg-card">
@@ -27,7 +27,7 @@
                 
                 <leads-list [DataArray]="paggedData" *ngIf="view"></leads-list>
                 <!-- CONTENT GOES HERE -->
-                <create-edit-leads *ngIf="!view"></create-edit-leads>
+                <create-edit-leads [saveChanges]="saveChanges" *ngIf="!view"></create-edit-leads>
 
             </div>
             <mat-paginator

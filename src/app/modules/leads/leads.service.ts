@@ -56,6 +56,7 @@ export class LeadsService {
       "description": "",
       "created_by": "string"
     }
+    console.log(values)
   }
 
   

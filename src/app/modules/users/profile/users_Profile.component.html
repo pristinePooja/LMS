@@ -1,0 +1,42 @@
+<div
+    class="absolute inset-0 flex flex-col min-w-0 snap-y snap-mandatory overflow-y-auto bg-gray-200"
+    cdkScrollable>
+
+    <!-- Main -->
+    <div class="flex-auto space-y-6 p-6 sm:p-10">
+
+        <div class="  p-8 w-full bg-slate-50 snap-start h-auto scroll-m-6
+        rounded-xl  shadow-md flex flex-col items-start space-y-8 " >
+        <div class="flex space-x-6 w-full">
+            <div class="overflow-hidden border rounded-full min-w-20min-h-20 w-20 h-20 max-w-20 justify-center flex max-h-20">
+                <img [src]="userDetails.img" height="auto" width="auto">
+            </div>
+            <div class="flex flex-col w-full items-start py-1">
+                <span class="font-semibold">{{userDetails.name |uppercase}}</span>
+                <span class="text-gray-500">User</span>
+                <div class="space-x-4 flex justify-center">
+                    <div class="flex justify-start items-baseline text-md"><mat-icon class="icon-size-4 self-center
+                         fill-black stroke-black text-black
+                           bg-sky-200 rounded-full mr-2" svgIcon="feather:mail"></mat-icon>{{userDetails.email }}</div>
+                    <div class="flex justify-start items-baseline "><mat-icon class="icon-size-4 
+                        self-center fill-black stroke-black text-black 
+                         bg-green-200 rounded-full mr-2" svgIcon="feather:phone"></mat-icon>{{'5555-555-5555'}}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex flex-row w-full items-start py-1 ite ">
+            <span class="flex items-start hover:border-b" (click)="showDets =! showDets">
+                <span class="text-md font-light mr-2 cursor-pointer  ">{{showDets?'Hide':'Show'}} Details </span>
+                <mat-icon *ngIf="!showDets" class="cursor-pointer self-center" svgIcon="mat_outline:expand_more"></mat-icon>
+                <mat-icon *ngIf="showDets" class="cursor-pointer self-center" svgIcon="mat_outline:expand_less"></mat-icon>
+            </span>
+            
+        </div> 
+
+        <div *ngIf="showDets" class=" w-full p-4 border" @expandCollapse>ss</div>
+    </div>
+    </div>
+</div>
+
+
