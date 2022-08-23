@@ -22,7 +22,13 @@ body{
         border-left-color: orangered   ;
         border-left-width: 4px;
     }
+
+    &.error{
+        border-color: darkred;
+    }
 }
+
+
 .input_label{
     flex-basis: 50%;
     font-weight: 500;
@@ -34,6 +40,22 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
-    padding: 4px
+    align-items: baseline;
+    padding: 4px;
+
+    & .custom_input{
+        display: flex!important;
+        // border-color: grey;
+        // border-width: 1px;
+        // border-style: solid!important;
+        // border-radius:8px!important;
+        // padding: 8px!important;
+        align-items: center!important;
+        justify-content: space-between!important;
+        
+        input{
+            display: flex!important;
+            align-items: stretch!important;
+        }
+    }
 }

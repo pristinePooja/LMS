@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SessionManagement } from '@pristine/process/SessionManagement';
 import { LeadsService } from '../leads.service';
 
 
@@ -12,24 +13,27 @@ export class CreateEditLeadsComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
+    private _session: SessionManagement,
     private leadService: LeadsService
     ) { }
   image: string ='mat_solid:person'
   uploadedImage: any
   LeadCreate: FormGroup
+  email_opt_out: boolean=false
   @Input() set saveChanges (val: boolean){
+    console.log(val)
     if(val){
       this.SubmitChanges()
     }
   }
   ngOnInit(): void {
     this.LeadCreate = this._fb.group({
-      lead_owner: [''],
+      lead_owner: [this._session.getEmail],
       company: ['',Validators.required],
       first_name: [''],
       last_name: ['',Validators.required],
       title: [''],
-      email: [''],
+      email: ['', Validators.email],
       fax: [''],
       phone: [''],
       mobile: [''],
@@ -37,19 +41,19 @@ export class CreateEditLeadsComponent implements OnInit {
       lead_source: [''],
       lead_status: [''],
       industry: [''],
-      no_of_employees: [''],
-      annual_revenue: [''],
-      rating: [''],
-      // email_opt_out: [''],
+      no_of_employees: [Number(0), Validators.min(0) ],
+      annual_revenue: [Number(0), Validators.min(0)],
+      rating: [],
+      // email_opt_out: [false],
       skype_id: [''],
-      secondary_email: [''],
+      secondary_email: ['', Validators.email],
       twitter: [''],
       street: [''],
       city: [''],
       state: [''],
       zipcode: [''],
       country: [''],
-      description: [''],
+      description: ['']
     })
   }
 
@@ -77,6 +81,6 @@ export class CreateEditLeadsComponent implements OnInit {
       return
     }
 
-    this.leadService.createLead(this.LeadCreate.getRawValue)
+    this.leadService.createLead(this.LeadCreate.value)
   }
 }

@@ -22,7 +22,7 @@
         <mat-drawer-content class="flex flex-col overflow-hidden">
             <!-- Main -->
             <div
-                class="flex-auto  p-6 sm:p-1 pt-0 sm:pt-0 overflow-y-auto snap-y snap-mandatory "
+                class="flex-auto  p-6 sm:p-1 pt-0 sm:pt-0 overflow-y-auto snap-y snap-proximity "
                 cdkScrollable>
                 
                 <leads-list [DataArray]="paggedData" *ngIf="view"></leads-list>

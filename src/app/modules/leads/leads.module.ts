@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatTableModule } from '@angular/material/table'
 import { NgForm } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const route: Routes =[{
   path:'lead_list',
@@ -38,6 +39,7 @@ const route: Routes =[{
         MatInputModule,
         MatPaginatorModule,
         MatTableModule,
+        MatCheckboxModule,
         RouterModule.forChild(route)
     ]
 })

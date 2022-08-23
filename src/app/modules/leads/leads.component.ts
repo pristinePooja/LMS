@@ -50,7 +50,7 @@ export class LeadsComponent implements OnInit,AfterViewInit {
       if($event.source=='view'){
         this.view=$event.bool      
       }
-      if($event.source=='save '){
+      if($event.source=='save'){
         this.saveChanges = $event.bool       
       }
 
