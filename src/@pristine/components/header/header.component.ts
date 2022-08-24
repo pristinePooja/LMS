@@ -58,4 +58,8 @@ export class HeaderComponent implements OnInit {
     let json = {bool:openView,source:source}
       this.ViewPage.emit(json)
     }
+
+    public switchToView(){
+      this.toggleCreate(true,'view')
+    }
 }

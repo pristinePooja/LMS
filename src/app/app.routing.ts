@@ -29,7 +29,8 @@ export const appRoutes: Route[] = [
         // canActivate: [AuthGuard],
         // component: LeadsComponent
         children: [
-            {path: 'lead_list',component: LeadsComponent},
+            // {path: 'lead_list',component: LeadsComponent},
+            {path: '',loadChildren :()=>import('app/modules/leads/leads.module').then(m => m.LeadsModule)},
             ]
 
     },

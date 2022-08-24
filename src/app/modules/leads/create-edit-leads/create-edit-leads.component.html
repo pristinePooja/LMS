@@ -19,7 +19,7 @@
             <div>
                 <h1 class="text-xl snap-start font-medium py-4">Lead Information</h1>
                 <div class="px-4 flex space-x-3">
-                  <div class="flex  flex-col basis-2/4">
+                    <div class="px-4 flex flex-col basis-2/4 space-y-4">
                       <div class="field_container">
                           <p class="input_label ">Lead Owner</p>
                          <span class="basis-2/4 flex flex-col ">
@@ -80,27 +80,26 @@
                   <div class="px-4 flex flex-col basis-2/4 space-y-4">
                       <div class="field_container">
                           <p class="input_label">Company</p>
-                          <span class="basis-2/4 flex flex-col ">
+                          <div class="basis-2/4 flex flex-col ">
                               <input formControlName="company" class="input_field basis-full" required />
-                              <mat-error *ngIf="LeadCreate.get('company').invalid" class="text-red-600 text-xs icon-size-4"
-                                matTooltip="Last name required." svgIcon="feather:info">sss</mat-error>
-                          </span>
-                          <!--<span class="basis-2/4 flex flex-col "> -->
-                              <!-- <input class="input_field basis-full" formControlName="company" required class="{{'input_field basis-2/4' + LeadCreate.get('company').invalid?'error':''}}"/> -->
-                              <!-- <mat-icon *ngIf="LeadCreate.get('company').invalid" class="fill-red-600"  matTooltip="Last name required." svgIcon="feather:activity">Company name required.</mat-icon> -->
-                          <!-- </span> -->
+                              <p  *ngIf="LeadCreate.get('company').invalid && LeadCreate.get('company').touched" class="text-red-600 text-sm "
+                                matTooltip="Last name required." svgIcon="feather:info">Company name required.</p>
+                          </div>
                         </div>
                       <div class="field_container">
                           <p class="input_label">Last Name</p>
                          <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="last_name" required class="{{'input_field basis-2/4'+ LeadCreate.get('last_name').invalid?'error':''}}" />
-                              <!-- <mat-icon *ngIf="LeadCreate.get('last_name').invalid" class="fill-red-600"  matTooltip="Last name required." svgIcon="feather:activity"></mat-icon> -->
+                              <input class="input_field basis-full" formControlName="last_name" required class="{{'input_field basis-2/4'+ LeadCreate.get('last_name').invalid && LeadCreate.get('last_name').touched?'error':''}}" />
+                              <p  *ngIf="LeadCreate.get('last_name').invalid && LeadCreate.get('last_name').touched" class="text-red-600 text-sm "
+                                matTooltip="Last name required." svgIcon="feather:info">Last name required.</p>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Email</p>
                          <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="email" class="{{'input_field basis-2/4' + LeadCreate.get('email').invalid?'error':''}}" />
+                              <input class="input_field basis-full" formControlName="email" class="{{'input_field basis-2/4' + LeadCreate.get('email').invalid && LeadCreate.get('email').touched?'error':''}}" />
+                              <p  *ngIf="LeadCreate.get('email').invalid && LeadCreate.get('last_name').touched" class="text-red-600 text-sm "
+                                matTooltip="Last name required." svgIcon="feather:info">Invalid email format</p>
                               <!-- <mat-icon *ngIf="LeadCreate.get('email').invalid" class="fill-red-600"  matTooltip="Last name required." svgIcon="feather:activity">Valid email required.</mat-icon> -->
                           </span>
                       </div>
@@ -158,7 +157,7 @@
             <div>
                 <h1 class="text-xl snap-start font-medium py-4">Address Information</h1>
                 <div class="px-4 flex space-x-3">
-                    <div class="flex  flex-col basis-2/4">
+                    <div class="px-4 flex flex-col basis-2/4 space-y-4">
                         <div class="field_container">
                             <p class="input_label">Street</p>
                            <span class="basis-2/4 flex flex-col ">
@@ -179,7 +178,7 @@
                         </div>
                     </div>
 
-                    <div class="px-4  flex flex-col basis-2/4">
+                    <div class="px-4 flex flex-col basis-2/4 space-y-4">
                         <div class="field_container">
                             <p class="input_label">City</p>
                            <span class="basis-2/4 flex flex-col ">

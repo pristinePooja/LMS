@@ -16,10 +16,15 @@ import { MatTableModule } from '@angular/material/table'
 import { NgForm } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { LeadsService } from './leads.service';
 
 const route: Routes =[{
   path:'lead_list',
-  component: LeadsComponent
+  component: LeadsComponent,
+  resolve:{
+    key: LeadsService
+  }
+ 
 }]
 @NgModule({
   declarations: [
@@ -41,6 +46,6 @@ const route: Routes =[{
         MatTableModule,
         MatCheckboxModule,
         RouterModule.forChild(route)
-    ]
+    ], providers:[LeadsService]
 })
 export class LeadsModule { }

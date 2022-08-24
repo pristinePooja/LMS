@@ -33,10 +33,10 @@
             <mat-paginator
             *ngIf="view"
             class="border-t-zinc-200 border-t-2 border-t-solid"
-             [length]="listData?.data.length"
-             pageSize="5"
-             (page)="changePage()"
-             [pageSizeOptions]="[5,10,15,20]"
+             [length]="totalCount"
+             [pageSize]="pageSize"
+             (page)="page($event)"
+             [pageSizeOptions]="[1,2,5,10,15,20]"
              #paginatorRef></mat-paginator>
 
         </mat-drawer-content>
