@@ -1,49 +1,121 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import { expandCollapse } from '@pristine/animations/expand-collapse';
-import { leadListModel } from 'app/model/LeadsModel';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {expandCollapse} from '@pristine/animations/expand-collapse';
+import { LeadsService } from '../leads.service';
 
 
 @Component({
-  selector: 'app-leads-filter',
-  templateUrl: './leads-filter.component.html',
-  styleUrls: ['./leads-filter.component.scss'],
+    selector: 'app-leads-filter',
+    templateUrl: './leads-filter.component.html',
+    styleUrls: ['./leads-filter.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations:[
-      expandCollapse
+    animations: [
+        expandCollapse
     ]
 })
 export class LeadsFilterComponent implements OnInit {
 
-  constructor() { }
-  clearData: string = ''
-  filterSearch: string=''
-  filterArray: Array<any> =[]
-  filteredValues: Array<any> =[]
-  ngOnInit(): void {
-    this.resetAllFilters()
-  }
+    constructor(private _leadService: LeadsService) {
+    }
 
-  clearFilter(){
-  this.filterSearch =''
-  setTimeout(()=>{
-    this.clearData =''
-  },600)
-  }
+    clearData: string = ''
+    filterSearch: string = ''
+    filterArray: Array<any> = []
+    filteredValues: Array<any> = []
+    filterOptions={
+         'string':[
+                "is",
+                "isn't",
+                "contains",
+                "dosen't contain",
+                "starts with",
+                "ends with",
+                "is empty",
+                "is not empty",
+            ] ,
+        'number' : [
+                    "=",
+                    "!=",
+                    "<",
+                    "<=",
+                    ">",
+                    ">=",
+                    "between",
+                    "not between",
+                    "is empty",
+                    "is not empty"
+                ]
+    }
+    ngOnInit(): void {
+        this.resetAllFilters()
+    }
 
-  filter(){
-   this.filteredValues= this.filterArray.filter( item=>{ return item.name.includes(this.filterSearch)})
-  }
+    clearFilter() {
+        this.filterSearch = ''
+        setTimeout(() => {
+            this.clearData = ''
+        }, 600)
+    }
 
-  resetAllFilters(){
-    this.filterArray =[]
-    let temp =["lead_owner","company","first_name","last_name","title","email",
-    "fax","phone","mobile","website","lead_source","lead_status","industry",
-    "no_of_employees","annual_revenue","rating","email_opt_out","skype_id",
-    "secondary_email","twitter","street","city","state","zipcode","country",
-    "description","created_by"]
-    for(let i=0; i<temp.length; i++){
-      this.filterArray.push({name:temp[i].replace('_',' ').toString(), key:temp[i], filter:{value:'',options:['equal to', 'includes', 'exclude']},open:false})
-    };
-    this.filteredValues = this.filterArray
-  }
+    filter() {
+        this.filteredValues = this.filterArray.filter(item => {
+            return item.name.includes(this.filterSearch)
+        })
+    }
+
+    applyFilter(){
+        let temp_filter = this.filterArray.filter(ele=>ele.open)
+        this._leadService.filterFormater(temp_filter)
+    }
+
+    resetAllFilters() {
+        this.filterArray = []
+        let temp = [
+            {key: "lead_owner", type: 'string'},
+            {key: "company", type: 'string'},
+            {key: "first_name", type: 'string'},
+            {key: "last_name", type: 'string'},
+            {key: "title", type: 'string'},
+            {key: "email", type: 'string'},
+            {key: "fax", type: 'string'},
+            {key: "phone", type: 'string'},
+            {key: "mobile", type: 'string'},
+            {key: "website", type: 'string'},
+            {key: "lead_source", type: 'string'},
+            {key: "lead_status", type: 'string'},
+            {key: "industry", type: 'string'},
+            {key: "no_of_employees", type: 'string'},
+            {key: "annual_revenue", type: 'string'},
+            {key: "rating", type: 'string'},
+            {key: "email_opt_out", type: 'string'},
+            {key: "skype_id", type: 'string'},
+            {key: "secondary_email", type: 'string'},
+            {key: "twitter", type: 'string'},
+            {key: "street", type: 'string'},
+            {key: "city", type: 'string'},
+            {key: "state", type: 'string'},
+            {key: "zipcode", type: 'string'},
+            {key: "country", type: 'string'},
+            {key: "description", type: 'string'},
+            {key: "created_by", type: 'string'}
+        ]
+
+        for (let i = 0; i < temp.length; i++) {
+            this.filterArray.push(
+                {
+                    name: temp[i]['key'].replace('_', ' ').toString(),
+                    key: temp[i]['key'],
+                    type: temp[i]['type'],
+                    filter: {
+                        value: '',
+                        selected_filter:'',
+                    },
+                    open: false
+                })
+        }
+        this.filteredValues = this.filterArray
+    }
+
+    con($event){
+      console.log($event)
+    }
 }

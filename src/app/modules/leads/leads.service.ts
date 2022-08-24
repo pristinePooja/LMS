@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { HeaderService } from '@pristine/components/header/header.service';
 import { SessionManagement } from '@pristine/process/SessionManagement';
 import { WebApiHttp } from '@pristine/process/WebApiHttp.services';
 import { leadListModel } from 'app/model/LeadsModel';
@@ -13,25 +14,12 @@ export class LeadsService {
   leadLists: BehaviorSubject<any> = new BehaviorSubject<any>([]); 
   pageSize: BehaviorSubject<number> = new BehaviorSubject<any>(10)
   pageNo: BehaviorSubject<number> = new BehaviorSubject<any>(0)
-
+  saveFile : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   constructor(private _session: SessionManagement, 
               private _webAPi: WebApiHttp,
+              private _header: HeaderService
     ) {
-    // this.leadLists.next([
-    //   {
-    //     lead_owner:'User',
-    //     company: 'pristine Isdkf df',
-    //     f_name: 'Anonyms',
-    //     l_name:'Hsjieb',
-    //     title:'Tech Head',
-    //     email: 'abcdefg23@kjdfd.com',
-    //     phone:'1234567890',
-    //     fax:'',
-    //     mobile_no: '8949394747',
-    //     website:'www.jfgjfnf.com',
-        
-    //   }
-    // ])
+
   }
 
   createLead(values){
@@ -66,8 +54,11 @@ export class LeadsService {
     }
     console.log(values)
     this._webAPi.Post(this._webAPi.ApiURLArray.createLead, json).then(res=>{
-      if(res?.condition.toLowerCase()=='true'){
-
+      console.log(res.lenght,res ,res[0]?.condition, res[0]?.condition.toLowerCase()=='true')
+      if( res[0]?.condition.toLowerCase()=='true'){
+        console.log('in true')
+        this._header.switchView.next(true)
+        this.getLeadList({})
       }
       console.log(res)
     },err=>{console.log(err)}).catch(err=>{
@@ -103,6 +94,8 @@ export class LeadsService {
     }).finally(()=>{})
   }
 
-  public vals: Array<leadListModel> = []
+  filterFormater(params){
+    console.log(params)
+  }
 
 }

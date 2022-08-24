@@ -27,7 +27,7 @@
                 
                 <leads-list [DataArray]="paggedData" *ngIf="view"></leads-list>
                 <!-- CONTENT GOES HERE -->
-                <create-edit-leads [saveChanges]="saveChanges" *ngIf="!view"></create-edit-leads>
+                <create-edit-leads *ngIf="!view"></create-edit-leads>
 
             </div>
             <mat-paginator

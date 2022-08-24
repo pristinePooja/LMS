@@ -20,12 +20,16 @@ export class CreateEditLeadsComponent implements OnInit {
   uploadedImage: any
   LeadCreate: FormGroup
   email_opt_out: boolean=false
-  @Input() set saveChanges (val: boolean){
-    console.log(val)
-    if(val){
-      this.SubmitChanges()
-    }
-  }
+  // @Input() set saveChanges (val: boolean){
+  //   console.log(val)
+  //   if(val){
+  //     console.log('save here')
+  //     this.SubmitChanges()
+  //   }
+  // }
+  // get saveChanges(){
+  //   return false
+  // }
   ngOnInit(): void {
     this.LeadCreate = this._fb.group({
       lead_owner: [this._session.getEmail],
@@ -55,6 +59,14 @@ export class CreateEditLeadsComponent implements OnInit {
       country: [''],
       description: ['']
     })
+
+    this.leadService.saveFile.subscribe(res=>{
+      console.log(res)
+      if(res){
+        console.log('save here')
+        this.SubmitChanges()
+      }
+    })
   }
 
   openDrawer(contain){
@@ -78,9 +90,9 @@ export class CreateEditLeadsComponent implements OnInit {
 
   SubmitChanges(){
     if(this.LeadCreate.invalid){
+      console.log('Invalid')
       return
     }
-
     this.leadService.createLead(this.LeadCreate.value)
   }
 }

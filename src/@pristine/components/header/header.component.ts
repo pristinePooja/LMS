@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {pristineAnimations} from "../../animations";
+import { HeaderService } from './header.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import {pristineAnimations} from "../../animations";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _headerService: HeaderService) { }
   @Input() pageName: any
   @Input() filterIcon: {type:string,active:boolean, icon:string,filterOptions?: Array<any>, url?:string, class?: string }
   @Output() filterViewToggle : EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -34,7 +35,12 @@ export class HeaderComponent implements OnInit {
      }
      this.filterIcon.filterOptions = ['All','None', 'Some value 1', 'Some value 2']
       this.selectedFilterOption = this.filterIcon.filterOptions[0]
-  }
+
+      this._headerService.switchView.subscribe(res=>{
+        if(res)
+          this.toggleCreate(res,'view')
+      })
+    }
 
     toggleFilter() {
       this.filterIcon.active = !this.filterIcon.active
@@ -59,7 +65,4 @@ export class HeaderComponent implements OnInit {
       this.ViewPage.emit(json)
     }
 
-    public switchToView(){
-      this.toggleCreate(true,'view')
-    }
 }
