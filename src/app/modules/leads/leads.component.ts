@@ -74,18 +74,15 @@ export class LeadsComponent implements OnInit,AfterViewInit {
         this.filterOpen = $event
     }
 
-    headerSave($event){
-      this.saveChanges = $event
-      console.log($event)
-    }
-
     switchView($event){
       console.log($event)
       if($event.source=='view'){
         this.view=$event.bool      
       }
       if($event.source=='save'){
-        this.saveChanges = $event.bool       
+        console.log('in save')
+        this._leadService.saveFile.next($event.bool)
+        // this.saveChanges = $event.bool       
       }
 
     }

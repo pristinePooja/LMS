@@ -1,7 +1,7 @@
 <div class="flex overscroll-contain h-full flex-col min-h-4 relative bg-white p-2">
     <div class="w-56 h-70 top-0 sticky">
         <h2 class="font-bold mb-4">Filter Leads By</h2>
-        <span class="rounded-3xl flex items-center justify-between 
+        <span class="rounded-3xl flex items-center justify-between
         mt-4 px-4 py-2 border border-gray-500 w-full">
             <input [(ngModel)]="filterSearch" (input)="filter()" class="w-44" placeholder="Search Filter" />
             <mat-icon class="icon-size-4 hover:text-sky-400"
@@ -14,13 +14,19 @@
             <span class="h-3/4 w-full overflow-auto overscroll-contain">
                         <div *ngFor="let ele of filteredValues"  class="border p-2 flex grow flex-col w-full">
                             <div class="flex space-x-2" (click)="ele.open = !ele.open">
-                                <input type="checkbox"  [checked]="ele.open"><span>{{ele?.name | titlecase}}</span>
+                                <input type="checkbox"   [checked]="ele.open" (change)="ele.open = !ele.open" (click)="$event.stopPropagation()">
+                                <span>{{ele?.name | titlecase}}</span>
                             </div>
                             <div *ngIf="ele.open" class="p-4 space-y-2" @expandCollapse>
-                                <select class="rounded-md border px-2 py-0.5 hover:border-zinc-600 focus:border-zinc-600 focus:shadow-md min-w-full w-full max-w-full">
-                                    <option *ngFor="let opt of ele.filter.options">{{opt}}</option>
+                                <select class="rounded-md border px-2 py-0.5 hover:border-zinc-600
+                                 focus:border-zinc-600 focus:shadow-md min-w-full w-full max-w-full"
+                                [(ngModel)]="ele.selected_filter"
+                                >
+                                    <option *ngFor="let opt of filterOptions[ele.type]">{{opt}}</option>
                                 </select>
-                                <input class="rounded-md hover:border-zinc-600 focus:border-zinc-600 focus:shadow-md  border px-2 min-w-full w-full max-w-full" [(ngModel)]="ele.filter.value" placeholder="Value">
+                                <input class="rounded-md hover:border-zinc-600 focus:border-zinc-600 focus:shadow-md  border px-2 min-w-full w-full max-w-full"
+                                       [type]="ele.type=='number'?'number':''"
+                                       [(ngModel)]="ele.filter.value" placeholder="Value">
                             </div>
                         </div>
             </span>
@@ -28,7 +34,7 @@
 
     </div>
     <div class="w-56 h-70 py-4 bottom-2 sticky flex justify-around">
-        <button class="w-2/5" mat-stroked-button>Apply</button>
+        <button class="w-2/5" (click)="applyFilter()" mat-stroked-button>Apply</button>
         <button class="w-2/5" mat-stroked-button (click)="resetAllFilters()">Clear</button>
     </div>
 </div>
