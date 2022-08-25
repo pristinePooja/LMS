@@ -84,9 +84,9 @@ export class LeadsFilterComponent implements OnInit {
             {key: "lead_status", type: 'string'},
             {key: "industry", type: 'string'},
             {key: "no_of_employees", type: 'string'},
-            {key: "annual_revenue", type: 'string'},
-            {key: "rating", type: 'string'},
-            {key: "email_opt_out", type: 'string'},
+            {key: "annual_revenue", type: 'number'},
+            {key: "rating", type: 'number'},
+            {key: "email_opt_out", type: 'boolean'},
             {key: "skype_id", type: 'string'},
             {key: "secondary_email", type: 'string'},
             {key: "twitter", type: 'string'},
@@ -105,10 +105,9 @@ export class LeadsFilterComponent implements OnInit {
                     name: temp[i]['key'].replace('_', ' ').toString(),
                     key: temp[i]['key'],
                     type: temp[i]['type'],
-                    filter: {
-                        value: '',
-                        selected_filter:'',
-                    },
+                    value: '',
+                    val2:'',
+                    selected_filter:'',
                     open: false
                 })
         }

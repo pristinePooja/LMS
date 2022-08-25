@@ -22,57 +22,65 @@
                     <div class="px-4 flex flex-col basis-2/4 space-y-4">
                       <div class="field_container">
                           <p class="input_label ">Lead Owner</p>
-                         <span class="basis-2/4 flex flex-col ">
-                            <input class="input_field basis-full"  formControlName="lead_owner"/>
+                         <span class="basis-2/4 flex  input_field">
+                            <input class="basis-full"  formControlName="lead_owner"/>
+                            <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">First Name</p>
-                         <span class="basis-2/4 flex flex-col ">
-                            <input class="input_field basis-full" formControlName="first_name" />
+                         <span class="basis-2/4 flex  input_field">
+                            <input class="basis-full" formControlName="first_name" />
+                            <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Title</p>
-                         <span class="basis-2/4 flex flex-col ">
-                            <input class="input_field basis-full" formControlName="title"/>
+                         <span class="basis-2/4 flex  input_field">
+                            <input class="basis-full" formControlName="title"/>
+                            <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Phone</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="phone" />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="phone" />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Mobile</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="mobile" />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="mobile" />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Lead Source</p>
-                         <span class="basis-2/4 flex flex-col ">
-                            <input class="input_field basis-full" formControlName="lead_source"  />
+                         <span class="basis-2/4 flex  input_field">
+                            <input class="basis-full" formControlName="lead_source"  />
+                            <mat-icon svgIcon=""></mat-icon>
                         </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Industry</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="industry"  />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="industry"  />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Annual Revenue</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="annual_revenue" />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="annual_revenue" />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                         <p class="input_label">Email Opt Out</p>
-                        <!--<span class="basis-2/4 flex flex-col "> -->
+                        <!--<span class="basis-2/4 flex  input_field"> -->
                             <mat-checkbox [checked]="email_opt_out" (change)="email_opt_out=cb.checked"  #cb></mat-checkbox>
-                            <!-- <input class="input_field basis-full" formControlName="email_opt_out"  class="h-6 w-6 items-start basis-2/4 "/> -->
+                            <!-- <input class="basis-full" formControlName="email_opt_out"  class="h-6 w-6 items-start basis-2/4 "/> -->
                         <!-- </span> -->
                     </div>
                   </div>
@@ -80,75 +88,87 @@
                   <div class="px-4 flex flex-col basis-2/4 space-y-4">
                       <div class="field_container">
                           <p class="input_label">Company</p>
-                          <div class="basis-2/4 flex flex-col ">
-                              <input formControlName="company" class="input_field basis-full" required />
-                              <p  *ngIf="LeadCreate.get('company').invalid && LeadCreate.get('company').touched" class="text-red-600 text-sm "
-                                matTooltip="Last name required." svgIcon="feather:info">Company name required.</p>
-                          </div>
+                          <span class="basis-2/4 flex required  input_field">
+                              <input formControlName="company" class="basis-full" required />
+                              
+                              <mat-icon svgIcon="{{LeadCreate.get('company').invalid && LeadCreate.get('company').touched?'feather:info':''}}"></mat-icon>
+                              <!-- <p  *ngIf="LeadCreate.get('company').invalid && LeadCreate.get('company').touched" class="text-red-600 text-sm "
+                                matTooltip="Last name required." svgIcon="feather:info">Company name required.</p> -->
+                              </span>
                         </div>
                       <div class="field_container">
                           <p class="input_label">Last Name</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="last_name" required class="{{'input_field basis-2/4'+ LeadCreate.get('last_name').invalid && LeadCreate.get('last_name').touched?'error':''}}" />
-                              <p  *ngIf="LeadCreate.get('last_name').invalid && LeadCreate.get('last_name').touched" class="text-red-600 text-sm "
-                                matTooltip="Last name required." svgIcon="feather:info">Last name required.</p>
+                         <span class="basis-2/4 flex required  input_field">
+                              <input formControlName="last_name" required class="'basis-full" />
+                              <mat-icon svgIcon=""></mat-icon>
+                              <!-- <p  *ngIf="LeadCreate.get('last_name').invalid && LeadCreate.get('last_name').dirty" class="text-red-600 text-sm "
+                                matTooltip="Last name required." svgIcon="feather:info">Last name required.</p> -->
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Email</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="email" class="{{'input_field basis-2/4' + LeadCreate.get('email').invalid && LeadCreate.get('email').touched?'error':''}}" />
-                              <p  *ngIf="LeadCreate.get('email').invalid && LeadCreate.get('last_name').touched" class="text-red-600 text-sm "
-                                matTooltip="Last name required." svgIcon="feather:info">Invalid email format</p>
+                         <span class="basis-2/4 flex  input_field">
+                              <input  formControlName="email" class="{{'basis-full' + LeadCreate.get('email').invalid && LeadCreate.get('email').touched?'error':''}}" />
+                              <mat-icon svgIcon=""></mat-icon>
+                              <!-- <p  *ngIf="LeadCreate.get('email').invalid && LeadCreate.get('email').dirty" class="text-red-600 text-sm "
+                                matTooltip="Last name required." svgIcon="feather:info">Invalid email format</p> -->
                               <!-- <mat-icon *ngIf="LeadCreate.get('email').invalid" class="fill-red-600"  matTooltip="Last name required." svgIcon="feather:activity">Valid email required.</mat-icon> -->
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Fax</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="fax" />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="fax" />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Website</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="website" />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="website" />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Lead Status</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="lead_status"  />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="lead_status"  />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">No. of Employees</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="no_of_employees"  />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="no_of_employees"  />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Raiting</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="rating"  />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="rating"  />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Skype ID</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="skype_id"  />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="skype_id"  />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Secondary Email</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="secondary_email"  />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="secondary_email"  />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Twitter</p>
-                         <span class="basis-2/4 flex flex-col ">
-                              <input class="input_field basis-full" formControlName="twitter"  />
+                         <span class="basis-2/4 flex  input_field">
+                              <input class="basis-full" formControlName="twitter"  />
+                              <mat-icon svgIcon=""></mat-icon>
                           </span>
                       </div>
                   </div>
@@ -160,20 +180,23 @@
                     <div class="px-4 flex flex-col basis-2/4 space-y-4">
                         <div class="field_container">
                             <p class="input_label">Street</p>
-                           <span class="basis-2/4 flex flex-col ">
-                                <input class="input_field basis-full" formControlName="street" />
+                           <span class="basis-2/4 flex  input_field">
+                                <input class="basis-full" formControlName="street" />
+                                <mat-icon svgIcon=""></mat-icon>
                             </span>
                         </div>
                         <div class="field_container">
                             <p class="input_label">State</p>
-                           <span class="basis-2/4 flex flex-col ">
-                                <input class="input_field basis-full" formControlName="state"  />
+                           <span class="basis-2/4 flex  input_field">
+                                <input class="basis-full" formControlName="state"  />
+                                <mat-icon svgIcon=""></mat-icon>
                             </span>
                         </div>
                         <div class="field_container">
                             <p class="input_label">Country</p>
-                           <span class="basis-2/4 flex flex-col ">
-                                <input class="input_field basis-full" formControlName="country"  />
+                           <span class="basis-2/4 flex  input_field">
+                                <input class="basis-full" formControlName="country"  />
+                                <mat-icon svgIcon=""></mat-icon>
                             </span>
                         </div>
                     </div>
@@ -181,14 +204,16 @@
                     <div class="px-4 flex flex-col basis-2/4 space-y-4">
                         <div class="field_container">
                             <p class="input_label">City</p>
-                           <span class="basis-2/4 flex flex-col ">
-                                <input class="input_field basis-full" formControlName="city"  />
+                           <span class="basis-2/4 flex  input_field">
+                                <input class="basis-full" formControlName="city"  />
+                                <mat-icon svgIcon=""></mat-icon>
                             </span>
                         </div>
                         <div class="field_container">
                             <p class="input_label">Zip Code</p>
-                           <span class="basis-2/4 flex flex-col ">
-                                <input class="input_field basis-full" formControlName="zipcode"   />
+                           <span class="basis-2/4 flex  input_field">
+                                <input class="basis-full" formControlName="zipcode"   />
+                                <mat-icon svgIcon=""></mat-icon>
                             </span>
                         </div>
                     </div>
@@ -201,7 +226,7 @@
                     <div class="flex  flex-col basis-full">
                         <div class="field_container items-start">
                             <p class="input_label basis-1/5">Description</p>
-                            <textarea class="input_field basis-full" formControlName="description" class="input_field basis-full"></textarea>
+                            <textarea class="basis-full" formControlName="description" class="basis-full"></textarea>
                         </div>
 
                     </div>

@@ -35,8 +35,9 @@
             class="border-t-zinc-200 border-t-2 border-t-solid"
              [length]="totalCount"
              [pageSize]="pageSize"
+             [pageIndex]="pageNo"
              (page)="page($event)"
-             [pageSizeOptions]="[1,2,5,10,15,20]"
+             [pageSizeOptions]="[5,10,15,20]"
              #paginatorRef></mat-paginator>
 
         </mat-drawer-content>

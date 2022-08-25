@@ -13,18 +13,18 @@ body{
     border-style: solid;
     border-radius:8px;
     padding: 8px;
-    &:focus{
+    &:focus, &:focus-within{
         border-color: black;
         border-width: 1px;
         box-shadow: 0 0 8px skyblue;
     }
-    &:required{
+    &:required, &.required{
         border-left-color: orangered   ;
         border-left-width: 4px;
     }
 
     &.error{
-        border-color: darkred;
+        border-color: orangered;
     }
 }
 

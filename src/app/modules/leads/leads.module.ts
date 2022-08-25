@@ -18,6 +18,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LeadsService } from './leads.service';
 import { HeaderComponent } from '@pristine/components/header/header.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const route: Routes =[{
   path:'lead_list',
@@ -46,6 +47,7 @@ const route: Routes =[{
         MatPaginatorModule,
         MatTableModule,
         MatCheckboxModule,
+        NgxSpinnerModule,
         RouterModule.forChild(route)
     ], providers:[LeadsService]
 })

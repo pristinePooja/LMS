@@ -91,8 +91,14 @@ export class CreateEditLeadsComponent implements OnInit {
   SubmitChanges(){
     if(this.LeadCreate.invalid){
       console.log('Invalid')
+      this.leadService.toaster.next({type:'warn',message:'Invalid data inserted'})
+      
       return
     }
     this.leadService.createLead(this.LeadCreate.value)
+  }
+
+  con(){
+    console.log(this.LeadCreate.get('lead_owner').status,this.LeadCreate.get('lead_owner'),)
   }
 }

@@ -13,7 +13,7 @@
         <ng-container >
             <span class="h-3/4 w-full overflow-auto overscroll-contain">
                         <div *ngFor="let ele of filteredValues"  class="border p-2 flex grow flex-col w-full">
-                            <div class="flex space-x-2" (click)="ele.open = !ele.open">
+                            <div class="flex space-x-2 cursor-pointer" (click)="ele.open = !ele.open">
                                 <input type="checkbox"   [checked]="ele.open" (change)="ele.open = !ele.open" (click)="$event.stopPropagation()">
                                 <span>{{ele?.name | titlecase}}</span>
                             </div>
@@ -22,11 +22,22 @@
                                  focus:border-zinc-600 focus:shadow-md min-w-full w-full max-w-full"
                                 [(ngModel)]="ele.selected_filter"
                                 >
-                                    <option *ngFor="let opt of filterOptions[ele.type]">{{opt}}</option>
+                                 
+                                 <option *ngFor="let opt of filterOptions[ele.type]" 
+                                 [value]="opt" >{{opt}}</option>
                                 </select>
                                 <input class="rounded-md hover:border-zinc-600 focus:border-zinc-600 focus:shadow-md  border px-2 min-w-full w-full max-w-full"
-                                       [type]="ele.type=='number'?'number':''"
-                                       [(ngModel)]="ele.filter.value" placeholder="Value">
+                                       [type]="ele.type=='number'?'number':''" [hidden]="ele.selected_filter=='is empty' || ele.selected_filter=='is not empty' || ele.selected_filter.includes('between')"
+                                       [(ngModel)]="ele.value" placeholder="Value">
+                                <span class="flex" *ngIf="ele.selected_filter.includes('between')">
+                                <input class="rounded-md hover:border-zinc-600 focus:border-zinc-600 focus:shadow-md  border px-2 min-w-[40%] w-[40%] max-w-[40%]"
+                                    [type]="ele.type=='number'?'number':''" [hidden]="ele.selected_filter=='is empty' || ele.selected_filter=='is not empty'"
+                                    [(ngModel)]="ele.value" placeholder="Value">
+                                    {{ele.selected_filter.includes('between')?' and ':''}} 
+                                    <input class="rounded-md hover:border-zinc-600 focus:border-zinc-600 focus:shadow-md  border px-2 min-w-[40%] w-[40%] max-w-[40%]"
+                                    [type]="ele.type=='number'?'number':''" 
+                                    [(ngModel)]="ele.val2" placeholder="Value">
+                                </span>
                             </div>
                         </div>
             </span>
