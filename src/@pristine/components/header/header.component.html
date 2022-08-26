@@ -1,27 +1,40 @@
 <div class="w-full flex place-content-between items-center bg-white min-h-14 border-b py-2 px-6" @zoomIn>
-    <div  class="flex space-x-4">
+    <div  class="flex space-x-4  items-center">
         <div *ngIf="create" class="text-2xl font-bold">Create {{pageName}}</div>
         <ng-container *ngIf="!create">
 <!--        button-->
         <button *ngIf="filterIcon.type=='filter'"
                 [class]="filterIcon.active?classes.active:classes.unactive" (click)="toggleFilter()">
-            <mat-icon class="icon-size-5 " [svgIcon]="filterIcon.icon"></mat-icon>
+            <mat-icon class="icon-size-5 " [svgIcon]="'feather:filter'"></mat-icon>
         </button>
-        <a *ngIf="filterIcon.type =='back'" class="hover:text-sky-500" (click)="previousLoaction()">
-            <mat-icon class="hover:text-sky-200"  [svgIcon]="filterIcon.icon"></mat-icon>
-        </a>
+        <mat-icon *ngIf="filterIcon.type =='back'" class="hover:text-sky-500"
+            (click)="previousLoaction()"  [svgIcon]="'feather:arrow-left'"></mat-icon>
+
 <!--        filter drop down-->
         <div>
            <div *ngIf="filterIcon.filterOptions?.length>0" class="font-medium border border-zinc-400 py-0.5 px-2 hover:border-zinc-700 justify-center rounded-md">
                <button [matMenuTriggerFor]="menu"  >{{selectedFilterOption}}</button>
            </div>
         </div>
-    </ng-container>
+        </ng-container>
+        <ng-container *ngIf="filterIcon.type =='back'">
+            <div  class="h-16 w-16 overflow-hidden rounded-3xl border-2 border-zinc-700 border-solid  p-1">
+                <img class="h-16 w-16" [src]="data?.img?data?.img:'./../../../assets/images/avatars/avatar.png'"/>
+            </div>
+            <div class="flex h-16 px-1 py-3 items-start">
+                <p><span class="font-bold">{{data?.user_name | titlecase}}</span> {{data?.company?'-'+data?.company:'' |titlecase}}</p>
+            </div>
+        </ng-container>
     </div>
-    <div class="space-x-4">
-        <button *ngIf="!create" (click)="toggleCreate(false,'view'); " mat-button class="bg-sky-600 text-white leading-3 " >Create {{pageName}}</button>
-        <button *ngIf="create" (click)="toggleCreate(true,'view')" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3 " mat-button>Cancel</button>
+    <div class="space-x-4" *ngIf="this.filterIcon.type=='filter'">
+        <button *ngIf="!create" (click)="toggleCreate(false,'list'); " mat-button class="bg-sky-600 text-white leading-3 " >Create {{pageName}}</button>
+        <button *ngIf="create" (click)="toggleCreate(true,'list')" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3 " mat-button>Cancel</button>
         <button *ngIf="create" (click)="toggleCreate(true,'save')" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3" mat-button>Save</button>
+    </div>
+    <div class="space-x-4 flex items-center" *ngIf="this.filterIcon.type=='back'">
+        <button mat-button class="bg-sky-600 text-white leading-3 " ><mat-icon class="text-white mr-0.5" svgIcon="mail"></mat-icon>Send Email</button>
+        <button class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3 " mat-button>Convert</button>
+        <button class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3" mat-button>Edit</button>
     </div>
 </div>
 

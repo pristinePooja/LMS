@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {expandCollapse} from '@pristine/animations/expand-collapse';
 import { LeadsService } from '../leads.service';
 
@@ -14,6 +14,7 @@ import { LeadsService } from '../leads.service';
 })
 export class LeadsFilterComponent implements OnInit {
 
+    @Input() panel: string ='filter'
     constructor(private _leadService: LeadsService) {
     }
 
@@ -47,6 +48,7 @@ export class LeadsFilterComponent implements OnInit {
     }
     ngOnInit(): void {
         this.resetAllFilters()
+        console.log(this.panel)
     }
 
     clearFilter() {
@@ -112,6 +114,10 @@ export class LeadsFilterComponent implements OnInit {
                 })
         }
         this.filteredValues = this.filterArray
+    }
+
+    closeSidePanel(){
+        this._leadService.viewFilterOpen.next(false)
     }
 
     con($event){

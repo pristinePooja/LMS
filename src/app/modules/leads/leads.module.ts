@@ -19,6 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LeadsService } from './leads.service';
 import { HeaderComponent } from '@pristine/components/header/header.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { LeadViewComponent } from './lead-view/lead-view.component';
 
 const route: Routes =[{
   path:'lead_list',
@@ -26,14 +27,23 @@ const route: Routes =[{
   resolve:{
     key: LeadsService
   }
- 
-}]
+},
+  // {
+  //   path:'lead_list/view_lead',
+  //   component: LeadsComponent,
+  //   data: {state:'view'},
+  //   resolve:{
+  //     key: LeadsService
+  //   }
+  // }
+]
 @NgModule({
   declarations: [
     LeadsComponent,
       LeadsFilterComponent,
       LeadsListComponent,
       CreateEditLeadsComponent,
+      LeadViewComponent,
   ],
     imports: [
         CommonModule,

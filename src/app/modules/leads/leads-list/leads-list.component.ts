@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import { slideInLeft, slideInRight } from '@pristine/animations/slide';
 import { leadListModel } from 'app/model/LeadsModel';
 import { PristineAnimationCurves, PristineAnimationDurations } from '@pristine/animations/defaults';
+import { LeadsService } from '../leads.service';
 
 @Component({
   selector: 'leads-list',
@@ -13,7 +14,7 @@ import { PristineAnimationCurves, PristineAnimationDurations } from '@pristine/a
 })
 export class LeadsListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _leadService: LeadsService) { }
   view: string = 'list';
   dataState:'void'|'*' ='void'
   private _dataArray:Array<leadListModel>=[]
@@ -27,4 +28,9 @@ export class LeadsListComponent implements OnInit {
     console.log(this._dataArray)
   }
 
+
+  viewDetails(ele){
+    this._leadService.getLeadDetails(ele)
+    this._leadService.pageType.next('view')
+  }
 }

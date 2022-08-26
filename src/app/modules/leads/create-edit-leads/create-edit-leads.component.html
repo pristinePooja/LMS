@@ -1,8 +1,6 @@
-<!-- <div class="  rounded-t-xl overflow-hidden h-200 min-h-0 max-h-screen"> -->
-    <!-- <div class="w-full h-[5em] border-b"></div> -->
-       <!-- <div class="overflow-visible p-[10%] pt-0 box-content h-full"> -->
-          <div class="h-fit p-4  w-full " [formGroup]="LeadCreate">
-            <div>
+
+          <div class="h-fit p-4  w-full bg-white px-12 " [formGroup]="LeadCreate">
+            <div id="top">
                 <h1 class="text-xl snap-start font-medium scroll-m-1 py-4">Lead Image</h1>
                 <div class="p-4">
                   <div class="h-14 w-10 flex justify-center items-center
@@ -88,32 +86,33 @@
                   <div class="px-4 flex flex-col basis-2/4 space-y-4">
                       <div class="field_container">
                           <p class="input_label">Company</p>
-                          <span class="basis-2/4 flex required  input_field">
-                              <input formControlName="company" class="basis-full" required />
-                              
-                              <mat-icon svgIcon="{{LeadCreate.get('company').invalid && LeadCreate.get('company').touched?'feather:info':''}}"></mat-icon>
-                              <!-- <p  *ngIf="LeadCreate.get('company').invalid && LeadCreate.get('company').touched" class="text-red-600 text-sm "
-                                matTooltip="Last name required." svgIcon="feather:info">Company name required.</p> -->
-                              </span>
+                          <span class="basis-2/4 flex required input_field {{checkValidation('company')?'error':''}}">
+                              <input formControlName="company"  class="basis-full" required />
+                              <mat-icon class="text-red-500"
+                              [matTooltip]="checkValidation('company')?'Company Name Required':''"
+                               svgIcon="{{checkValidation('company')?'feather:info':''}}"></mat-icon>
+                            </span>
                         </div>
                       <div class="field_container">
                           <p class="input_label">Last Name</p>
-                         <span class="basis-2/4 flex required  input_field">
-                              <input formControlName="last_name" required class="'basis-full" />
-                              <mat-icon svgIcon=""></mat-icon>
-                              <!-- <p  *ngIf="LeadCreate.get('last_name').invalid && LeadCreate.get('last_name').dirty" class="text-red-600 text-sm "
-                                matTooltip="Last name required." svgIcon="feather:info">Last name required.</p> -->
+                         <span class="basis-2/4 flex required  input_field {{checkValidation('last_name')?'error':''}}">
+                              <input formControlName="last_name" required class="basis-full" />
+                              <mat-icon class="text-red-500"
+                              [matTooltip]="checkValidation('last_name')?'Last Name Required':''"
+                              matTooltipPosition="above"
+                              matTooltipClass="bg-red-200 text-black"
+                              svgIcon="{{checkValidation('last_name')?'feather:info':''}}"></mat-icon>
+                            
                           </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Email</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input  formControlName="email" class="{{'basis-full' + LeadCreate.get('email').invalid && LeadCreate.get('email').touched?'error':''}}" />
-                              <mat-icon svgIcon=""></mat-icon>
-                              <!-- <p  *ngIf="LeadCreate.get('email').invalid && LeadCreate.get('email').dirty" class="text-red-600 text-sm "
-                                matTooltip="Last name required." svgIcon="feather:info">Invalid email format</p> -->
-                              <!-- <mat-icon *ngIf="LeadCreate.get('email').invalid" class="fill-red-600"  matTooltip="Last name required." svgIcon="feather:activity">Valid email required.</mat-icon> -->
-                          </span>
+                         <span class="basis-2/4 flex  input_field {{checkValidation('email')?'error':''}}">
+                              <input  formControlName="email" class="basis-full" />
+                              <mat-icon class="text-red-500"
+                              [matTooltip]="checkValidation('email')?'Invalid Email format':''"
+                               svgIcon="{{checkValidation('email')?'feather:info':''}}"></mat-icon>
+                        </span>
                       </div>
                       <div class="field_container">
                           <p class="input_label">Fax</p>
@@ -225,8 +224,9 @@
                 <div class="px-4 flex space-x-3">
                     <div class="flex  flex-col basis-full">
                         <div class="field_container items-start">
-                            <p class="input_label basis-1/5">Description</p>
-                            <textarea class="basis-full" formControlName="description" class="basis-full"></textarea>
+                            <p class=" basis-1/5">Description</p>
+                            <!-- <span class="basis-4/5 flex  input_field"> -->
+                            <textarea class="basis-full input_field" formControlName="description" ></textarea>
                         </div>
 
                     </div>
@@ -234,7 +234,5 @@
                   </div>
             </div>
         </div>
-       <!-- </div>
-   </div> -->
 
 

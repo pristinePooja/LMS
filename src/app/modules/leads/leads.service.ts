@@ -17,8 +17,11 @@ export class LeadsService {
   pageNo: BehaviorSubject<number> = new BehaviorSubject<any>(0)
   saveFile : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   loading : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  selectedLead: BehaviorSubject<any> = new BehaviorSubject<any>({})
   toaster: BehaviorSubject<{type:string,message: string}> =  new BehaviorSubject<{type:string,message: string}>({type:'',message: ''})
   filters: any={}
+  viewFilterOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  pageType: BehaviorSubject<'list'|'create'|'view'> = new BehaviorSubject<'list'|'create'|'view'> ('list')
   constructor(private _session: SessionManagement, 
               private _webAPi: WebApiHttp,
               private _header: HeaderService
@@ -62,6 +65,7 @@ export class LeadsService {
       if( res[0]?.condition.toLowerCase()=='true'){
         this.toaster.next({type:'success', message:res[0]?.message})
         this._header.switchView.next(true)
+        this.pageType.next('list')
         this.getLeadList()
       }else{
         this.toaster.next({type:'error', message:res[0]?.message})
@@ -170,6 +174,14 @@ export class LeadsService {
     }
 
     this.getLeadList()
+  }
+
+
+  getLeadDetails(details){
+    this.selectedLead.next ({
+      user_name: details?.first_name +' '+ details?.last_name,
+      company: details?.company
+    })
   }
 
 }

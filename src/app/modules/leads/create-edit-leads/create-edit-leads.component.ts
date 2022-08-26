@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionManagement } from '@pristine/process/SessionManagement';
 import { LeadsService } from '../leads.service';
@@ -9,7 +9,7 @@ import { LeadsService } from '../leads.service';
   templateUrl: './create-edit-leads.component.html',
   styleUrls: ['./create-edit-leads.component.scss']
 })
-export class CreateEditLeadsComponent implements OnInit {
+export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
 
   constructor(
     private _fb: FormBuilder,
@@ -20,24 +20,21 @@ export class CreateEditLeadsComponent implements OnInit {
   uploadedImage: any
   LeadCreate: FormGroup
   email_opt_out: boolean=false
-  // @Input() set saveChanges (val: boolean){
-  //   console.log(val)
-  //   if(val){
-  //     console.log('save here')
-  //     this.SubmitChanges()
-  //   }
-  // }
-  // get saveChanges(){
-  //   return false
-  // }
+  isSubmitted: boolean = false;
+  @ViewChild('top', {static:false}) top: ElementRef ;
   ngOnInit(): void {
+    console.log('hey')
+    this.isSubmitted = false;
+    
+    
+
     this.LeadCreate = this._fb.group({
       lead_owner: [this._session.getEmail],
-      company: ['',Validators.required],
+      company: ['',{validators: [Validators.required],updateOn: 'blur'}],
       first_name: [''],
-      last_name: ['',Validators.required],
+      last_name: ['',{validators: [Validators.required],updateOn: 'blur'}],
       title: [''],
-      email: ['', Validators.email],
+      email: ['', {validators: [Validators.email], updateOn: 'blur'}],
       fax: [''],
       phone: [''],
       mobile: [''],
@@ -69,9 +66,23 @@ export class CreateEditLeadsComponent implements OnInit {
     })
   }
 
+  ngAfterContentInit(): void {
+    let element =document.getElementById("top");
+    element.scrollIntoView();
+  }
   openDrawer(contain){
 
   }
+
+  checkValidation(label): boolean{
+    if(this.LeadCreate.get(label).invalid && 
+    (this.LeadCreate.get(label).dirty || this.LeadCreate.get(label).touched || this.isSubmitted) ){
+      return true
+    }else{
+      return false
+    }
+  }
+
 
   uploadImage(){
     let fileInput = document.createElement('input')
@@ -89,10 +100,10 @@ export class CreateEditLeadsComponent implements OnInit {
   }
 
   SubmitChanges(){
+    this.isSubmitted = true
     if(this.LeadCreate.invalid){
       console.log('Invalid')
       this.leadService.toaster.next({type:'warn',message:'Invalid data inserted'})
-      
       return
     }
     this.leadService.createLead(this.LeadCreate.value)

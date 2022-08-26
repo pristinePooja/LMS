@@ -1,0 +1,13 @@
+
+    <div class="h-14 basis-full top-0 sticky space-x-2 bg-slate-200 p-2 flex items-center">
+        <mat-icon *ngIf="!sidePanelOpen" (click)="openSidePanel()" class="hover:border-2 hover:border-slate-500 p-1 icon-size-8 rounded-full text-black" svgIcon="heroicons_solid:chevron-double-right"></mat-icon>
+        <div class=" w-52 bg-white rounded-3xl flex cursor-default items-center text-[15px] p-1 min-w-40">
+            <div class="w-26 text-center p-1 {{active=='overview'?activeClass:''}}" (click)="active='overview'">Overview</div>
+            <div class="w-26 text-center p-1 {{active=='timeline'?activeClass:''}}" (click)="active='timeline'">Timeline</div>
+        </div>
+    </div>
+
+    <ng-container class="">
+        <div class="card">ddd</div>
+    </ng-container>
+

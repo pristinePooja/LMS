@@ -25,6 +25,10 @@ export class LeadsComponent implements OnInit,AfterViewInit {
     pageNo: number = 0;
     pageSize : number = 10;
     totalCount : number = 0
+    pageType:  'list'|'create'|'view' ='list'
+    selectedLead: any ={}
+    panelType: 'filter'|'list'='filter'
+    viewFilterOpen: boolean = true
   constructor(private _leadService: LeadsService, 
               private _spinner: NgxSpinnerService,
               private _toaster: ToastrService
@@ -33,7 +37,20 @@ export class LeadsComponent implements OnInit,AfterViewInit {
   ngOnInit(): void {
     this.listData = new MatTableDataSource<leadListModel>([])
     this.listData.paginator = this.paginator
-
+    this._leadService.pageType.subscribe(res=>{  
+      console.log(res)
+      this.pageType = res
+      if(res=='view'){
+        this.panelType = 'list'
+        this.headerData = {
+          type:'back', active:false, icon:'',url:'showList'
+        }
+      }else{
+        this.panelType = 'filter'
+        this.headerData={type:'filter',active:this.filterOpen, icon:'filter',
+        filterOptions :['All','None', 'Some value 1', 'Some value 2'],url:''};
+      }
+    })
     this._leadService.toaster.subscribe(res=>{
       console.log(res)
       if(res.type=='error'){
@@ -74,6 +91,16 @@ export class LeadsComponent implements OnInit,AfterViewInit {
       this.listData = new MatTableDataSource<leadListModel>(res.items?res.items:[])
       this.paggedData = res.items?res.items:[]
     })
+
+    this._leadService.selectedLead.subscribe(res=>{
+      console.log(res)
+      this.selectedLead = res
+    })
+
+    this._leadService.viewFilterOpen.subscribe(res=>{
+      console.log(res)
+      this.viewFilterOpen = res
+    })
     this._leadService.getLeadList()
   }
 
@@ -93,13 +120,19 @@ export class LeadsComponent implements OnInit,AfterViewInit {
     console.log(this.paggedData)
   }
 
-    getTOggler($event: any) {
+    getToggler($event: any) {
         this.filterOpen = $event
     }
 
     switchView($event){
-      if($event.source=='view'){
-        this.view=$event.bool      
+      console.log($event)
+      if($event.source=='list'){
+        if($event.bool){
+          // this.view=$event.bool 
+          this._leadService.pageType.next('list')
+        }else{
+          this._leadService.pageType.next('create')
+        }
       }
       if($event.source=='save'){
         this._leadService.saveFile.next($event.bool)

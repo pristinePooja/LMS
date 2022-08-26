@@ -27,8 +27,6 @@ body{
         border-color: orangered;
     }
 }
-
-
 .input_label{
     flex-basis: 50%;
     font-weight: 500;
@@ -58,4 +56,13 @@ body{
             align-items: stretch!important;
         }
     }
+}
+
+.card{
+    background-color: whitesmoke;
+    border-radius: 8em;
+    border-color: #a1a1aa ;
+    border-width: 1px;
+    border-style: solid;
+    padding: 8px;
 }
