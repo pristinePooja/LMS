@@ -2,8 +2,8 @@
 
     <!-- Header -->
     <div class="flex flex-col flex-0 pb-16  bg-default dark:bg-transparent">
-        <app-header [filterIcon]="headerData" [data]="selectedLead"
-        (ViewPage)="switchView($event)" [pageName]="'Lead'" (filterViewToggle)="getToggler($event)"></app-header>
+        <app-header [filterIcon]="headerData" [data]="selectedLead?.header"
+        (ViewPage)="switchView($event)" [pageName]="{name:'Lead', state:pageType}" (filterViewToggle)="getToggler($event)"></app-header>
     </div>
 
     <mat-drawer-container class="flex flex-col flex-auto -mt-16  shadow bg-card">
@@ -28,9 +28,9 @@
                 
                 <leads-list [DataArray]="paggedData" *ngIf="pageType=='list'"></leads-list>
                 <!-- CONTENT GOES HERE -->
-                <create-edit-leads *ngIf="pageType=='create'"></create-edit-leads>
+                <create-edit-leads *ngIf="pageType=='create' || pageType== 'edit'" [data]="pageType=='edit'?[selectedLead.all]:[]"></create-edit-leads>
 
-                <lead-view class="flex basis-100" *ngIf=" pageType=='view'"></lead-view>
+                <lead-view  *ngIf=" pageType=='view'" [viewDetailsData]="selectedLead?.all"></lead-view>
 
             </div>
             <mat-paginator

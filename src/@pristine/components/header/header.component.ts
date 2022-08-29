@@ -38,8 +38,8 @@ export class HeaderComponent implements OnInit {
       this.selectedFilterOption = this.filterIcon.filterOptions[0]
 
       this._headerService.switchView.subscribe(res=>{
-        if(res)
-          this.toggleCreate(res,'view')
+        // if(res)
+          this.toggleCreate(res?.value,res?.type)
       })
     }
 
@@ -63,10 +63,13 @@ export class HeaderComponent implements OnInit {
     }
 
     toggleCreate(openView, source){
-      console.log(openView)
-      if(source == 'list'){
+      console.log(openView, source)
+      if(source == 'list' ){
       this.create= !this.create
+    }if(source=='edit' ){
+      this.create=openView
     }
+    console.log(this.create)
     let json = {bool:openView,source:source}
       this.ViewPage.emit(json)
     }

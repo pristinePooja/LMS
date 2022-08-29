@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {expandCollapse} from '@pristine/animations/expand-collapse';
+import { products } from 'app/mock-api/apps/ecommerce/inventory/data';
 import { LeadsService } from '../leads.service';
 
 
@@ -120,7 +121,8 @@ export class LeadsFilterComponent implements OnInit {
         this._leadService.viewFilterOpen.next(false)
     }
 
-    con($event){
-      console.log($event)
+    overviewArray=['notes','attachments', 'products']
+    focusOnId(ele){
+        document.getElementById(ele).scrollIntoView()
     }
 }

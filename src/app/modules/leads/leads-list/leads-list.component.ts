@@ -3,6 +3,7 @@ import { slideInLeft, slideInRight } from '@pristine/animations/slide';
 import { leadListModel } from 'app/model/LeadsModel';
 import { PristineAnimationCurves, PristineAnimationDurations } from '@pristine/animations/defaults';
 import { LeadsService } from '../leads.service';
+import { HeaderService } from '@pristine/components/header/header.service';
 
 @Component({
   selector: 'leads-list',
@@ -14,7 +15,7 @@ import { LeadsService } from '../leads.service';
 })
 export class LeadsListComponent implements OnInit {
 
-  constructor(private _leadService: LeadsService) { }
+  constructor(private _leadService: LeadsService, private _headerService: HeaderService) { }
   view: string = 'list';
   dataState:'void'|'*' ='void'
   private _dataArray:Array<leadListModel>=[]
@@ -28,6 +29,11 @@ export class LeadsListComponent implements OnInit {
     console.log(this._dataArray)
   }
 
+  edit(ele){
+    this._leadService.selectedLead.next({all: ele, header:''})
+    this._leadService.pageType.next('edit')
+    this._headerService.switchView.next({type:'edit', value:true})
+  }
 
   viewDetails(ele){
     this._leadService.getLeadDetails(ele)

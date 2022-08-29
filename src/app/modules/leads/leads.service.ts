@@ -21,7 +21,7 @@ export class LeadsService {
   toaster: BehaviorSubject<{type:string,message: string}> =  new BehaviorSubject<{type:string,message: string}>({type:'',message: ''})
   filters: any={}
   viewFilterOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
-  pageType: BehaviorSubject<'list'|'create'|'view'> = new BehaviorSubject<'list'|'create'|'view'> ('list')
+  pageType: BehaviorSubject<'list'|'create'|'view'|'edit'> = new BehaviorSubject<'list'|'create'|'view'|'edit'> ('list')
   constructor(private _session: SessionManagement, 
               private _webAPi: WebApiHttp,
               private _header: HeaderService
@@ -64,7 +64,7 @@ export class LeadsService {
       console.log(res.lenght,res ,res[0]?.condition, res[0]?.condition.toLowerCase()=='true')
       if( res[0]?.condition.toLowerCase()=='true'){
         this.toaster.next({type:'success', message:res[0]?.message})
-        this._header.switchView.next(true)
+        this._header.switchView.next({type:'view', value:true})
         this.pageType.next('list')
         this.getLeadList()
       }else{
@@ -82,6 +82,7 @@ export class LeadsService {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any>|Promise<any>|any {
+    console.log(route)
     return new Promise((resolve,reject)=>{
       Promise.all([]).then((results)=>{
         resolve(results);
@@ -178,10 +179,10 @@ export class LeadsService {
 
 
   getLeadDetails(details){
-    this.selectedLead.next ({
+    this.selectedLead.next ({header:{
       user_name: details?.first_name +' '+ details?.last_name,
       company: details?.company
-    })
+    }, all:details})
   }
 
 }

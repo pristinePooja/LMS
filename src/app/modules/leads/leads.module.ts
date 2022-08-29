@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { LeadsComponent } from './leads.component';
 import { MatSidenavModule} from "@angular/material/sidenav";
 import {SharedModule} from "../../shared/shared.module";
@@ -20,6 +20,7 @@ import { LeadsService } from './leads.service';
 import { HeaderComponent } from '@pristine/components/header/header.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LeadViewComponent } from './lead-view/lead-view.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 const route: Routes =[{
   path:'lead_list',
@@ -58,7 +59,8 @@ const route: Routes =[{
         MatTableModule,
         MatCheckboxModule,
         NgxSpinnerModule,
+        MatMenuModule,
         RouterModule.forChild(route)
-    ], providers:[LeadsService]
+    ], providers:[LeadsService, DatePipe]
 })
 export class LeadsModule { }

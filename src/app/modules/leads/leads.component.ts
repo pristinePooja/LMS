@@ -25,7 +25,7 @@ export class LeadsComponent implements OnInit,AfterViewInit {
     pageNo: number = 0;
     pageSize : number = 10;
     totalCount : number = 0
-    pageType:  'list'|'create'|'view' ='list'
+    pageType:  'list'|'create'|'view'|'edit' ='list'
     selectedLead: any ={}
     panelType: 'filter'|'list'='filter'
     viewFilterOpen: boolean = true
@@ -133,6 +133,8 @@ export class LeadsComponent implements OnInit,AfterViewInit {
         }else{
           this._leadService.pageType.next('create')
         }
+      }else if($event.source=='edit'){
+        this._leadService.pageType.next('edit')
       }
       if($event.source=='save'){
         this._leadService.saveFile.next($event.bool)

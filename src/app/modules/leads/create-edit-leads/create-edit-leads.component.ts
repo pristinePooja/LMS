@@ -1,6 +1,7 @@
-import { AfterContentInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionManagement } from '@pristine/process/SessionManagement';
+import { leadListModel } from 'app/model/LeadsModel';
 import { LeadsService } from '../leads.service';
 
 
@@ -21,6 +22,7 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
   LeadCreate: FormGroup
   email_opt_out: boolean=false
   isSubmitted: boolean = false;
+  @Input() data: Array<leadListModel>
   @ViewChild('top', {static:false}) top: ElementRef ;
   ngOnInit(): void {
     console.log('hey')
@@ -64,11 +66,42 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
         this.SubmitChanges()
       }
     })
+
+    console.log(this.data)
+    if(this.data?.length>0){
+      this.LeadCreate.get('lead_owner').setValue(this.data[0]?.lead_owner)
+      this.LeadCreate.get('company').setValue(this.data[0]?.company)
+      this.LeadCreate.get('first_name').setValue(this.data[0]?.first_name)
+      this.LeadCreate.get('last_name').setValue(this.data[0]?.last_name)
+      this.LeadCreate.get('title').setValue(this.data[0]?.title)
+      this.LeadCreate.get('email').setValue(this.data[0]?.email)
+      this.LeadCreate.get('fax').setValue(this.data[0]?.fax)
+      this.LeadCreate.get('phone').setValue(this.data[0]?.phone)
+      this.LeadCreate.get('mobile').setValue(this.data[0]?.mobile)
+      this.LeadCreate.get('website').setValue(this.data[0]?.website)
+      this.LeadCreate.get('lead_source').setValue(this.data[0]?.lead_source)
+      this.LeadCreate.get('lead_status').setValue(this.data[0]?.lead_status)
+      this.LeadCreate.get('industry').setValue(this.data[0]?.industry)
+      this.LeadCreate.get('no_of_employees').setValue(this.data[0]?.no_of_employees)
+      this.LeadCreate.get('annual_revenue').setValue(this.data[0]?.annual_revenue)
+      this.LeadCreate.get('rating').setValue(this.data[0]?.rating)
+      // this.LeadCreate.get('email_opt_out').setValue(this.data[0]?.email_opt_out)
+      this.LeadCreate.get('skype_id').setValue(this.data[0]?.skype_id)
+      this.LeadCreate.get('secondary_email').setValue(this.data[0]?.secondary_email)
+      this.LeadCreate.get('twitter').setValue(this.data[0]?.twitter)
+      this.LeadCreate.get('street').setValue(this.data[0]?.street)
+      this.LeadCreate.get('city').setValue(this.data[0]?.city)
+      this.LeadCreate.get('state').setValue(this.data[0]?.state)
+      this.LeadCreate.get('zipcode').setValue(this.data[0]?.zipcode)
+      this.LeadCreate.get('country').setValue(this.data[0]?.country)
+      this.LeadCreate.get('description').setValue(this.data[0]?.description)
+    }
   }
 
   ngAfterContentInit(): void {
     let element =document.getElementById("top");
     element.scrollIntoView();
+  
   }
   openDrawer(contain){
 
@@ -105,6 +138,36 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       console.log('Invalid')
       this.leadService.toaster.next({type:'warn',message:'Invalid data inserted'})
       return
+    }
+
+    let json= {
+      lead_owner: this.LeadCreate.get('lead_owner').value.toString(),
+      company: this.LeadCreate.get('company').value.toString(),
+      first_name: this.LeadCreate.get('first_name').value.toString(),
+      last_name: this.LeadCreate.get('last_name').value.toString(),
+      title: this.LeadCreate.get('title').value.toString(),
+      email: this.LeadCreate.get('email').value.toString(),
+      fax: this.LeadCreate.get('fax').value.toString(),
+      phone: this.LeadCreate.get('phone').value.toString(),
+      mobile: this.LeadCreate.get('mobile').value.toString(),
+      website: this.LeadCreate.get('website').value.toString(),
+      lead_source: this.LeadCreate.get('lead_source').value.toString(),
+      lead_status: this.LeadCreate.get('lead_status').value.toString(),
+      industry: this.LeadCreate.get('industry').value.toString(),
+      no_of_employees: Number(this.LeadCreate.get('no_of_employees').value),
+      annual_revenue: Number(this.LeadCreate.get('annual_revenue').value),
+      rating: Number(this.LeadCreate.get('rating').value),
+      email_opt_out: Number(this.LeadCreate.get('email_opt_out)?1:0')),
+      skype_id: this.LeadCreate.get('skype_id').value.toString(),
+      secondary_email: this.LeadCreate.get('secondary_email').value.toString(),
+      twitter: this.LeadCreate.get('twitter').value.toString(),
+      street: this.LeadCreate.get('street').value.toString(),
+      city: this.LeadCreate.get('city').value.toString(),
+      state: this.LeadCreate.get('state').value.toString(),
+      zipcode: this.LeadCreate.get('zipcode').value.toString(),
+      country: this.LeadCreate.get('country').value.toString(),
+      description: this.LeadCreate.get('description').value.toString(),
+      created_by: this._session.getEmail
     }
     this.leadService.createLead(this.LeadCreate.value)
   }
