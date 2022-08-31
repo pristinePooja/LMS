@@ -7,5 +7,5 @@ import { HeaderComponent } from './header.component';
 })
 export class HeaderService {
 
-  switchView : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  switchView : BehaviorSubject<{type:string, value:boolean}> = new BehaviorSubject<{type:string, value:boolean}>({type:'', value:false})
 }

@@ -57,7 +57,9 @@
                             "src/styles/vendors.scss",
                             "src/@pristine/styles/main.scss",
                             "src/styles/styles.scss",
-                            "src/styles/tailwind.scss"
+                            "src/styles/tailwind.scss",
+                            "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
+                            "node_modules/ngx-toastr/toastr.css"
                         ],
                         "scripts": []
                     },

@@ -1,11 +1,18 @@
 
  <!-- <div class="w-full border-b font-bold text-2xl px-4 py-2 absolute  bg-white">Lead List</div> -->
 
-   <div class="border my-2 rounded-md p-2 min-h-28 h-fit flex
-    hover:bg-slate-50  hover:shadow-lg snap-start scroll-m-3
+   <div class="my-2  mx-8 px-6 py-4 pl-8 min-h-28 h-fit flex
+    hover:bg-white card hover:shadow-lg hover:shadow-zinc-400 snap-start scroll-m-3
    justify-evenly items-center space-x-1 shadow-md" 
+   (click)="viewDetails(ele)"
    @slideInLeft
-   *ngFor="let ele of DataArray">
+   *ngFor="let ele of DataArray" >
+      <div class="basis-4 absolute flex items-center justify-center h-6 w-6 top-4 left-4 
+      hover:border-solid hover:border-gray-400 hover:border rounded-full"
+      (click)="edit(ele)"
+      >
+         <mat-icon class="icon-size-5" svgIcon="heroicons_solid:pencil"></mat-icon>
+      </div>
       <div class=" flex  min-h-20 min-w-20 h-20 w-20 p-2 rounded-full overflow-hidden border-zinc-500 border-2 border-solid">
          <img src="./../../../../assets/images/avatars/avatar.png">
       </div>
@@ -36,5 +43,11 @@
          </div>
       </div>
     </div>   
+
+    <div class=" p-2 min-h-40 h-fit flex
+    snap-start scroll-m-3
+   justify-evenly items-center space-x-1 text-zinc-300 text-3xl" *ngIf="DataArray?.length==0">
+   No Records found
+</div>
 
 

@@ -56,4 +56,12 @@ export class PristineValidators
             return errors;
         };
     }
+
+    static phoneNoValidator(controlPath:string, digits?:number): ValidatorFn{
+        return (formGroup: AbstractControl): ValidationErrors | null => {
+            const control = formGroup.get(controlPath);
+            console.log(control.value, digits)
+            return null;
+        }
+    }
 }

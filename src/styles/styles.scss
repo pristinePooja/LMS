@@ -13,22 +13,20 @@ body{
     border-style: solid;
     border-radius:8px;
     padding: 8px;
-    &:focus{
+    &:focus, &:focus-within{
         border-color: black;
         border-width: 1px;
         box-shadow: 0 0 8px skyblue;
     }
-    &:required{
+    &:required, &.required{
         border-left-color: orangered   ;
         border-left-width: 4px;
     }
 
     &.error{
-        border-color: darkred;
+        border-color: orangered;
     }
 }
-
-
 .input_label{
     flex-basis: 50%;
     font-weight: 500;
@@ -58,4 +56,13 @@ body{
             align-items: stretch!important;
         }
     }
+}
+
+.card{
+    background-color: whitesmoke;
+    border-radius: 12px;
+    border-color: #a1a1aa ;
+    border-width: 1px;
+    border-style: solid;
+    padding: 8px;
 }
