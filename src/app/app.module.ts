@@ -10,7 +10,8 @@ import { appConfig } from 'app/core/config/app.config';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
-import {LeadsModule} from "./modules/leads/leads.module";
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ToastrModule } from 'ngx-toastr';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -26,7 +27,7 @@ const routerConfig: ExtraOptions = {
         BrowserModule,
         BrowserAnimationsModule,
         RouterModule.forRoot(appRoutes, routerConfig),
-        LeadsModule,
+
         // Pristine, PristineConfig & PristineMockAPI
         PristineModule,
         PristineConfigModule.forRoot(appConfig),
@@ -38,7 +39,19 @@ const routerConfig: ExtraOptions = {
         LayoutModule,
 
         // 3rd party modules that require global configuration via forRoot
-        MarkdownModule.forRoot({})
+        MarkdownModule.forRoot({}),
+        ToastrModule.forRoot({
+            timeOut: 10000,
+            positionClass: 'toast-top-right',
+            preventDuplicates: true,
+            countDuplicates: true,
+            resetTimeoutOnDuplicate: true,
+            progressBar: true,
+            progressAnimation: 'decreasing',
+            closeButton: true,
+          }),
+           // ToastrModule added
+          NgxSpinnerModule,
     ],
     bootstrap   : [
         AppComponent

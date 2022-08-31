@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { LeadsComponent } from './leads.component';
 import { MatSidenavModule} from "@angular/material/sidenav";
 import {SharedModule} from "../../shared/shared.module";
@@ -18,6 +18,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LeadsService } from './leads.service';
 import { HeaderComponent } from '@pristine/components/header/header.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LeadViewComponent } from './lead-view/lead-view.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 const route: Routes =[{
   path:'lead_list',
@@ -25,14 +28,23 @@ const route: Routes =[{
   resolve:{
     key: LeadsService
   }
- 
-}]
+},
+  // {
+  //   path:'lead_list/view_lead',
+  //   component: LeadsComponent,
+  //   data: {state:'view'},
+  //   resolve:{
+  //     key: LeadsService
+  //   }
+  // }
+]
 @NgModule({
   declarations: [
     LeadsComponent,
       LeadsFilterComponent,
       LeadsListComponent,
       CreateEditLeadsComponent,
+      LeadViewComponent,
   ],
     imports: [
         CommonModule,
@@ -46,7 +58,9 @@ const route: Routes =[{
         MatPaginatorModule,
         MatTableModule,
         MatCheckboxModule,
+        NgxSpinnerModule,
+        MatMenuModule,
         RouterModule.forChild(route)
-    ], providers:[LeadsService]
+    ], providers:[LeadsService, DatePipe]
 })
 export class LeadsModule { }
