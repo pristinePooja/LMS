@@ -22,12 +22,12 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
   LeadCreate: FormGroup
   email_opt_out: boolean=false
   isSubmitted: boolean = false;
+  leadCode:string=''
   @Input() data: Array<leadListModel>
   @ViewChild('top', {static:false}) top: ElementRef ;
   ngOnInit(): void {
-    console.log('hey')
     this.isSubmitted = false;
-    
+    this.leadCode =''
     
 
     this.LeadCreate = this._fb.group({
@@ -85,7 +85,6 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       this.LeadCreate.get('no_of_employees').setValue(this.data[0]?.no_of_employees)
       this.LeadCreate.get('annual_revenue').setValue(this.data[0]?.annual_revenue)
       this.LeadCreate.get('rating').setValue(this.data[0]?.rating)
-      // this.LeadCreate.get('email_opt_out').setValue(this.data[0]?.email_opt_out)
       this.LeadCreate.get('skype_id').setValue(this.data[0]?.skype_id)
       this.LeadCreate.get('secondary_email').setValue(this.data[0]?.secondary_email)
       this.LeadCreate.get('twitter').setValue(this.data[0]?.twitter)
@@ -95,6 +94,8 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       this.LeadCreate.get('zipcode').setValue(this.data[0]?.zipcode)
       this.LeadCreate.get('country').setValue(this.data[0]?.country)
       this.LeadCreate.get('description').setValue(this.data[0]?.description)
+      this.email_opt_out = this.data[0]?.email_opt_out==1
+      this.leadCode= this.data[0]?.lead_code
     }
   }
 
@@ -154,10 +155,10 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       lead_source: this.LeadCreate.get('lead_source').value.toString(),
       lead_status: this.LeadCreate.get('lead_status').value.toString(),
       industry: this.LeadCreate.get('industry').value.toString(),
-      no_of_employees: Number(this.LeadCreate.get('no_of_employees').value),
-      annual_revenue: Number(this.LeadCreate.get('annual_revenue').value),
-      rating: Number(this.LeadCreate.get('rating').value),
-      email_opt_out: Number(this.LeadCreate.get('email_opt_out)?1:0')),
+      no_of_employees: this.LeadCreate.get('no_of_employees').value,
+      annual_revenue: this.LeadCreate.get('annual_revenue').value,
+      rating: this.LeadCreate.get('rating').value,
+      email_opt_out: this.email_opt_out?'1':'0',
       skype_id: this.LeadCreate.get('skype_id').value.toString(),
       secondary_email: this.LeadCreate.get('secondary_email').value.toString(),
       twitter: this.LeadCreate.get('twitter').value.toString(),
@@ -169,10 +170,10 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       description: this.LeadCreate.get('description').value.toString(),
       created_by: this._session.getEmail
     }
-    this.leadService.createLead(this.LeadCreate.value)
+    if(this.data.length>0){
+      json['lead_code']=this.leadCode
+    }
+    this.leadService.createLead(json)
   }
 
-  con(){
-    console.log(this.LeadCreate.get('lead_owner').status,this.LeadCreate.get('lead_owner'),)
-  }
 }

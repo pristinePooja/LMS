@@ -46,7 +46,7 @@
             <div class="basis-1/3 card p-8 space-y-2">
                 <div class="flex justify-between">
                     <h2 class="font-semibold">Best time to</h2>
-                    <p class="text-blue-500 hover:underline cursor-default text-sm" [matMenuTriggerFor]="timeMenu">{{timeSelected?.name}}</p>
+                    <p class="text-sky-600 hover:underline cursor-default text-sm" [matMenuTriggerFor]="timeMenu">{{timeSelected?.name}}</p>
                 </div>
                 <div class="text-gray-500  my-4 py-2">
                     <h3 class="text-md">Call</h3>
@@ -62,7 +62,7 @@
 
         <!-- Details -->
         <div class="basis-2/3 card p-0 ">
-            <div class="font-bold px-5 py-3 border-b cursor-default flex items-center" (click)="showDets = !showDets">
+            <div class="font-bold px-5 py-3 border-b-2 cursor-pointer flex items-center" (click)="showDets = !showDets">
                 <mat-icon  [svgIcon]="showDets?'arrow_drop_down':'arrow_right'" #icon></mat-icon>
                 <span class="text-xl ">{{showDets?'Hide':'Show'}} Details</span>
             </div>
@@ -271,13 +271,35 @@
 
           <!-- Notes -->
           <div class="basis-2/3 card p-0 " id="notes">
-            <div class="font-bold px-5 py-3 border-b cursor-default flex items-center">
+            <div class="font-bold px-5 py-3 border-b-2 cursor-default flex items-center">
                 <span class="text-xl ">Notes</span>
             </div>
-            
-            <div class="p-4  mt-0 border-y text-center text-gray-500 text-md">
-                No Record Found
+            <div class="flex flex-col p-5 mt-4">
+
+                <!-- Create Note -->
+                <div class="input_field flex flex-col px-0 py-3 {{addNotes?'border-sky-700 border-solid shadow-md shadow-sky-700':''}}" (click)="addNotes=true">
+                    <input *ngIf="addNotes && addTitle" [(ngModel)]="titleText" 
+                    (focusout)="titleText==''?addTitle=false:''" 
+                    class="placeholder:text-slate-600 font-semibold mx-6" placeholder="Add Title"  #titleRef/>
+                    <textarea [(ngModel)]="remarkText" class="mx-6 resize-y  overflow-hidden {{addNotes?'min-h-15':'min-h-5'}} leading-5"
+                    cdkTextareaAutosize [placeholder]="addNotes?'Add note':'Add note...'"></textarea>
+                    
+                    <div  *ngIf="addNotes" class="flex justify-between mt-2 px-6 py-2 pb-0 border-t">
+                        <div class="flex items-center">
+                            <mat-icon class="icon-size-4 hover:cursor-pointer" svgIcon="feather:paperclip"></mat-icon>
+                            <div class="ml-4 br pr-2  hover:cursor-pointer" *ngIf="!addTitle" (click)="setNoteTitle()">Add a title</div>
+                        </div>
+                        <div class="space-x-4">
+                            <button class="mat-raised-button  border-sky-600 border-solid border-2">Cancel</button>
+                            <button class="mat-raised-button bg-sky-600 text-white leading-3">Save</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
+            <!-- <div class="p-4  mt-0 border-y text-center text-gray-500 text-md">
+                No Record Found
+            </div> -->
         </div>
 
         <!-- Attachments -->

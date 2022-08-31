@@ -28,13 +28,13 @@
     </div>
     <div class="space-x-4" *ngIf="this.filterIcon.type=='filter'">
         <button *ngIf="!create" (click)="toggleCreate(false,'list'); " mat-button class="bg-sky-600 text-white leading-3 " >Create {{pageName.name}}</button>
-        <button *ngIf="create" (click)="toggleCreate(true,'list')" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3 " mat-button>Cancel</button>
-        <button *ngIf="create" (click)="toggleCreate(true,'save')" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3" mat-button>Save</button>
+        <button *ngIf="create" (click)="toggleCreate(true,'list')" class="shadow-blue-100 shadow-md border-2 border-solid border-sky-600 leading-3 " mat-button>Cancel</button>
+        <button *ngIf="create" (click)="toggleCreate(true,'save')" class="shadow-blue-100 shadow-md border-2 border-solid border-sky-600 leading-3" mat-button>Save</button>
     </div>
     <div class="space-x-4 flex items-center" *ngIf="this.filterIcon.type=='back'">
         <button mat-button class="bg-sky-600 text-white leading-3 " ><mat-icon class="text-white mr-0.5" svgIcon="mail"></mat-icon>Send Email</button>
-        <button class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3 " mat-button>Convert</button>
-        <button (click)="toggleCreate(true,'edit')" class="shadow-blue-100 shadow-md border-2 border-solid border-blue-300 leading-3" mat-button>Edit</button>
+        <button class="shadow-blue-100 shadow-md border-2 border-solid border-sky-600 leading-3 " mat-button>Convert</button>
+        <button (click)="toggleCreate(true,'edit')" class="shadow-blue-100 shadow-md border-2 border-solid border-sky-600 leading-3" mat-button>Edit</button>
     </div>
 </div>
 

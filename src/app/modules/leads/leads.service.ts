@@ -31,40 +31,11 @@ export class LeadsService {
 
   createLead(values){
     this.loading.next(true);
-    let json : leadListModel={
-      lead_owner: (values?.lead_owner).toString(),
-      company: (values?.company).toString(),
-      first_name: (values?.first_name).toString(),
-      last_name: (values?.last_name).toString(),
-      title: (values?.title).toString(),
-      email: (values?.email).toString(),
-      fax: (values?.fax).toString(),
-      phone: (values?.phone).toString(),
-      mobile: (values?.mobile).toString(),
-      website: (values?.website).toString(),
-      lead_source: (values?.lead_source).toString(),
-      lead_status: (values?.lead_status).toString(),
-      industry: (values?.industry).toString(),
-      no_of_employees: Number(values?.no_of_employees),
-      annual_revenue: Number(values?.annual_revenue),
-      rating: Number(values?.rating),
-      email_opt_out: Number(values?.email_opt_out)?1:0,
-      skype_id: (values?.skype_id).toString(),
-      secondary_email: (values?.secondary_email).toString(),
-      twitter: (values?.twitter).toString(),
-      street: (values?.street).toString(),
-      city: (values?.city).toString(),
-      state: (values?.state).toString(),
-      zipcode: (values?.zipcode).toString(),
-      country: (values?.country).toString(),
-      description: (values?.description).toString(),
-      created_by: (this._session.getEmail).toString()
-    }
-    this._webAPi.Post(this._webAPi.ApiURLArray.createLead, json).then(res=>{
+    this._webAPi.Post(this._webAPi.ApiURLArray.createLead, values).then(res=>{
       console.log(res.lenght,res ,res[0]?.condition, res[0]?.condition.toLowerCase()=='true')
       if( res[0]?.condition.toLowerCase()=='true'){
         this.toaster.next({type:'success', message:res[0]?.message})
-        this._header.switchView.next({type:'view', value:true})
+        this._header.switchView.next({type:'list', value:true})
         this.pageType.next('list')
         this.getLeadList()
       }else{
@@ -82,7 +53,6 @@ export class LeadsService {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any>|Promise<any>|any {
-    console.log(route)
     return new Promise((resolve,reject)=>{
       Promise.all([]).then((results)=>{
         resolve(results);
@@ -98,7 +68,8 @@ export class LeadsService {
     console.log(this.filters)
     
     this._webAPi.Post(this._webAPi.ApiURLArray.getLeads+this.pageNo.value+'&pageSize='+this.pageSize.value, this.filters).then(res=>{
-  
+
+      this.autoScrollToTop()
       if(Number(res?.totalCount)>0){
         this.leadLists.next(res)
       }else{
@@ -177,6 +148,9 @@ export class LeadsService {
     this.getLeadList()
   }
 
+  autoScrollToTop(){
+    document.getElementById('scrollTop')?.scrollTo(0,0)
+  }
 
   getLeadDetails(details){
     this.selectedLead.next ({header:{

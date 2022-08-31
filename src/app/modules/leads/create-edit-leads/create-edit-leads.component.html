@@ -158,10 +158,13 @@
                       </div>
                       <div class="field_container">
                           <p class="input_label">Secondary Email</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="secondary_email"  />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
+                          <span class="basis-2/4 flex  input_field {{checkValidation('secondary_email')?'error':''}}">
+                            <input  formControlName="secondary_email" class="basis-full" />
+                            <mat-icon class="text-red-500"
+                            [matTooltip]="checkValidation('secondary_email')?'Invalid Email format':''"
+                             svgIcon="{{checkValidation('secondary_email')?'feather:info':''}}"></mat-icon>
+                      </span>
+                         
                       </div>
                       <div class="field_container">
                           <p class="input_label">Twitter</p>
