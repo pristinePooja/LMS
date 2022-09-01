@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private _headerService: HeaderService) { }
   @Input() pageName: any
+  @Input() data?: any
   @Input() filterIcon: {type:string,active:boolean, icon:string,filterOptions?: Array<any>, url?:string, class?: string }
   @Output() filterViewToggle : EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() SaveChanges : EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -33,12 +34,12 @@ export class HeaderComponent implements OnInit {
      }else if(this.filterIcon.type=='filter'){
          this.filterIcon.icon='feather:filter'
      }
-     this.filterIcon.filterOptions = ['All','None', 'Some value 1', 'Some value 2']
+    //  this.filterIcon.filterOptions = ['All','None', 'Some value 1', 'Some value 2']
       this.selectedFilterOption = this.filterIcon.filterOptions[0]
 
       this._headerService.switchView.subscribe(res=>{
-        if(res)
-          this.toggleCreate(res,'view')
+        // if(res)
+          this.toggleCreate(res?.value,res?.type)
       })
     }
 
@@ -53,14 +54,22 @@ export class HeaderComponent implements OnInit {
     }
 
     previousLoaction() {
-     window.history.back()
+      if(this.filterIcon.url==''){
+        window.history.back()
+      }else if(this.filterIcon.url=='showList'){
+        let json = {bool:true,source:'list'}
+        this.ViewPage.emit(json)
+      }
     }
 
     toggleCreate(openView, source){
-      console.log(openView)
-      if(source == 'view'){
+      console.log(openView, source)
+      if(source == 'list' ){
       this.create= !this.create
+    }if(source=='edit' ){
+      this.create=openView
     }
+    console.log(this.create)
     let json = {bool:openView,source:source}
       this.ViewPage.emit(json)
     }

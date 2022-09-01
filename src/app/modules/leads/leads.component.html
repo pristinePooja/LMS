@@ -2,7 +2,8 @@
 
     <!-- Header -->
     <div class="flex flex-col flex-0 pb-16  bg-default dark:bg-transparent">
-        <app-header [filterIcon]="headerData"  (ViewPage)="switchView($event)" [pageName]="'Lead'" (filterViewToggle)="getTOggler($event)"></app-header>
+        <app-header [filterIcon]="headerData" [data]="selectedLead?.header"
+        (ViewPage)="switchView($event)" [pageName]="{name:'Lead', state:pageType}" (filterViewToggle)="getToggler($event)"></app-header>
     </div>
 
     <mat-drawer-container class="flex flex-col flex-auto -mt-16  shadow bg-card">
@@ -12,31 +13,34 @@
             class="w-60 dark:bg-gray-900"
             [autoFocus]="false"
             [mode]="'side'"
-            [opened]="filterOpen && view"
+            [opened]="(filterOpen && pageType=='list')|| (pageType=='view' && viewFilterOpen )"
             #matDrawer>
-            <app-leads-filter ></app-leads-filter>
+            <app-leads-filter [panel]="panelType" ></app-leads-filter>
             
         </mat-drawer>
 
         <!-- Drawer content -->
         <mat-drawer-content class="flex flex-col overflow-hidden">
             <!-- Main -->
-            <div
-                class="flex-auto  p-6 sm:p-1 pt-0 sm:pt-0 overflow-y-auto snap-y snap-proximity "
+            <div id="scrollTop"
+                class="flex-auto bg-slate-200  pt-0 sm:pt-0 overflow-y-auto snap-y snap-proximity "
                 cdkScrollable>
                 
-                <leads-list [DataArray]="paggedData" *ngIf="view"></leads-list>
+                <leads-list [DataArray]="paggedData" *ngIf="pageType=='list'"></leads-list>
                 <!-- CONTENT GOES HERE -->
-                <create-edit-leads *ngIf="!view"></create-edit-leads>
+                <create-edit-leads *ngIf="pageType=='create' || pageType== 'edit'" [data]="pageType=='edit'?[selectedLead.all]:[]"></create-edit-leads>
+
+                <lead-view  *ngIf=" pageType=='view'" [viewDetailsData]="selectedLead?.all"></lead-view>
 
             </div>
             <mat-paginator
-            *ngIf="view"
+            *ngIf="pageType=='list'"
             class="border-t-zinc-200 border-t-2 border-t-solid"
              [length]="totalCount"
              [pageSize]="pageSize"
+             [pageIndex]="pageNo"
              (page)="page($event)"
-             [pageSizeOptions]="[1,2,5,10,15,20]"
+             [pageSizeOptions]="[5,10,15,20]"
              #paginatorRef></mat-paginator>
 
         </mat-drawer-content>

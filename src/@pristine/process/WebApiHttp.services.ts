@@ -11,7 +11,7 @@ import {SignalR} from "./SignalR";
 export class WebApiHttp {
 
 
-  public globalurl: string = 'https://dev.pristinefulfil.com' ;
+  public globalurl: string = 'https://dev2.pristinefulfil.com' ;
   // public globalurl: string = data.url ;
 
   public ApiURLArray: any = {
