@@ -236,3 +236,746 @@
         </div>
 
 
+
+        <div>
+            <button mat-raised-button color="warn" (click)="openDialog(ref)">Open</button>
+        </div>
+        
+
+        <!-- Schedule a call -->
+
+        <ng-template #ref >
+            <div class="modal-header modal-header--sticky border">
+                <h1 style="font-size: x-large;">Schedule a call</h1>
+            </div>
+
+            <div class="container" style="overflow-y:auto">
+                <div class="p-3">
+                    <div>
+                        <h1 style="font-weight: bold;font-size:x-large">Call Information</h1>
+                    </div>
+                    <div class="p-2">
+                        <div class="container p-2 row input-group">
+                            <label class="col-sm-2 col-form-label" style="font-weight: 500;">Call To</label>
+                                <div class="input-group mb-3 col-md-9">
+                                    <select class="custom-select col-md-3" (click)="contact_disable($event)" >
+                                        <option  value="lead">Lead</option>
+                                        <option  value="contact">Contact</option>
+                                    </select>
+
+<!--                                    <input type="text" class="form-control col-md-3 bg-white" placeholder="select" [matMenuTriggerFor]="menu" value="{{check}}" readonly>-->
+<!--                                    <button mat-button [matMenuTriggerFor]="menu">Menu</button>-->
+<!--                                    <mat-menu #menu="matMenu">-->
+<!--                                        <span *ngFor="let e of callArray1" mat-menu-item >{{e.name+'-'+e.address}}</span>-->
+<!--                                        <span mat-menu-item value="lead" (click)="check='lead';disable=true">lead</span>-->
+<!--                                        <span mat-menu-item value="contact" (click)="check='contact';disable=false" >contact</span>-->
+<!--                                    </mat-menu>-->
+
+                                    <input type="text" class="form-control" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+<!--                                                <mat-icon svgIcon="heroicons_outline:search" style="cursor: pointer;" (click)="chooseLead(chooseLeadDialog)"></mat-icon>-->
+                                                <mat-icon svgIcon="heroicons_outline:search" style="cursor: pointer;" (click)="chooseLead(forboth)"></mat-icon>
+                                            </span>
+                                        </div>
+                                </div>
+                        </div>
+                        
+                        <div class="container p-2 row input-group">
+                            <label class="col-sm-2 col-form-label" style="font-weight: 500;">Related To</label>
+                                <div class="input-group mb-3 col-md-9 ">
+                                    <select class="custom-select col-md-3" [disabled]="disable">
+                                        <option value="Account">Account</option>
+                                        <option value="Deal" >Deal</option>
+                                        <option value="Product" >Product</option>
+                                    </select>
+                                    <input type="text" class="form-control" required [disabled]="disable">
+                                    <div class="input-group-append" style="cursor: pointer;">
+                                            <span class="input-group-text" >
+                                                <mat-icon [disabled]="disable" svgIcon="heroicons_outline:search" style="cursor: pointer;" (click)="chooseLead(ChooseAccountRelatedTo)" ></mat-icon>
+<!--                                           <mat-icon   (click)="chooseLead(ChooseAccountRelatedTo)">close</mat-icon>-->
+                                            </span>
+                                    </div>
+                                </div>
+                        </div>
+        
+                        <div class="container p-2 row input-group">
+                            <label class="col-sm-2 col-form-label" style="font-weight: 500;">Call Type</label>
+                                <div class="input-group  col-md-9">
+                                    <input type="text" class="form-control" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <mat-icon svgIcon="heroicons_outline:lock-closed"></mat-icon>
+                                            </span>
+                                        </div>
+                                </div>
+                        </div>
+        
+                        <div class="container p-2 row">
+                            <label class="col-sm-2 col-form-label" style="font-weight: 500;">Outgoing </label>
+                                <div class="input-group col-md-9">
+                                    <input type="text" class="form-control" >
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <mat-icon svgIcon="heroicons_outline:lock-closed"></mat-icon>
+                                            </span>
+                                        </div>
+                                </div>
+                        </div>
+        
+                        <div class="container p-2 row">
+                            <label class="col-sm-2 col-form-label" style="font-weight: 500;">Call Start Time</label>
+                           <div class="col-md-9">
+                            <input type="date" class="form-control" >
+                           </div>
+                        </div>
+        
+                        <div class="container p-2 row">
+                            <label class="col-sm-2 col-form-label" style="font-weight: 500;">Call Owner</label>
+                               <div class="col-md-9">
+                                   <div class="input-group ">
+                                       <select class="custom-select">
+                                           <option value="1">1</option>
+                                           <option value="2">2</option>
+                                       </select>
+
+                                       <div class="input-group-append mb-1">
+                                            <span class="input-group-text">
+<!--                                                <mat-icon svgIcon="heroicons_outline:search-circle" style="cursor:pointer;"></mat-icon>-->
+                                                <mat-icon svgIcon="heroicons_outline:search" style="cursor: pointer;" ></mat-icon>
+
+                                            </span>
+                                       </div>
+                                   </div>
+                               </div>
+                        </div>
+
+<!--                        <div class="row">-->
+<!--                            <label class="col-md-2" style="font-weight: 500">Call Owner</label>-->
+<!--                                <div class="input-group md-3 col-md-8">-->
+<!--                                    <select class="custom-select">-->
+<!--                                        <option>1</option>-->
+<!--                                        <option>2</option>-->
+<!--                                    </select>-->
+<!--                                    <span class="input-group-append">-->
+<!--                                        <span class="input-group-text">-->
+<!--                                           <mat-icon svgIcon="heroicons_outline:search-circle" style="cursor:pointer"></mat-icon>-->
+<!--                                        </span>-->
+<!--                                    </span>-->
+<!--                                </div>-->
+<!--                        </div>-->
+<!--        -->
+                        <div class="container p-2 row">
+                            <label class="col-sm-2 col-form-label" style="font-weight: 500;">Subject</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+        
+                        <div class="container p-2 row">
+                            <label class="col-sm-2 col-form-label" style="font-weight: 500;">Remainder</label>
+                            <div class="col-md-9">
+                                <select class="custom-select">
+                                    <option selected>None</option>
+                                    <option value="15 minutes before">15 minutes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br><br>
+        
+                        <div>
+                            <div>
+                                <h1 style="font-size: x-large;" style="font-weight: 500;">Purpose Of Outgoing Call</h1>
+                            </div>
+        
+                            <div>
+                                <div class="container p-3 row">
+                                    <label class="col-sm-2 col-form-label" style="font-weight: 500;">Call Purpose</label>
+                                        <div class="col-md-9">
+                                            <select class="custom-select">
+                                                <option value="Demo">Demo</option>
+                                                <option value="Project">Project</option>
+                                            </select>
+                                        </div>
+                                </div>
+            
+                                <div class="container p-2 row">
+                                    <label class="col-sm-2 col-form-label" style="font-weight: 500;">Call Agenda</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="modal-footer--sticky border">
+                           <div class="row align-self-end" style="float: right;gap: 3rem;">
+                                <div>
+                                    <button class="btn btn-info">Cancel</button>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary">Schedule</button>
+                                </div>  
+                           </div>     
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        </ng-template>
+
+<!--          for both-->
+
+          <ng-template #forboth>
+              <div *ngIf="check=='lead'">
+                  <div  style="width: 1000px;height:550px">
+                      <div class="container-fluid">
+                          <div class="col-md-12 row p-3" >
+                              <div class="col-md-11 ">
+                                  <h1 style="font-size:x-large;font-weight: bold;">Choose Lead</h1>
+                              </div>
+                              <div class="col-md-1  pl-14">
+                                  <mat-icon class="material-symbols-outlined">
+                                      close
+                                  </mat-icon>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="container">
+                          <div class="p-2 row justify-content-between" >
+                              <div class="col-md-5">
+                                  <!-- <input type="text" class="form-control" placeholder="Search By Lead Name"> -->
+                                  <form>
+                                      <div class="relative">
+                                          <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                              <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                          </div>
+                                          <input type="search" id="search" class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search">
+                                      </div>
+                                  </form>
+                              </div>
+                              <div class="col-md-2" >
+                                  <button class="btn btn-outline-primary" (click)="chooseLead(AddNewLead)">+ &nbsp;New Lead</button>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="container">
+                          <table class="table">
+                              <thead>
+                              <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">First</th>
+                                  <th scope="col">Last</th>
+                                  <th scope="col">Handle</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                  <th scope="row">1</th>
+                                  <td>Mark</td>
+                                  <td>Otto</td>
+                                  <td>@mdo</td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">2</th>
+                                  <td>Jacob</td>
+                                  <td>Thornton</td>
+                                  <td>@fat</td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">3</th>
+                                  <td colspan="2">Larry the Bird</td>
+                                  <td>@twitter</td>
+                              </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+              <div *ngIf="check=='contact'">
+                  <div  style="width: 1000px;height:550px">
+                      <div class="container-fluid">
+                          <div class="col-md-12 row p-3" >
+                              <div class="col-md-11 ">
+                                  <h1 style="font-size:x-large;font-weight: bold;">Choose Contact</h1>
+                              </div>
+                              <div class="col-md-1  pl-14">
+                                  <mat-icon class="material-symbols-outlined">
+                                      close
+                                  </mat-icon>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="container">
+                          <div class="p-2 row justify-content-between" >
+                              <div class="col-md-5">
+                                  <!-- <input type="text" class="form-control" placeholder="Search By Lead Name"> -->
+                                  <form>
+                                      <div class="relative">
+                                          <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                              <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                          </div>
+                                          <input type="search"  id="search" class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search By Contact Name">
+                                      </div>
+                                  </form>
+                              </div>
+                              <div class="col-md-3">
+                                  <button class="btn btn-outline-primary" (click)="chooseLead(AddNewContact)">+ &nbsp;New Contact</button>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="container">
+                          <table class="table">
+                              <thead>
+                              <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">First</th>
+                                  <th scope="col">Last</th>
+                                  <th scope="col">Handle</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                  <th scope="row">1</th>
+                                  <td>Mark</td>
+                                  <td>Otto</td>
+                                  <td>@mdo</td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">2</th>
+                                  <td>Jacob</td>
+                                  <td>Thornton</td>
+                                  <td>@fat</td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">3</th>
+                                  <td colspan="2">Larry the Bird</td>
+                                  <td>@twitter</td>
+                              </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+
+              </div>
+          </ng-template>
+
+
+        <!-- Add New Lead -->
+
+        <ng-template #AddNewLead>
+            <div style="width: 530px;height:500px">
+                <div class="container">
+                    <div class="p-3 row justify-content-between">
+                        <div>
+                            <h1 style="font-weight:bold;font-size:x-large">Quick Create: Lead</h1>
+                        </div>
+                        <div>
+                            <mat-icon class="material-symbols-outlined">
+                                close
+                            </mat-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="p-3">
+                        <div class="container">
+                            <div class="row p-2" style="gap: 1rem;" >
+                                <div>
+                                    <label style="font-size: large;">Company &nbsp;</label>
+                                </div>
+                                <div class="w-75">
+                                    <input class="form-control " type="text">
+                                </div>
+                            </div>
+                          </div>
+                          
+                          <div class="container">
+                            <div class="p-2 row" style="gap: 1rem;">
+                                    <div>
+                                        <label style="font-size: large;">First Name </label>
+                                    </div>
+                                        <div class="input-group w-75">
+                                            <select class="custom-select col-md-3">
+                                                <option selected>-None-</option>
+                                                <option value="Mr.">Mr.</option>
+                                                <option value="Mrs.">Mrs.</option>
+                                                <option value="Ms.">Ms.</option>
+                                                <option value="Dr.">Dr.</option>
+                                                <option value="Prof.">Prof.</option>
+                                            </select>                                                                       
+                                                <input type="text" class="form-control">                                                    
+                                        </div>
+                                </div>
+                            </div>
+                        
+                            <div class="container">
+                                <div class="row p-2" style="gap: 1rem;" >
+                                    <div>
+                                        <label style="font-size: large;">Last Name </label>
+                                    </div>
+                                    <div class="w-75">
+                                        <input class="form-control " type="text">
+                                    </div>
+                                </div>
+                              </div>
+        
+                              <div class="container">
+                                <div class="row p-2" style="gap: 1rem;" >
+                                    <div>
+                                        <label style="font-size: large;">Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    </div>
+                                    <div class="w-75">
+                                        <input class="form-control " type="email">
+                                    </div>
+                                </div>
+                              </div>
+        
+                              <div class="container">
+                                <div class="row p-2" style="gap: 1rem;" >
+                                    <div>
+                                        <label style="font-size: large;">Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    </div>
+                                    <div class="w-75">
+                                        <input class="form-control " type="number">
+                                    </div>
+                                </div>
+                              </div>
+        
+                    </div>
+                </div>
+                    <br>
+                      <div class="container">
+                        <div class="row p-3 justify-content-end" >
+                            <div>
+                                <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancel</button>
+                            </div>&nbsp;&nbsp;
+                            <div>
+                                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save And Associate</button>
+                            </div>&nbsp;&nbsp;
+                            <div>
+                            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save</button>
+                            </div>
+                          </div>
+    
+                      </div>
+            </div>
+        </ng-template>
+
+<!--          Add New Contact-->
+
+        <ng-template #AddNewContact>
+            <div style="width: 550px;height:500px">
+                <div class="container">
+                    <div class="p-3 row justify-content-between">
+                        <div>
+                            <h1 style="font-weight:bold;font-size:x-large">Quick Create: Contact</h1>
+                        </div>
+                        <div>
+                            <mat-icon class="material-symbols-outlined">
+                                close
+                            </mat-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="p-3">
+                                <div>
+                                    <div class="row p-1">
+                                        <div class="col-md-4 ">
+                                            <label style="font-size: large;">First Name</label>
+                                        </div>
+                                        <div class="col-md-8  input-group">
+                                            <select class="custom-select col-sm-3 ">
+                                                <option value="Mr.">Mr.</option>
+                                                <option value="Mrs.">Mrs.</option>
+                                                <option value="Ms.">Ms.</option>
+                                                <option value="Dr.">Dr.</option>
+                                            </select>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+    
+                                    <div class="row p-1">
+                                        <div class="col-md-4">
+                                            <label style="font-size: large;">Last Name</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row p-1">
+                                    <div class="col-md-4">
+                                        <label style="font-size: large;">Account Name</label>
+                                    </div>
+                                    <div class="input-group col-md-8">
+                                        <input type="text" class="form-control">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <mat-icon svgIcon="heroicons_outline:search" style="cursor: pointer;" (click)="chooseLead(ChooseAccount)"></mat-icon>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row p-1">
+                                    <div class="col-md-4">
+                                        <label style="font-size:large">Email</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="email" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row p-1">
+                                    <div class="col-md-4">
+                                        <label style="font-size:large">Phone</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="number" class="form-control">
+                                    </div>
+
+                                </div>
+        
+                    </div>
+                </div>
+                    <br>
+                      <div class="container">
+                        <div class="row p-3 justify-content-end" >
+                            <div>
+                                <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancel</button>
+                            </div>&nbsp;&nbsp;
+                            <div>
+                                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save And Associate</button>
+                            </div>&nbsp;&nbsp;
+                            <div>
+                            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save</button>
+                            </div>
+                          </div>
+    
+                      </div>
+            </div>
+        </ng-template>
+
+<!-- Choose Account-->
+
+          <ng-template #ChooseAccount>
+              <div  style="width: 1000px;height:550px">
+                  <div class="container-fluid">
+                      <div class="col-md-12 row p-3" >
+                          <div class="col-md-11 ">
+                              <h1 style="font-size:x-large;font-weight: bold;">Choose Account</h1>
+                          </div>
+                          <div class="col-md-1  pl-14">
+                              <mat-icon class="material-symbols-outlined">
+                                  close
+                              </mat-icon>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="container">
+                      <div class="p-2 row justify-content-between" >
+                          <div class="col-md-5">
+                              <!-- <input type="text" class="form-control" placeholder="Search By Lead Name"> -->
+                              <form>
+                                  <div class="relative">
+                                      <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                          <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                      </div>
+                                      <input type="search"  id="search" class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Account">
+                                  </div>
+                              </form>
+                          </div>
+
+                      </div>
+                  </div>
+
+                  <div class="container">
+                      <table class="table">
+                          <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">First</th>
+                              <th scope="col">Last</th>
+                              <th scope="col">Handle</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                              <th scope="row">1</th>
+                              <td>Mark</td>
+                              <td>Otto</td>
+                              <td>@mdo</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">2</th>
+                              <td>Jacob</td>
+                              <td>Thornton</td>
+                              <td>@fat</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">3</th>
+                              <td colspan="2">Larry the Bird</td>
+                              <td>@twitter</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+
+          </ng-template>
+
+<!-- Choose Account Related to-->
+
+          <ng-template #ChooseAccountRelatedTo>
+              <div  style="width: 1000px;height:550px">
+                  <div class="container-fluid">
+                      <div class="col-md-12 row p-3" >
+                          <div class="col-md-11 ">
+                              <h1 style="font-size:x-large;font-weight: bold;">Choose Account</h1>
+                          </div>
+                          <div class="col-md-1  pl-14">
+                              <mat-icon class="material-symbols-outlined">
+                                  close
+                              </mat-icon>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="container">
+                      <div class="p-2 row justify-content-between" >
+                          <div class="col-md-5">
+                              <!-- <input type="text" class="form-control" placeholder="Search By Lead Name"> -->
+                              <form>
+                                  <div class="relative">
+                                      <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                          <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                      </div>
+                                      <input type="search" id="search" class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search">
+                                  </div>
+                              </form>
+                          </div>
+                          <div class="col-md-2" >
+                              <button class="btn btn-outline-primary" (click)="chooseLead(AddNewAccount)">+ &nbsp;New Account</button>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="container">
+                      <table class="table">
+                          <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">First</th>
+                              <th scope="col">Last</th>
+                              <th scope="col">Handle</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                              <th scope="row">1</th>
+                              <td>Mark</td>
+                              <td>Otto</td>
+                              <td>@mdo</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">2</th>
+                              <td>Jacob</td>
+                              <td>Thornton</td>
+                              <td>@fat</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">3</th>
+                              <td colspan="2">Larry the Bird</td>
+                              <td>@twitter</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+
+          </ng-template>
+
+<!-- Add New Acccount-->
+
+
+          <ng-template #AddNewAccount>
+              <div style="width: 530px;height:500px">
+                  <div class="container">
+                      <div class="p-3 row justify-content-between">
+                          <div>
+                              <h1 style="font-weight:bold;font-size:x-large">Quick Create: Account</h1>
+                          </div>
+                          <div>
+                              <mat-icon class="material-symbols-outlined">
+                                  close
+                              </mat-icon>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="container-fluid">
+                      <div class="p-3">
+                          <div class="container">
+                              <div class="row p-2" style="gap: 1rem;" >
+                                  <div>
+                                      <label style="font-size: large;">Account Name&nbsp;</label>
+                                  </div>
+                                  <div class="w-75">
+                                      <input class="form-control " type="text">
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="container">
+                              <div class="row p-2" style="gap: 1rem;" >
+                                  <div>
+                                      <label style="font-size: large;">Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                  </div>
+                                  <div class="w-75">
+                                      <input class="form-control " type="number">
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="container">
+                              <div class="row p-2" style="gap: 1rem;" >
+                                  <div>
+                                      <label style="font-size: large;">Website &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                  </div>
+                                  <div class="w-75">
+                                      <input class="form-control " type="text">
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+                  <br>
+                  <div class="container">
+                      <div class="row p-3 justify-content-end" >
+                          <div>
+                              <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancel</button>
+                          </div>&nbsp;&nbsp;
+                          <div>
+                              <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save And Associate</button>
+                          </div>&nbsp;&nbsp;
+                          <div>
+                              <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save</button>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          </ng-template>

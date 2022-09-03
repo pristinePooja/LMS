@@ -3,11 +3,11 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { LeadsComponent } from './leads.component';
 import { MatSidenavModule} from "@angular/material/sidenav";
 import {SharedModule} from "../../shared/shared.module";
-import {MatButtonModule} from "@angular/material/button";
-import {HeaderModule} from "../../../@pristine/components/header/header.module";
-import {PristineDrawerModule} from "../../../@pristine/components/drawer";
-import {LeadsFilterComponent} from "./leads-filter/leads-filter.component";
-import {LeadsListComponent} from "./leads-list/leads-list.component";
+import {MatButtonModule} from '@angular/material/button';
+import {HeaderModule} from '../../../@pristine/components/header/header.module';
+import {PristineDrawerModule} from '../../../@pristine/components/drawer';
+import {LeadsFilterComponent} from './leads-filter/leads-filter.component';
+import {LeadsListComponent} from './leads-list/leads-list.component';
 import { CreateEditLeadsComponent } from './create-edit-leads/create-edit-leads.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,6 +21,8 @@ import { HeaderComponent } from '@pristine/components/header/header.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LeadViewComponent } from './lead-view/lead-view.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { CallComponent } from './lead_component/call/call.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const route: Routes =[{
   path:'lead_list',
@@ -45,6 +47,7 @@ const route: Routes =[{
       LeadsListComponent,
       CreateEditLeadsComponent,
       LeadViewComponent,
+      CallComponent,
   ],
     imports: [
         CommonModule,
@@ -60,6 +63,7 @@ const route: Routes =[{
         MatCheckboxModule,
         NgxSpinnerModule,
         MatMenuModule,
+        MatDialogModule,
         RouterModule.forChild(route)
     ], providers:[LeadsService, DatePipe]
 })
