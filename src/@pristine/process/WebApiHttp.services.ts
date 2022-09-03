@@ -25,8 +25,14 @@ export class WebApiHttp {
     notificationData: '/api/User/NotificationListData',
 
     LoginWindowsByToken: '/api/User/LoginWindowsByToken',
+
+    // Leads
     createLead: '/api/Lead/LeadInsert',
-    getLeads: '/api/Lead/LeadListData?page='
+    getLeads: '/api/Lead/LeadListData?page=',
+
+    // Notes
+    insertUpdateNote: '/api/Lead/NoteInsertUpdate',
+    getLeadNotes:'/api/Lead/NoteGet?lead_code=',
   };
 
 

@@ -153,10 +153,42 @@ export class LeadsService {
   }
 
   getLeadDetails(details){
-    this.selectedLead.next ({header:{
-      user_name: details?.first_name +' '+ details?.last_name,
-      company: details?.company
-    }, all:details})
+    this.loading.next(true)
+    let json={sorting_column: "lead_code", lead_code : " = '"+ details.lead_code+"'"} 
+    
+    this._webAPi.Post(this._webAPi.ApiURLArray.getLeads+'0'+'&pageSize='+'1', json).then(res=>{
+      console.log(res)
+      if(Number(res?.totalCount)>0){
+        this.selectedLead.next ({header:{
+          user_name: res?.items[0]?.first_name +' '+ res?.items[0]?.last_name,
+          company: res?.items[0]?.company
+        }, all:res?.items[0]})
+      }else{
+        if(res?.length>0 && res[0]?.hasOwnProperty('condition')  && res[0]?.condition.toLowerCase() =='false'){
+          console.log('error')
+          this.toaster.next({type:'error', message:res[0]?.message})
+        }
+     
+      }
+      console.log(res,res?.length , res[0]?.hasOwnProperty('condition')  , res[0]?.condition.toLowerCase() =='false')
+    },err=>{console.log(err)}).catch(err=>{
+      console.log(err)
+    }).finally(()=>{
+      this.loading.next(false)
+    })
+    
+  }
+
+  async getLeadNotes(lead_code, flag): Promise<any>{
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getLeadNotes+lead_code+'&flag='+flag)
+  }
+
+  async insertNotes(json: FormData): Promise<any|string>{
+
+    console.log(json)
+    json.forEach((e,k)=>console.log(k +':' +e))
+    return await this._webAPi.PostFormData(this._webAPi.ApiURLArray.insertUpdateNote,json)
+
   }
 
 }

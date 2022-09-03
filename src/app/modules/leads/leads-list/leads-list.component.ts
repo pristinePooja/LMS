@@ -36,6 +36,7 @@ export class LeadsListComponent implements OnInit {
   }
 
   viewDetails(ele){
+    console.log(ele)
     this._leadService.getLeadDetails(ele)
     this._leadService.pageType.next('view')
   }

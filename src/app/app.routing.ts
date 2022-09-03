@@ -25,7 +25,7 @@ export const appRoutes: Route[] = [
     },
 
     {
-        path:'lead',
+        path:'crm',
         // canActivate: [AuthGuard],
         // component: LeadsComponent
         children: [

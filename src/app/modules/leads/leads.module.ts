@@ -21,6 +21,7 @@ import { HeaderComponent } from '@pristine/components/header/header.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LeadViewComponent } from './lead-view/lead-view.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { FileUploaderComponent } from './componets/file-uploader/file-uploader.component';
 
 const route: Routes =[{
   path:'lead_list',
@@ -45,6 +46,7 @@ const route: Routes =[{
       LeadsListComponent,
       CreateEditLeadsComponent,
       LeadViewComponent,
+      FileUploaderComponent,
   ],
     imports: [
         CommonModule,
