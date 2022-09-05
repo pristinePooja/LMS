@@ -348,16 +348,37 @@
         </div>
 
         <!-- Attachments -->
-        <div class="basis-2/3 card p-0 " id="attachments">
-            <div class="font-bold px-5 py-3 border-b cursor-default flex items-center justify-between">
+        <div class="basis-2/3 card p-0 pb-2" id="attachments">
+            <div class="font-bold px-5 mb-4 py-3 border-b cursor-default flex items-center justify-between">
                 <span class="text-xl ">Attachments</span>
                 <div class="border-sky-600 bg-sky-100 hover:bg-sky-200 border p-1 px-3 rounded-lg flex justify-center items-center" [matMenuTriggerFor]="documentTypeMenu">
                     <mat-icon class="icon-size-4 text-sky-600" svgIcon="mat_solid:add"></mat-icon>
                     <span class="text-sm text-sky-600">Attach</span>
                 </div>
             </div>
+            <div class="flex justify-between items-center p-2 mx-7 rounded-xl text-sm hover:bg-hover" *ngFor="let att of AttachmentList">
+                <a [href]="getUrl(att?.attachment_url)">
+                    <div class=" space-x-2 flex justify-center"><mat-icon class="icon-size-4" [svgIcon]="att?.attachment_type.toLowerCase()=='file'?splitText(att?.attachment_url,'icon'):'heroicons_outline:link'"></mat-icon>
+                        <span class="text-sky-600">{{att?.attachment_title}}</span>
+                    </div>
+                </a>
+                <div class="space-x-2 flex">
+                    <a [href]="getUrl(att?.attachment_url)">
+                        <span class="rounded-full flex justify-center items-center hover:border h-5 w-5 
+                            min-h-5 min-w-5 max-h-5 max-w-5 hover:border-green-600">
+                                <mat-icon class=" hover:text-green-600 icon-size-4" svgIcon="heroicons_outline:download">
+                                </mat-icon>
+                            </span>
+                        </a>
+                            <span class="rounded-full flex justify-center items-center hover:border h-5 w-5 
+                            min-h-5 min-w-5 max-h-5 max-w-5 hover:border-red-600" (click)="deleteAttachment(att)">
+                                <mat-icon class=" hover:text-red-600 icon-size-4" svgIcon="delete">
+                                </mat-icon>
+                            </span>
+                </div>
+            </div>
             
-            <div class="p-4  mt-0 border-y text-center text-gray-500 text-md">
+            <div *ngIf="AttachmentList.length<1" class="p-4  mt-0 border-y text-center text-gray-500 text-md">
                 No Attachment
             </div>
         </div>
@@ -449,12 +470,39 @@
 
 <mat-menu #documentTypeMenu>
     <button (click)="openPopUp('file')" mat-menu-item>Upload File</button>
-    <button (click)="openPopUp('link')" mat-menu-item>Attach Link</button>
+    <button (click)="openPopUp('URL')" mat-menu-item>Attach URL</button>
 </mat-menu>
 
-<ng-template  #addAttachmentRef>
-    <ng-container *ngIf="attachmentType=='file'">
-a
-    </ng-container>
+<ng-template  #addAttachmentRef @slideInTop>
+    <div class="mt-2 flex-col">
+        <ng-container *ngIf="attachmentType=='file'">
+            
+            <div class="font-semibold text-2xl mb-2">Attach File</div>
+            <div *ngIf="!files?.length" class="flex-col" appDrag (files)="filesDropped($event)" (click)="addAttachment('attachment')">
+                <div class="flex justify-center text-lg  items-center h-30 w-full bg-accent-50 hover:bg-accent-100 text-hint rounded-2xl overflow-hidden
+                border-dashed border-2 border-accent-200">
+                    <div class="">Click here or drop files here to attach.</div>
+                </div>
+            </div>
+            <div class="p-2 mt-6 mb-3 max-h-50  overflow-auto" *ngIf="attachmentsUploadList?.length>0">
+                <div class="flex justify-between w-full items-center pb-2 px-3 text-sm" *ngFor="let ele of attachmentsUploadList; let i = index">        
+                    <div class="flex">
+                        <div class="flex space-x-2"><mat-icon class="icon-size-4" [svgIcon]="splitText(ele.name,'icon')"></mat-icon>
+                        </div>
+                        <span class="text-sky-600">{{ele.name}}</span> ({{bytesToSize(ele.size)}})
+                    </div>
+                    <mat-icon svgIcon="clear" class="icon-size-4 hover:text-sky-500" (click)="removeFile('attachment',i)"></mat-icon>
+                </div>
+            </div>
+            
+        </ng-container>
+        <ng-container *ngIf="attachmentType=='URL'">
 
+        </ng-container>
+        <div class="flex justify-end space-x-2 mt-3">
+            <button matripple class="mat-focus-indicator mat-raised-button mat-button-base bg-inherit border-2 border-primary-500 border-solid" mat-dialog-close>Cancel</button>
+            <button matripple class="mat-focus-indicator mat-raised-button mat-button-base mat-primary disabled:bg-accent-200 disabled:text-primary disabled:shadow-none disabled:pointer-events-none"
+                [disabled]="(attachmentType=='file' && attachmentsUploadList.length<1) || (attachemntType=='URL' && attachmnetLink=='')" [mat-dialog-close]="'save'">Attach</button>
+        </div>
+    </div>
 </ng-template>

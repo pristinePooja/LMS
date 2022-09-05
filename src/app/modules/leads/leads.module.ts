@@ -22,6 +22,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LeadViewComponent } from './lead-view/lead-view.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { FileUploaderComponent } from './componets/file-uploader/file-uploader.component';
+import { DragDirective } from '@pristine/directives/dragDrop.directive';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const route: Routes =[{
   path:'lead_list',
@@ -47,6 +49,7 @@ const route: Routes =[{
       CreateEditLeadsComponent,
       LeadViewComponent,
       FileUploaderComponent,
+      DragDirective
   ],
     imports: [
         CommonModule,
@@ -62,6 +65,7 @@ const route: Routes =[{
         MatCheckboxModule,
         NgxSpinnerModule,
         MatMenuModule,
+        MatDialogModule,
         RouterModule.forChild(route)
     ], providers:[LeadsService, DatePipe]
 })

@@ -191,4 +191,18 @@ export class LeadsService {
 
   }
 
+  async UploadAttachment(json: FormData): Promise<any|string>{
+    console.log(json)
+    json.forEach((e,k)=>console.log(k +':' +e))
+    return await this._webAPi.PostFormData(this._webAPi.ApiURLArray.insertAttachmnet,json)
+  }
+
+  async getAttachment(lead_code): Promise<any|string>{
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getLeadAttachment+lead_code)
+  }
+
+  async deleteAttachment(json){
+    return await this._webAPi.Post(this._webAPi.ApiURLArray.deleteLeadAttachment, json)
+  }
+
 }

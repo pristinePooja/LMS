@@ -33,6 +33,12 @@ export class WebApiHttp {
     // Notes
     insertUpdateNote: '/api/Lead/NoteInsertUpdate',
     getLeadNotes:'/api/Lead/NoteGet?lead_code=',
+    deleteLeadNote: '/api/Lead/NoteDelete',
+
+    // Attachment
+    insertAttachmnet:'/api/Lead/AttachmentMstInsert',
+    getLeadAttachment:'/api/Lead/AttachmentMstGet?lead_code=',
+    deleteLeadAttachment: '/api/Lead/AttachmentMstDelete'
   };
 
 
