@@ -356,13 +356,29 @@
                     <span class="text-sm text-sky-600">Attach</span>
                 </div>
             </div>
-            <div class="flex justify-between items-center p-2 mx-7 rounded-xl text-sm hover:bg-hover" *ngFor="let att of AttachmentList">
-                <a [href]="getUrl(att?.attachment_url)">
-                    <div class=" space-x-2 flex justify-center"><mat-icon class="icon-size-4" [svgIcon]="att?.attachment_type.toLowerCase()=='file'?splitText(att?.attachment_url,'icon'):'heroicons_outline:link'"></mat-icon>
-                        <span class="text-sky-600">{{att?.attachment_title}}</span>
-                    </div>
-                </a>
-                <div class="space-x-2 flex">
+            <div class="flex justify-between items-center p-2 mx-7 rounded-xl font-semibold text-md">
+                <div class="basis-5/12">File Name</div>
+                <div class="basis-3/12">Attached By</div>
+                <div class="basis-3/12">Attached On</div>
+                <div class="basis-1/12">Actions</div>
+            </div>
+            <div class="flex justify-between items-center p-2 mx-7 rounded-xl text-sm hover:bg-hover " *ngFor="let att of AttachmentList">
+                <div class="  mr-2 flex basis-5/12">
+                    <a [href]="getUrl(att?.attachment_url)" class="space-x-2 basis-4/5 flex grow-0 justify-start"  >
+                        <mat-icon class="icon-size-4" [svgIcon]="att?.attachment_type.toLowerCase()=='file'?splitText(att?.attachment_url,'icon'):'heroicons_outline:link'"></mat-icon>
+                        <span class="text-sky-600 max-w-50 truncate  text-ellipsis">{{att?.attachment_title}}</span>
+                    </a>
+                </div>
+                
+                <div class="w-25 text-ellipsis overflow-hidden basis-3/12">
+                    {{att?.created_by}}
+                </div>
+
+                <div class="w-25 text-ellipsis overflow-hidden basis-3/12">
+                    {{att?.created_on | date:"MMM dd, yyyy hh:mm a"}}
+                </div>
+<!--  w-13 max-w-13 -->
+                <div class="space-x-2 flex basis-1/12">
                     <a [href]="getUrl(att?.attachment_url)">
                         <span class="rounded-full flex justify-center items-center hover:border h-5 w-5 
                             min-h-5 min-w-5 max-h-5 max-w-5 hover:border-green-600">
@@ -475,9 +491,9 @@
 
 <ng-template  #addAttachmentRef @slideInTop>
     <div class="mt-2 flex-col">
+        <div class="font-semibold text-2xl mb-2">Attach {{attachmentType | titlecase}}</div>
+
         <ng-container *ngIf="attachmentType=='file'">
-            
-            <div class="font-semibold text-2xl mb-2">Attach File</div>
             <div *ngIf="!files?.length" class="flex-col" appDrag (files)="filesDropped($event)" (click)="addAttachment('attachment')">
                 <div class="flex justify-center text-lg  items-center h-30 w-full bg-accent-50 hover:bg-accent-100 text-hint rounded-2xl overflow-hidden
                 border-dashed border-2 border-accent-200">
@@ -494,15 +510,37 @@
                     <mat-icon svgIcon="clear" class="icon-size-4 hover:text-sky-500" (click)="removeFile('attachment',i)"></mat-icon>
                 </div>
             </div>
-            
         </ng-container>
-        <ng-container *ngIf="attachmentType=='URL'">
 
+        <ng-container *ngIf="attachmentType=='URL'">
+            <div class="flex flex-col space-y-2">
+                <div class="field_container justify-start">
+                    <p class="input_label basis-1/5">Link Title</p>
+                    <span class="basis-4/5 flex required  input_field {{validAttachmentLink && attachmnetLink?.attachment_title ==''?'error':''}}">
+                      <input  [(ngModel)]="attachmnetLink.attachment_title" class="basis-full"/>
+                      <mat-icon class="text-red-500"
+                      [matTooltip]="validAttachmentLink && attachmnetLink?.attachment_title==''?'Invalid Link Name':''"
+                       svgIcon="{{validAttachmentLink && attachmnetLink?.attachment_title ==''?'feather:info':''}}"></mat-icon>
+                </span>
+                </div>
+               
+                <div class="field_container justify-start">
+                    <p class="input_label basis-1/5">Enter URL</p>
+                    <span class="basis-4/5 flex required  input_field {{validAttachmentLink && attachmnetLink?.attachment_url ==''?'error':''}}">
+                      <input  [(ngModel)]="attachmnetLink.attachment_url" class="basis-full"/>
+                      <mat-icon class="text-red-500"
+                      [matTooltip]="validAttachmentLink && attachmnetLink?.attachment_url==''?'Invalid URL':''"
+                       svgIcon="{{validAttachmentLink && attachmnetLink?.attachment_url ==''?'feather:info':''}}"></mat-icon>
+                </span>
+                </div>
+               
+            </div>
         </ng-container>
+
         <div class="flex justify-end space-x-2 mt-3">
             <button matripple class="mat-focus-indicator mat-raised-button mat-button-base bg-inherit border-2 border-primary-500 border-solid" mat-dialog-close>Cancel</button>
             <button matripple class="mat-focus-indicator mat-raised-button mat-button-base mat-primary disabled:bg-accent-200 disabled:text-primary disabled:shadow-none disabled:pointer-events-none"
-                [disabled]="(attachmentType=='file' && attachmentsUploadList.length<1) || (attachemntType=='URL' && attachmnetLink=='')" [mat-dialog-close]="'save'">Attach</button>
+                [disabled]="(attachmentType=='file' && attachmentsUploadList.length<1) || (attachmentType=='URL' && (attachmnetLink?.attachment_url=='' || attachmnetLink?.attachment_title==''))" [mat-dialog-close]="'save'">Attach</button>
         </div>
     </div>
 </ng-template>

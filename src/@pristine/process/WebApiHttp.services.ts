@@ -38,7 +38,15 @@ export class WebApiHttp {
     // Attachment
     insertAttachmnet:'/api/Lead/AttachmentMstInsert',
     getLeadAttachment:'/api/Lead/AttachmentMstGet?lead_code=',
-    deleteLeadAttachment: '/api/Lead/AttachmentMstDelete'
+    deleteLeadAttachment: '/api/Lead/AttachmentMstDelete',
+
+    // Masters
+    getCountryMst:'/api/Masters/CountryMstGet',
+    getStateMst: '/api/Masters/StateMstGet?country_code=',
+    getCityMst:'/api/Masters/CityMstGet?state_code=',
+    getIndustryMst:'/api/Masters/IndustryMstGet',
+    getLeadStatusMst:'/api/Masters/LeadStatusMstGet',
+    getRatingMst:'/api/Masters/RatingMstGet',
   };
 
 

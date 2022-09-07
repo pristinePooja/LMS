@@ -20,8 +20,18 @@ export class LeadsService {
   selectedLead: BehaviorSubject<any> = new BehaviorSubject<any>({})
   toaster: BehaviorSubject<{type:string,message: string}> =  new BehaviorSubject<{type:string,message: string}>({type:'',message: ''})
   filters: any={}
-  viewFilterOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  viewFilterOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
   pageType: BehaviorSubject<'list'|'create'|'view'|'edit'> = new BehaviorSubject<'list'|'create'|'view'|'edit'> ('list')
+  viewCount :BehaviorSubject<Array<{name:string,keys:string,count:number|string, options:Array<{name:string, key:string}>}>> = new BehaviorSubject([
+    { name : 'notes', keys:'notes', count:0, options:[]},
+    { name : 'attachments',  keys:'attachments', count:0, options:[{name:'Attach File', key:'file'},{name:'Attach Url', key:'URL'}]},
+    { name : 'products', keys:'products', count:5, options:[]},
+    { name : 'Open Activities', keys:'open_activities', count:0, options:[{name:'Meetings', key:'Meeting'},{name:'Schedule Call', key:'schedule_call'}, {name:'Log Call', key:'log_call'}]},
+    { name : 'Closed Activities', keys:'closed_activities', count:0, options:[]},
+    { name : 'Invited Meetings', keys:'invited_meetings', count:0, options:[]},
+    { name : 'Emails', keys:'emails', count:0, options:[]},
+]) 
+
   constructor(private _session: SessionManagement, 
               private _webAPi: WebApiHttp,
               private _header: HeaderService
@@ -200,9 +210,32 @@ export class LeadsService {
   async getAttachment(lead_code): Promise<any|string>{
     return await this._webAPi.Get(this._webAPi.ApiURLArray.getLeadAttachment+lead_code)
   }
-
+  
   async deleteAttachment(json){
     return await this._webAPi.Post(this._webAPi.ApiURLArray.deleteLeadAttachment, json)
   }
 
+  async getCountry(){
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getCountryMst)
+  }
+
+  async getCity(state_code){
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getCityMst+state_code)
+  }
+
+  
+  async getState(country_code){
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getStateMst + country_code)
+  }
+
+
+  viewFilterCountUpdate(key,value){
+    let temp_json = this.viewCount.value
+    temp_json.map(ele=>{
+      if(ele.keys ==key){
+        ele.count = value
+      }
+    })
+
+  }
 }

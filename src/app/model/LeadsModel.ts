@@ -27,5 +27,7 @@ export interface leadListModel{
   country:string,
   description:string,
   created_by:string,
-  lead_code?: string
+  lead_code?: string,
+  campaign_code?: string,
+  campaign_name?: string,
 }

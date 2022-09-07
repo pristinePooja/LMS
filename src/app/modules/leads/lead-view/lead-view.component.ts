@@ -47,8 +47,9 @@ export class LeadViewComponent implements OnInit {
   attachmentType:'file'|'URL'|''=''
   attachmentsUploadList: Array<any>=[]
   attachmentDialog: any
-  attachmnetLink: string=''
+  attachmnetLink: {attachment_url:string,attachment_title:string}={attachment_url:'',attachment_title:''}
   AttachmentList: Array<any>=[]
+  validAttachmentLink
   constructor(private _leadService: LeadsService,
               private _session: SessionManagement,
               private sanatize: DomSanitizer,
@@ -69,6 +70,7 @@ export class LeadViewComponent implements OnInit {
       this.timeFrameArrayGenerator()}
     })
   }
+  
   openSidePanel(){
     this._leadService.viewFilterOpen.next(true)
   }
@@ -99,6 +101,7 @@ export class LeadViewComponent implements OnInit {
 
   openPopUp(type){
     this.attachmentType = type
+    console.log(this.attachmentType)
     this.attachmentDialog = this._dialog.open(this.addAttachmentRef,{
       maxWidth:'680px',
       width:'680px',
@@ -108,11 +111,12 @@ export class LeadViewComponent implements OnInit {
     }
       ).afterClosed().subscribe(ele=>{
         if(ele=='save'){
+         
           this.UploadAttachments(this.attachmentType, this.attachmnetLink, this.attachmentsUploadList)
         }
         this.attachmentsUploadList =[]
         this.attachmentType =''
-        this.attachmnetLink=''
+        this.attachmnetLink={attachment_url:'',attachment_title:''}
       })
   }
 
@@ -139,8 +143,10 @@ export class LeadViewComponent implements OnInit {
         console.log(res)
         if(res.length>0 && res[0]?.condition?.toString()?.toLowerCase() =='true'){
           this.noteList = res
+          this._leadService.viewFilterCountUpdate('notes', this.noteList?.length)
         }else{
           this.noteList =[]
+          this._leadService.viewFilterCountUpdate('notes', 0)
         }
       },err=>{console.log(err)}).catch(err=>{}).finally(()=>{})
     }catch(err){
@@ -154,8 +160,10 @@ export class LeadViewComponent implements OnInit {
         console.log(res)
         if(res.length>0 && res[0]?.condition?.toString()?.toLowerCase() =='true'){
           this.AttachmentList = res
+          this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
         }else{
           this.AttachmentList =[]
+          this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
         }
       },err=>{console.log(err)}).catch(err=>{}).finally(()=>{})
     }catch(err){
@@ -253,8 +261,10 @@ export class LeadViewComponent implements OnInit {
         ele.target.disabled = false
         this.resetNotes()
         this.noteList = res
+        this._leadService.viewFilterCountUpdate('notes', this.noteList?.length)
       }else{
         this.noteList =[]
+        this._leadService.viewFilterCountUpdate('notes', this.noteList?.length)
       }
     },err=>{console.log(err)}).catch(err=>{}).finally(()=>{})
   }
@@ -279,27 +289,30 @@ export class LeadViewComponent implements OnInit {
 
   UploadAttachments(type,link,file ){
     let formData: FormData = new FormData()
-    console.log(this.viewDetailsData.lead_code)
+    console.log(type,JSON.stringify([link]),file)
     formData.append('lead_code', this.viewDetailsData.lead_code)
     formData.append('attachment_type', type)
     formData.append('created_by',this._session.getEmail)
     file.map(ele=>{
       formData.append('attachments',ele.data)
     })
-    formData.append('attachmentStringList', link)
-    formData.forEach((e,k)=>console.log(k +':' +e))
+    formData.append('attachmentStringList', JSON.stringify([link]))
+    formData.forEach((e,k)=>console.log(k +':'+ e))
     
     this._leadService.UploadAttachment(formData).then(res=>{
       if(res.length>0 && res[0]?.condition?.toString()?.toLowerCase() =='true'){
       
         this.AttachmentList = res
+        this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
       }else{
         this.AttachmentList =[]
+        this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
       }
     },err=>{console.log(err)}).catch(err=>{}).finally(()=>{})
   }
 
   deleteAttachment(ele){
+    console.log(ele)
     const confim = this._dialog.open(PristineConfirmationDialogComponent)
     confim.componentInstance.data={
       "title": "Remove Attachment",
@@ -323,22 +336,27 @@ export class LeadViewComponent implements OnInit {
       "dismissible": true
     }
     console.log(ele)
-    confim.afterClosed().subscribe(ele=>{
-      if(ele=='confirmed'){
+    confim.afterClosed().subscribe(data=>{
+      if(data=='confirmed'){
         let json ={
           "lead_code": this.viewDetailsData?.lead_code,
           "id": ele?.id,
           "attachment_url": ele?.attachment_url
         }
+        console.log(json)
         this._leadService.deleteAttachment(json).then(res=>{
           if(res.length>0 && res[0]?.condition?.toString()?.toLowerCase() =='true'){
             this.AttachmentList = res
+            this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
           }else{
             this.AttachmentList =[]
+            this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
           }
         },err=>{console.log(err)}).catch(err=>{}).finally(()=>{})
       }
     })
     
   }
+
+
 }

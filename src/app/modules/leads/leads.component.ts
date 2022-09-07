@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, AfterViewInit,ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnInit, AfterViewInit,ViewChild, ViewEncapsulation, OnDestroy} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDrawerContent } from '@angular/material/sidenav';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,7 +13,7 @@ import { LeadsService } from './leads.service';
   styleUrls: ['./leads.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class LeadsComponent implements OnInit,AfterViewInit {
+export class LeadsComponent implements OnInit,AfterViewInit, OnDestroy {
     filterOpen:boolean = true;
     saveChanges:boolean = false;
     @ViewChild('drawer', {static: true}) drawer: ElementRef<any>
@@ -37,6 +37,7 @@ export class LeadsComponent implements OnInit,AfterViewInit {
   ngOnInit(): void {
     this.listData = new MatTableDataSource<leadListModel>([])
     this.listData.paginator = this.paginator
+    // this.pageType = 'list'
     this._leadService.pageType.subscribe(res=>{  
       console.log(res)
       this.pageType = res
@@ -102,6 +103,7 @@ export class LeadsComponent implements OnInit,AfterViewInit {
       this.viewFilterOpen = res
     })
     this._leadService.getLeadList()
+    this.switchView({source:'list', bool:true})
   }
 
   ngAfterViewInit() {
@@ -141,5 +143,11 @@ export class LeadsComponent implements OnInit,AfterViewInit {
         // this.saveChanges = $event.bool       
       }
 
+    }
+
+
+
+    ngOnDestroy(): void {
+      // this._leadService.pageType.unsubscribe()
     }
 }
