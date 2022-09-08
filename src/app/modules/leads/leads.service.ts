@@ -227,6 +227,12 @@ export class LeadsService {
   async getState(country_code){
     return await this._webAPi.Get(this._webAPi.ApiURLArray.getStateMst + country_code)
   }
+  async getLeadStatus(){
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getLeadStatusMst)
+  }
+  async getRating(){
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getRatingMst)
+  }
 
 
   viewFilterCountUpdate(key,value){

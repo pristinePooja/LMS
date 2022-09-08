@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionManagement } from '@pristine/process/SessionManagement';
 import { CityMstModel, CountryMstModel, StateMstModel } from 'app/model/AddressMstModel';
 import { leadListModel } from 'app/model/LeadsModel';
+import { IndustryMstModel, LeadSourceMstModel, LeadStatusMstModel } from 'app/model/LeadStatusModel';
 import { LeadsService } from '../leads.service';
 
 
@@ -31,14 +32,25 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
   fiteredstateList: Array<StateMstModel> =[]
   cityList: Array<CityMstModel> =[]
   fiteredcityList: Array<CityMstModel> =[]
+  statusList: Array<LeadStatusMstModel> =[]
+  fiteredStatusList: Array<LeadStatusMstModel> =[]
+  sourceList: Array<LeadSourceMstModel> =[]
+  fiteredSourceList: Array<LeadSourceMstModel> =[]
+  industryList: Array<IndustryMstModel> =[]
+  fiteredIndustryList: Array<IndustryMstModel> =[]
+  ratingList: Array<string> =[]
+  fiteredRatingList: Array<string> =[]
 
   @Input() data: Array<leadListModel>
   @ViewChild('top', {static:false}) top: ElementRef ;
-  seletedCountry:any;
+
   ngOnInit(): void {
     this.isSubmitted = false;
     this.leadCode =''
     this.getCountry()
+    this.getLeadStatus()
+    this.getLeadRating()
+    this.getLeadSource()
     this.LeadCreate = this._fb.group({
       lead_owner: [this._session.getEmail],
       company: ['',{validators: [Validators.required],updateOn: 'blur'}],
@@ -239,6 +251,33 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
           return ele?.city_name.toLowerCase().includes(value.toLowerCase() )
         })
       }
+    }else if(array_name=='status'){
+      if(value==''){
+      this.fiteredStatusList = this.statusList
+        return
+      }else{
+        this.fiteredStatusList = this.statusList.filter(ele=>{
+          return ele?.name.toLowerCase().includes(value.toLowerCase() )
+        })
+      }
+    }else if(array_name=='source'){
+      if(value==''){
+      this.fiteredStatusList = this.statusList
+        return
+      }else{
+        this.fiteredStatusList = this.statusList.filter(ele=>{
+          return ele?.name.toLowerCase().includes(value.toLowerCase() )
+        })
+      }
+    }else if(array_name=='rating'){
+      if(value==''){
+      this.fiteredRatingList = this.ratingList
+        return
+      }else{
+        this.fiteredRatingList = this.ratingList.filter(ele=>{
+          return ele.toLowerCase().includes(value.toLowerCase() )
+        })
+      }
     }
   }
   getCountry(){
@@ -265,6 +304,17 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
     })
   }
 
+  getLeadStatus(){
+    this.statusList =[]
+    this.leadService.getLeadStatus().then(res=>{
+      if(res.length>0 && res[0]?.condition.toLowerCase()=='true'){
+        console.log('status')
+        this.statusList = res
+        this.fiteredStatusList = res
+      }
+    })
+  }
+
   getCity(val){
     this.cityList =[]
     this.leadService.getCity(val).then(res=>{
@@ -275,16 +325,21 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       }
     })
   }
-
-  getLeadStatus(){
-
-  }
   
   getLeadSource(){
 
   }
 
-  getLeadRating(){}
+  getLeadRating(){
+    this.ratingList =[]
+    this.leadService.getRating().then(res=>{
+      if(res.length>0 && res[0]?.condition.toLowerCase()=='true'){
+        console.log('rating')
+        this.ratingList = res[0]?.ratings
+        this.fiteredRatingList  = res[0]?.ratings
+      }
+    })
+  }
 
   resetDropDowns(ele){
     ele.value=''

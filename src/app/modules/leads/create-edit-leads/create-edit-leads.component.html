@@ -53,21 +53,48 @@
                 <div class="field_container">
                     <p class="input_label">Lead Source</p>
                     <span class="basis-2/4 flex  input_field">
-                        <input class="basis-full" formControlName="lead_source" />
+                        <mat-select class="basis-full" (closed)="resetDropDowns(sourceSearch)" (opened)="setFocus(sourceSearch)" 
+                         formControlName="lead_source">
+
+                            <input #sourceSearch (input)="dropDownSearchFilter(sourceSearch.value,'source')"
+                            class="sticky self-stretch bg-white top-2 w-[90%] m-2 border border-accent-500 rounded-md py-2 px-2">
+
+                            <div class="w-full px-2 pt-4 max-h-48 overflow-x-auto">
+                                <mat-option *ngIf="fiteredSourceList.length<1" disabled>No matching record</mat-option>
+                                <mat-option *ngFor="let option of fiteredSourceList" [value]="option.country_code">
+                                    {{option.country_name}}
+                                </mat-option>
+                            </div>
+                        </mat-select>
                         <mat-icon svgIcon=""></mat-icon>
                     </span>
                 </div>
                 <div class="field_container">
                     <p class="input_label">Industry</p>
                     <span class="basis-2/4 flex  input_field">
-                        <input class="basis-full" formControlName="industry" />
+                        <mat-select class="basis-full" (closed)="resetDropDowns(industrySearch)" (opened)="setFocus(industrySearch)" 
+                          formControlName="industry">
+
+                            <input #industrySearch (input)="dropDownSearchFilter(industrySearch.value,'industry')"
+                            class="sticky self-stretch bg-white top-2 w-[90%] m-2 border border-accent-500 rounded-md py-2 px-2">
+
+                            <div class="w-full px-2 pt-4 max-h-48 overflow-x-auto">
+                                <mat-option *ngIf="fiteredIndustryList.length<1" disabled>No matching record</mat-option>
+                                <mat-option *ngFor="let option of fiteredIndustryList" [value]="option.country_code">
+                                    {{option.country_name}}
+                                </mat-option>
+                            </div>
+                        </mat-select>
                         <mat-icon svgIcon=""></mat-icon>
                     </span>
                 </div>
                 <div class="field_container">
                     <p class="input_label">Annual Revenue</p>
                     <span class="basis-2/4 flex  input_field">
-                        <input class="basis-full" formControlName="annual_revenue" />
+                        <mat-select class="min-w-10 w-10 basis-10 text-secondary border-r border-gray-400 mr-2 ">
+                            <mat-option *ngFor="let cur of countryList" [value]="cur?.currency_icon">{{cur?.currency_icon}}</mat-option>
+                        </mat-select>
+                        <input class="basis-auto" formControlName="annual_revenue" />
                         <mat-icon svgIcon=""></mat-icon>
                     </span>
                 </div>
@@ -126,7 +153,20 @@
                 <div class="field_container">
                     <p class="input_label">Lead Status</p>
                     <span class="basis-2/4 flex  input_field">
-                        <input class="basis-full" formControlName="lead_status" />
+                        <!-- <input class="basis-full" formControlName="lead_status" /> -->
+                        <mat-select class="basis-full" (closed)="resetDropDowns(statusSearch)" (opened)="setFocus(statusSearch)" 
+                          formControlName="lead_status">
+
+                            <input #statusSearch (input)="dropDownSearchFilter(statusSearch.value,'status')"
+                            class="sticky self-stretch bg-white top-2 w-[90%] m-2 border border-accent-500 rounded-md py-2 px-2">
+
+                            <div class="w-full px-2 pt-4 max-h-48 overflow-x-auto">
+                                <mat-option *ngIf="fiteredStatusList.length<1" disabled>No matching record</mat-option>
+                                <mat-option *ngFor="let option of fiteredStatusList" [value]="option.id">
+                                    {{option.name}}
+                                </mat-option>
+                            </div>
+                        </mat-select>
                         <mat-icon svgIcon=""></mat-icon>
                     </span>
                 </div>
@@ -140,7 +180,20 @@
                 <div class="field_container">
                     <p class="input_label">Raiting</p>
                     <span class="basis-2/4 flex  input_field">
-                        <input class="basis-full" formControlName="rating" />
+                        <!-- <input class="basis-full" formControlName="rating" /> -->
+                        <mat-select class="basis-full" (closed)="resetDropDowns(ratingSearch)" (opened)="setFocus(ratingSearch)" 
+                          formControlName="rating">
+
+                            <input #ratingSearch (input)="dropDownSearchFilter(ratingSearch.value,'rating')"
+                            class="sticky self-stretch bg-white top-2 w-[90%] m-2 border border-accent-500 rounded-md py-2 px-2">
+
+                            <div class="w-full px-2 pt-4 max-h-48 overflow-x-auto">
+                                <mat-option *ngIf="fiteredRatingList.length<1" disabled>No matching record</mat-option>
+                                <mat-option *ngFor="let option of fiteredRatingList" [value]="option">
+                                    {{option}}
+                                </mat-option>
+                            </div>
+                        </mat-select>
                         <mat-icon svgIcon=""></mat-icon>
                     </span>
                 </div>
@@ -185,7 +238,7 @@
                             <input #countrySearch (input)="dropDownSearchFilter(countrySearch.value,'country')"
                             class="sticky self-stretch bg-white top-2 w-[90%] m-2 border border-accent-500 rounded-md py-2 px-2">
 
-                            <div class="w-full px-2 pt-4 max-h-72 overflow-x-auto">
+                            <div class="w-full px-2 pt-4 max-h-48 overflow-x-auto">
                                 <mat-option *ngIf="fiteredCountryList.length<1" disabled>No matching record</mat-option>
                                 <mat-option *ngFor="let option of fiteredCountryList" [value]="option.country_code">
                                     {{option.country_name}}
@@ -204,7 +257,7 @@
                     <input #citySearch (input)="dropDownSearchFilter(citySearch.value,'city')"
                     class="sticky self-stretch bg-white top-2 w-[90%] m-2 border border-accent-500 rounded-md py-2 px-2">
 
-                            <div class="w-full px-2 pt-4 max-h-72 overflow-x-auto">
+                            <div class="w-full px-2 pt-4 max-h-48 overflow-x-auto">
                                 <mat-option *ngIf="fiteredcityList.length<1" disabled>No matching record</mat-option>
                                 <mat-option (click)="LeadCreate.get('zipcode').setValue(option.pin_code)" 
                                 (keyup.space)="LeadCreate.get('zipcode').setValue(option.pin_code)" 
@@ -242,15 +295,7 @@
                                         <mat-option *ngFor="let option of fiteredstateList" [value]="option.state_code">
                                             {{option.state_name}}
                                         </mat-option>
-                                        <mat-option *ngFor="let option of fiteredstateList" [value]="option.state_code">
-                                            {{option.state_name}}
-                                        </mat-option>
-                                        <mat-option *ngFor="let option of fiteredstateList" [value]="option.state_code">
-                                            {{option.state_name}}
-                                        </mat-option>
-                                        <mat-option *ngFor="let option of fiteredstateList" [value]="option.state_code">
-                                            {{option.state_name}}
-                                        </mat-option>
+                                        
                                     </div>
                                 </mat-select>
                         <mat-icon svgIcon=""></mat-icon>
@@ -303,7 +348,7 @@
                 <input #countrySearch (input)="dropDownSearchFilter(countrySearch.value,'country')"
                  class="absolute bg-white top-0 w-[90%] m-2 border border-accent-500 rounded-md py-2 px-2">
             
-            <div class="w-full px-2 pt-4 max-h-72 mt-14 overflow-x-auto">
+            <div class="w-full px-2 pt-4 max-h-48 mt-14 overflow-x-auto">
                 <mat-option *ngIf="fiteredCountryList.length<1" disabled>No matching record</mat-option>
                 <mat-option *ngFor="let option of fiteredCountryList" [value]="option.country_code">
                     {{option.country_name}}
