@@ -29,6 +29,7 @@ export class WebApiHttp {
     // Leads
     createLead: '/api/Lead/LeadInsert',
     getLeads: '/api/Lead/LeadListData?page=',
+    uploadLeadProfile:'/api/Lead/LeadPicUpload',
 
     // Notes
     insertUpdateNote: '/api/Lead/NoteInsertUpdate',

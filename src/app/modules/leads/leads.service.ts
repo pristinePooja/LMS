@@ -234,6 +234,10 @@ export class LeadsService {
     return await this._webAPi.Get(this._webAPi.ApiURLArray.getRatingMst)
   }
 
+  async uploadProfileImage(formdata){
+    return await this._webAPi.PostFormData(this._webAPi.ApiURLArray.uploadLeadProfile, formdata)
+  }
+
 
   viewFilterCountUpdate(key,value){
     let temp_json = this.viewCount.value

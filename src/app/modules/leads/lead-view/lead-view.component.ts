@@ -8,7 +8,7 @@ import { SessionManagement } from '@pristine/process/SessionManagement';
 import { WebApiHttp } from '@pristine/process/WebApiHttp.services';
 import { PristineConfirmationDialogComponent } from '@pristine/services/confirmation/dialog/dialog.component';
 import { notesModel } from 'app/model/NotesModel';
-import { forEach } from 'lodash';
+
 import { ToastrService } from 'ngx-toastr';
 import { LeadsService } from '../leads.service';
 

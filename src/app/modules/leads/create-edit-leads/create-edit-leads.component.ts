@@ -1,11 +1,12 @@
 import { AfterContentInit, Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionManagement } from '@pristine/process/SessionManagement';
+import { WebApiHttp } from '@pristine/process/WebApiHttp.services';
 import { CityMstModel, CountryMstModel, StateMstModel } from 'app/model/AddressMstModel';
 import { leadListModel } from 'app/model/LeadsModel';
 import { IndustryMstModel, LeadSourceMstModel, LeadStatusMstModel } from 'app/model/LeadStatusModel';
 import { LeadsService } from '../leads.service';
-
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'create-edit-leads',
@@ -17,6 +18,8 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
   constructor(
     private _fb: FormBuilder,
     private _session: SessionManagement,
+    private _webApiHttp: WebApiHttp,
+    private _dom: DomSanitizer,
     private leadService: LeadsService
     ) { }
 
@@ -40,6 +43,7 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
   fiteredIndustryList: Array<IndustryMstModel> =[]
   ratingList: Array<string> =[]
   fiteredRatingList: Array<string> =[]
+  profileImg:string =''
 
   @Input() data: Array<leadListModel>
   @ViewChild('top', {static:false}) top: ElementRef ;
@@ -119,11 +123,17 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       this.LeadCreate.get('description').setValue(this.data[0]?.description)
       this.LeadCreate.get('campaign_code').setValue(this.data[0]?.campaign_code)
       this.LeadCreate.get('campaign_name').setValue(this.data[0]?.campaign_name)
+      this.profileImg = this.data[0]?.image_url
       this.email_opt_out = this.data[0]?.email_opt_out==1
       this.leadCode= this.data[0]?.lead_code
       this.getState(this.LeadCreate.get('country').value)
       this.getCity(this.LeadCreate.get('state').value)
     }
+  }
+
+  get getProfileImage(){
+    let res = JSON.stringify(this._webApiHttp.globalurl + '/' +this.profileImg)
+    return (res);
   }
 
   setFocus(ele){
@@ -162,18 +172,29 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
   uploadImage(){
     let fileInput = document.createElement('input')
     fileInput.setAttribute('type','file')
+    fileInput.setAttribute('accept','image/*')
+    // fileInput.setAttribute('multiple','false')
     fileInput.click()
     fileInput.addEventListener('change', event =>{
-      var file = (<HTMLInputElement>event.target).files[0];
-      let fileReader = new FileReader();
-          fileReader.onload = (e) => {
-            this.uploadedImage = fileReader.result;
-            console.log(this.uploadImage)
-          }
-       
+      var file = fileInput.files[0];
+      this.uploadedImage=file;
+      console.log(this.uploadedImage)
+      let formdata: FormData= new FormData()
+      formdata.append('image',file)
+      formdata.append('lead_code', this.data.length>0?this.data[0]?.lead_code:'')
+      formdata.append('old_url', '')
+      this.leadService.uploadProfileImage(formdata).then(res=>{
+        this.profileImg = res[0]?.image_url
+      })
+      // let fileReader = new FileReader();
+      //     fileReader.onload = (e) => {
+      //       this.uploadedImage = fileReader.result;
+      //     console.log(this.uploadedImage)
+      //     }
     })
   }
 
+ 
   SubmitChanges(){
     this.isSubmitted = true
     if(this.LeadCreate.invalid){
