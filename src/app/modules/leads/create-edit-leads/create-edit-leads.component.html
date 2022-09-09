@@ -1,11 +1,11 @@
 <div class="h-fit p-4  w-full bg-white px-12 " [formGroup]="LeadCreate">
-    <div id="top" *ngIf="this.data[0]?.lead_code">
+    <div id="top" [hidden]="data.length<1">
         <h1 class="text-xl snap-start font-medium scroll-m-1 py-4">Lead Image</h1>
         <div class="p-4">
-            <div class="h-14 w-10 flex justify-center items-center
+            <div class="h-14 w-10 flex justify-center items-center 
                    min-w-14 p-1 border max-h-14 max-w-14 rounded-full overflow-hidden bg-cover bg-center"
                    matTooltip="Upload User Image"
-                   style="background-image: url({{getProfileImage}});"
+                   style="background-image: url({{getProfileImage}}), url('../../../../assets/images/avatars/blank-profile.png');"
                 matTooltipPosition="right" (click)="uploadImage()" (mouseover)="image='heroicons_solid:camera'"
                 (mouseleave)="image=''">
                 <!-- <img class="hover:hidden" height="40px" [src]="getProfileImage" /> -->

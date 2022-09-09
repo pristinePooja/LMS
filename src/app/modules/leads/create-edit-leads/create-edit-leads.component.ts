@@ -23,7 +23,7 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
     private leadService: LeadsService
     ) { }
 
-  image: string ='mat_solid:person'
+  image: string ='' //mat_solid:person
   uploadedImage: any
   LeadCreate: FormGroup
   email_opt_out: boolean=false
