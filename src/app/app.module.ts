@@ -1,7 +1,7 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
+import { ExtraOptions, PreloadAllModules, RouterModule} from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
 import { PristineModule } from '@pristine';
 import { PristineConfigModule } from '@pristine/services/config';
@@ -13,6 +13,7 @@ import { appRoutes } from 'app/app.routing';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 
+
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
     useHash: true,
@@ -23,14 +24,14 @@ const routerConfig: ExtraOptions = {
     declarations: [
         AppComponent
     ],
-    imports     : [
+    imports:[
         BrowserModule,
         BrowserAnimationsModule,
         RouterModule.forRoot(appRoutes, routerConfig),
 
         // Pristine, PristineConfig & PristineMockAPI
         PristineModule,
-        PristineConfigModule.forRoot(appConfig),
+        PristineConfigModule.forRoot(appConfig), 
 
         // Core module of your application
         CoreModule,
@@ -59,6 +60,4 @@ const routerConfig: ExtraOptions = {
     schemas:[NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 
 })
-export class AppModule
-{
-}
+export class AppModule{ }

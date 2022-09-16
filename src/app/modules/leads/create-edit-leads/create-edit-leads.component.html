@@ -1,4 +1,5 @@
 <div class="h-fit p-4  w-full bg-white px-12 " [formGroup]="LeadCreate">
+
     <div id="top" [hidden]="data.length<1">
         <h1 class="text-xl snap-start font-medium scroll-m-1 py-4">Lead Image</h1>
         <div class="p-4">
@@ -10,6 +11,7 @@
                 (mouseleave)="image=''">
                 <!-- <img class="hover:hidden" height="40px" [src]="getProfileImage" /> -->
                 <mat-icon class=" h-full w-full" [svgIcon]="image"></mat-icon>
+
             </div>
         </div>
     </div>
@@ -55,6 +57,7 @@
                 <div class="field_container">
                     <p class="input_label">Lead Source</p>
                     <span class="basis-2/4 flex  input_field">
+
                         <mat-select class="basis-full" (closed)="resetDropDowns(sourceSearch)" (opened)="setFocus(sourceSearch)" 
                          formControlName="lead_source">
 
@@ -68,12 +71,14 @@
                                 </mat-option>
                             </div>
                         </mat-select>
+
                         <mat-icon svgIcon=""></mat-icon>
                     </span>
                 </div>
                 <div class="field_container">
                     <p class="input_label">Industry</p>
                     <span class="basis-2/4 flex  input_field">
+
                         <mat-select class="basis-full" (closed)="resetDropDowns(industrySearch)" (opened)="setFocus(industrySearch)" 
                           formControlName="industry">
 
@@ -87,16 +92,19 @@
                                 </mat-option>
                             </div>
                         </mat-select>
+
                         <mat-icon svgIcon=""></mat-icon>
                     </span>
                 </div>
                 <div class="field_container">
                     <p class="input_label">Annual Revenue</p>
                     <span class="basis-2/4 flex  input_field">
+
                         <mat-select class="min-w-10 w-10 basis-10 text-secondary border-r border-gray-400 mr-2 ">
                             <mat-option *ngFor="let cur of countryList" [value]="cur?.currency_icon">{{cur?.currency_icon}}</mat-option>
                         </mat-select>
                         <input class="basis-auto" formControlName="annual_revenue" />
+
                         <mat-icon svgIcon=""></mat-icon>
                     </span>
                 </div>
@@ -155,6 +163,7 @@
                 <div class="field_container">
                     <p class="input_label">Lead Status</p>
                     <span class="basis-2/4 flex  input_field">
+
                         <!-- <input class="basis-full" formControlName="lead_status" /> -->
                         <mat-select class="basis-full" (closed)="resetDropDowns(statusSearch)" (opened)="setFocus(statusSearch)" 
                           formControlName="lead_status">
@@ -169,6 +178,7 @@
                                 </mat-option>
                             </div>
                         </mat-select>
+
                         <mat-icon svgIcon=""></mat-icon>
                     </span>
                 </div>
@@ -182,6 +192,7 @@
                 <div class="field_container">
                     <p class="input_label">Raiting</p>
                     <span class="basis-2/4 flex  input_field">
+
                         <!-- <input class="basis-full" formControlName="rating" /> -->
                         <mat-select class="basis-full" (closed)="resetDropDowns(ratingSearch)" (opened)="setFocus(ratingSearch)" 
                           formControlName="rating">
@@ -196,6 +207,7 @@
                                 </mat-option>
                             </div>
                         </mat-select>
+
                         <mat-icon svgIcon=""></mat-icon>
                     </span>
                 </div>
@@ -230,6 +242,7 @@
         <h1 class="text-xl snap-start font-medium py-4">Address Information</h1>
         <div class="px-4 flex space-x-3">
             <div class="px-4 flex flex-col basis-2/4 space-y-4">
+
                 <!-- Country -->
                 <div class="field_container">
                     <p class="input_label">Country</p>
@@ -326,16 +339,27 @@
                     <textarea class="basis-full input_field" formControlName="description"></textarea>
                 </div>
 
+
             </div>
 
         </div>
     </div>
+
 </div>
 
 
 
+    <div>
+        <h1 class="text-xl snap-start font-medium py-4">Description Details</h1>
+        <div class="px-4 flex space-x-3">
+            <div class="flex  flex-col basis-full">
+                <div class="field_container items-start">
+                    <p class=" basis-1/5">Description</p>
+                    <!-- <span class="basis-4/5 flex  input_field"> -->
+                    <textarea class="basis-full input_field" formControlName="description"></textarea>
+                </div>
 
-
+            </div>
 
 
 
@@ -358,3 +382,4 @@
             </div>
         
           </mat-autocomplete> -->
+

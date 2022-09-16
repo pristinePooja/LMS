@@ -1,11 +1,13 @@
 import { AfterContentInit, Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { SessionManagement } from '@pristine/process/SessionManagement';
 import { WebApiHttp } from '@pristine/process/WebApiHttp.services';
 import { CityMstModel, CountryMstModel, StateMstModel } from 'app/model/AddressMstModel';
 import { leadListModel } from 'app/model/LeadsModel';
 import { IndustryMstModel, LeadSourceMstModel, LeadStatusMstModel } from 'app/model/LeadStatusModel';
 import { LeadsService } from '../leads.service';
+
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -18,9 +20,11 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
   constructor(
     private _fb: FormBuilder,
     private _session: SessionManagement,
+
     private _webApiHttp: WebApiHttp,
     private _dom: DomSanitizer,
     private leadService: LeadsService
+
     ) { }
 
   image: string ='' //mat_solid:person
@@ -321,9 +325,11 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
         console.log('state')
         this.stateList = res
         this.fiteredstateList = res
+
       }
     })
   }
+
 
   getLeadStatus(){
     this.statusList =[]
@@ -332,9 +338,11 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
         console.log('status')
         this.statusList = res
         this.fiteredStatusList = res
+
       }
     })
   }
+
 
   getCity(val){
     this.cityList =[]
@@ -368,4 +376,5 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
     this.fiteredstateList=this.stateList;;
     this.fiteredcityList=this.cityList
   }
+
 }

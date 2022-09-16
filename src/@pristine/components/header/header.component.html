@@ -26,6 +26,9 @@
             </div>
         </ng-container>
     </div>
+    <div class="space-x-4" >
+        
+    </div>
     <div class="space-x-4" *ngIf="this.filterIcon.type=='filter'">
         <button *ngIf="!create" (click)="toggleCreate(false,'list'); " mat-button class="bg-sky-600 text-white leading-3 " >Create {{pageName.name}}</button>
         <button *ngIf="create" (click)="toggleCreate(true,'list')" class="shadow-blue-100 shadow-md border-2 border-solid border-sky-600 leading-3 " mat-button>Cancel</button>
