@@ -1,241 +1,237 @@
-
-          <div class="h-fit p-4  w-full bg-white px-12 " [formGroup]="LeadCreate">
-            <div id="top">
-                <h1 class="text-xl snap-start font-medium scroll-m-1 py-4">Lead Image</h1>
-                <div class="p-4">
-                  <div class="h-14 w-10 flex justify-center items-center
-                   min-w-14 p-1 border max-h-14 max-w-14 rounded-full overflow-hidden"
-                   matTooltip="Upload User Image" matTooltipPosition="right"
-                   (click)="uploadImage()"
-                   (mouseover)="image='heroicons_solid:camera'"
-                   (mouseleave)="image='mat_solid:person'">
-                      <!-- <img class="hover:hidden" height="40px" src="./../.../../../../../assets/images/avatars/avatar.png" /> -->
-                      <mat-icon class="h-full w-full" [svgIcon]="image" ></mat-icon>
-                  </div>
-                </div>
-            </div>
-            <div>
-                <h1 class="text-xl snap-start font-medium py-4">Lead Information</h1>
-                <div class="px-4 flex space-x-3">
-                    <div class="px-4 flex flex-col basis-2/4 space-y-4">
-                      <div class="field_container">
-                          <p class="input_label ">Lead Owner</p>
-                         <span class="basis-2/4 flex  input_field">
-                            <input class="basis-full"  formControlName="lead_owner"/>
-                            <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">First Name</p>
-                         <span class="basis-2/4 flex  input_field">
-                            <input class="basis-full" formControlName="first_name" />
-                            <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Title</p>
-                         <span class="basis-2/4 flex  input_field">
-                            <input class="basis-full" formControlName="title"/>
-                            <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Phone</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="phone" />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Mobile</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="mobile" />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Lead Source</p>
-                         <span class="basis-2/4 flex  input_field">
-                            <input class="basis-full" formControlName="lead_source"  />
-                            <mat-icon svgIcon=""></mat-icon>
-                        </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Industry</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="industry"  />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Annual Revenue</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="annual_revenue" />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                        <p class="input_label">Email Opt Out</p>
-                        <!--<span class="basis-2/4 flex  input_field"> -->
-                            <mat-checkbox [checked]="email_opt_out" (change)="email_opt_out=cb.checked"  #cb></mat-checkbox>
-                            <!-- <input class="basis-full" formControlName="email_opt_out"  class="h-6 w-6 items-start basis-2/4 "/> -->
-                        <!-- </span> -->
-                    </div>
-                  </div>
-
-                  <div class="px-4 flex flex-col basis-2/4 space-y-4">
-                      <div class="field_container">
-                          <p class="input_label">Company</p>
-                          <span class="basis-2/4 flex required input_field {{checkValidation('company')?'error':''}}">
-                              <input formControlName="company"  class="basis-full" required />
-                              <mat-icon class="text-red-500"
-                              [matTooltip]="checkValidation('company')?'Company Name Required':''"
-                               svgIcon="{{checkValidation('company')?'feather:info':''}}"></mat-icon>
-                            </span>
-                        </div>
-                      <div class="field_container">
-                          <p class="input_label">Last Name</p>
-                         <span class="basis-2/4 flex required  input_field {{checkValidation('last_name')?'error':''}}">
-                              <input formControlName="last_name" required class="basis-full" />
-                              <mat-icon class="text-red-500"
-                              [matTooltip]="checkValidation('last_name')?'Last Name Required':''"
-                              matTooltipPosition="above"
-                              matTooltipClass="bg-red-200 text-black"
-                              svgIcon="{{checkValidation('last_name')?'feather:info':''}}"></mat-icon>
-                            
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Email</p>
-                         <span class="basis-2/4 flex  input_field {{checkValidation('email')?'error':''}}">
-                              <input  formControlName="email" class="basis-full" />
-                              <mat-icon class="text-red-500"
-                              [matTooltip]="checkValidation('email')?'Invalid Email format':''"
-                               svgIcon="{{checkValidation('email')?'feather:info':''}}"></mat-icon>
-                        </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Fax</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="fax" />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Website</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="website" />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Lead Status</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="lead_status"  />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">No. of Employees</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="no_of_employees"  />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Raiting</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="rating"  />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Skype ID</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="skype_id"  />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Secondary Email</p>
-                          <span class="basis-2/4 flex  input_field {{checkValidation('secondary_email')?'error':''}}">
-                            <input  formControlName="secondary_email" class="basis-full" />
-                            <mat-icon class="text-red-500"
-                            [matTooltip]="checkValidation('secondary_email')?'Invalid Email format':''"
-                             svgIcon="{{checkValidation('secondary_email')?'feather:info':''}}"></mat-icon>
-                      </span>
-                         
-                      </div>
-                      <div class="field_container">
-                          <p class="input_label">Twitter</p>
-                         <span class="basis-2/4 flex  input_field">
-                              <input class="basis-full" formControlName="twitter"  />
-                              <mat-icon svgIcon=""></mat-icon>
-                          </span>
-                      </div>
-                  </div>
-                </div>
-            </div>
-            <div>
-                <h1 class="text-xl snap-start font-medium py-4">Address Information</h1>
-                <div class="px-4 flex space-x-3">
-                    <div class="px-4 flex flex-col basis-2/4 space-y-4">
-                        <div class="field_container">
-                            <p class="input_label">Street</p>
-                           <span class="basis-2/4 flex  input_field">
-                                <input class="basis-full" formControlName="street" />
-                                <mat-icon svgIcon=""></mat-icon>
-                            </span>
-                        </div>
-                        <div class="field_container">
-                            <p class="input_label">State</p>
-                           <span class="basis-2/4 flex  input_field">
-                                <input class="basis-full" formControlName="state"  />
-                                <mat-icon svgIcon=""></mat-icon>
-                            </span>
-                        </div>
-                        <div class="field_container">
-                            <p class="input_label">Country</p>
-                           <span class="basis-2/4 flex  input_field">
-                                <input class="basis-full" formControlName="country"  />
-                                <mat-icon svgIcon=""></mat-icon>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="px-4 flex flex-col basis-2/4 space-y-4">
-                        <div class="field_container">
-                            <p class="input_label">City</p>
-                           <span class="basis-2/4 flex  input_field">
-                                <input class="basis-full" formControlName="city"  />
-                                <mat-icon svgIcon=""></mat-icon>
-                            </span>
-                        </div>
-                        <div class="field_container">
-                            <p class="input_label">Zip Code</p>
-                           <span class="basis-2/4 flex  input_field">
-                                <input class="basis-full" formControlName="zipcode"   />
-                                <mat-icon svgIcon=""></mat-icon>
-                            </span>
-                        </div>
-                    </div>
-                  </div>
-            </div>
-
-            <div>
-                <h1 class="text-xl snap-start font-medium py-4">Description Details</h1>
-                <div class="px-4 flex space-x-3">
-                    <div class="flex  flex-col basis-full">
-                        <div class="field_container items-start">
-                            <p class=" basis-1/5">Description</p>
-                            <!-- <span class="basis-4/5 flex  input_field"> -->
-                            <textarea class="basis-full input_field" formControlName="description" ></textarea>
-                        </div>
-
-                    </div>
-
-                  </div>
+<div class="h-fit p-4  w-full bg-white px-12 " [formGroup]="LeadCreate">
+    <div id="top">
+        <h1 class="text-xl snap-start font-medium scroll-m-1 py-4">Lead Image</h1>
+        <button mat-button class="bg-sky-600 text-white leading-3 " (click)="openScheduleDialog()">Schedule a call</button>
+        <button mat-button class="bg-sky-600 text-white leading-3 " (click)="openLogDialog()">log a call</button>
+        <button mat-button class="bg-sky-600 text-white leading-3 " (click)="openMeetingDialog()">Meeting</button>
+        <div class="p-4">
+            <div class="h-14 w-10 flex justify-center items-center
+                   min-w-14 p-1 border max-h-14 max-w-14 rounded-full overflow-hidden" matTooltip="Upload User Image"
+                matTooltipPosition="right" (click)="uploadImage()" (mouseover)="image='heroicons_solid:camera'"
+                (mouseleave)="image='mat_solid:person'">
+                <!-- <img class="hover:hidden" height="40px" src="./../.../../../../../assets/images/avatars/avatar.png" /> -->
+                <mat-icon class="h-full w-full" [svgIcon]="image"></mat-icon>
             </div>
         </div>
+    </div>
+    <div>
+        <h1 class="text-xl snap-start font-medium py-4">Lead Information</h1>
+        <div class="px-4 flex space-x-3">
+            <div class="px-4 flex flex-col basis-2/4 space-y-4">
+                <div class="field_container">
+                    <p class="input_label ">Lead Owner</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="lead_owner" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">First Name</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="first_name" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Title</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="title" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Phone</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="phone" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Mobile</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="mobile" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Lead Source</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="lead_source" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Industry</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="industry" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Annual Revenue</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="annual_revenue" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Email Opt Out</p>
+                    <!--<span class="basis-2/4 flex  input_field"> -->
+                    <mat-checkbox [checked]="email_opt_out" (change)="email_opt_out=cb.checked" #cb></mat-checkbox>
+                    <!-- <input class="basis-full" formControlName="email_opt_out"  class="h-6 w-6 items-start basis-2/4 "/> -->
+                    <!-- </span> -->
+                </div>
+            </div>
 
+            <div class="px-4 flex flex-col basis-2/4 space-y-4">
+                <div class="field_container">
+                    <p class="input_label">Company</p>
+                    <span class="basis-2/4 flex required input_field {{checkValidation('company')?'error':''}}">
+                        <input formControlName="company" class="basis-full" required />
+                        <mat-icon class="text-red-500"
+                            [matTooltip]="checkValidation('company')?'Company Name Required':''"
+                            svgIcon="{{checkValidation('company')?'feather:info':''}}"></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Last Name</p>
+                    <span class="basis-2/4 flex required  input_field {{checkValidation('last_name')?'error':''}}">
+                        <input formControlName="last_name" required class="basis-full" />
+                        <mat-icon class="text-red-500"
+                            [matTooltip]="checkValidation('last_name')?'Last Name Required':''"
+                            matTooltipPosition="above" matTooltipClass="bg-red-200 text-black"
+                            svgIcon="{{checkValidation('last_name')?'feather:info':''}}"></mat-icon>
 
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Email</p>
+                    <span class="basis-2/4 flex  input_field {{checkValidation('email')?'error':''}}">
+                        <input formControlName="email" class="basis-full" />
+                        <mat-icon class="text-red-500" [matTooltip]="checkValidation('email')?'Invalid Email format':''"
+                            svgIcon="{{checkValidation('email')?'feather:info':''}}"></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Fax</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="fax" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Website</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="website" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Lead Status</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="lead_status" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">No. of Employees</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="no_of_employees" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Raiting</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="rating" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Skype ID</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="skype_id" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Secondary Email</p>
+                    <span class="basis-2/4 flex  input_field {{checkValidation('secondary_email')?'error':''}}">
+                        <input formControlName="secondary_email" class="basis-full" />
+                        <mat-icon class="text-red-500"
+                            [matTooltip]="checkValidation('secondary_email')?'Invalid Email format':''"
+                            svgIcon="{{checkValidation('secondary_email')?'feather:info':''}}"></mat-icon>
+                    </span>
+
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Twitter</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="twitter" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h1 class="text-xl snap-start font-medium py-4">Address Information</h1>
+        <div class="px-4 flex space-x-3">
+            <div class="px-4 flex flex-col basis-2/4 space-y-4">
+                <div class="field_container">
+                    <p class="input_label">Street</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="street" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">State</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="state" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Country</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="country" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+            </div>
+
+            <div class="px-4 flex flex-col basis-2/4 space-y-4">
+                <div class="field_container">
+                    <p class="input_label">City</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="city" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                <div class="field_container">
+                    <p class="input_label">Zip Code</p>
+                    <span class="basis-2/4 flex  input_field">
+                        <input class="basis-full" formControlName="zipcode" />
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h1 class="text-xl snap-start font-medium py-4">Description Details</h1>
+        <div class="px-4 flex space-x-3">
+            <div class="flex  flex-col basis-full">
+                <div class="field_container items-start">
+                    <p class=" basis-1/5">Description</p>
+                    <!-- <span class="basis-4/5 flex  input_field"> -->
+                    <textarea class="basis-full input_field" formControlName="description"></textarea>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

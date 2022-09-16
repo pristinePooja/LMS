@@ -1,8 +1,13 @@
 import { AfterContentInit, Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { SessionManagement } from '@pristine/process/SessionManagement';
 import { leadListModel } from 'app/model/LeadsModel';
 import { LeadsService } from '../leads.service';
+import { AttachmentsComponent } from '../leads_components/attachments/attachments.component';
+import { CallLogComponent } from '../leads_components/call-log/call-log.component';
+import { MeetingComponent } from '../leads_components/meeting/meeting.component';
+import { ScheduleCallComponent } from '../leads_components/schedule-call/schedule-call.component';
 
 
 @Component({
@@ -15,7 +20,8 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
   constructor(
     private _fb: FormBuilder,
     private _session: SessionManagement,
-    private leadService: LeadsService
+    private leadService: LeadsService,
+    public dialog: MatDialog
     ) { }
   image: string ='mat_solid:person'
   uploadedImage: any
@@ -174,6 +180,38 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       json['lead_code']=this.leadCode
     }
     this.leadService.createLead(json)
+  }
+
+  openScheduleDialog() {
+    const buttonClick:string='schedule'
+    this.dialog.open(ScheduleCallComponent, {
+      panelClass: 'custom-dialog-container',
+      disableClose: false,
+      height:"500px",
+      data: {
+        dataKey:buttonClick
+      }
+    })
+  }
+
+  openLogDialog(){
+    const buttonClick:string='savelog'
+    this.dialog.open(CallLogComponent, {
+      panelClass: 'custom-dialog-container',
+      disableClose: false,
+      height:"500px",
+      data: {
+        dataKey:buttonClick
+      }
+    })
+  }
+
+  openMeetingDialog(){
+    this.dialog.open(MeetingComponent,{
+      panelClass: 'custom-dialog-container',
+      disableClose: false,
+      height:"500px",
+    })
   }
 
 }

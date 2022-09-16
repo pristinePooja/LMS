@@ -13,7 +13,7 @@ export const appRoutes: Route[] = [
 
     // {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'example'},
     {path: 'sign-in',
-    data: {
+    data:{
             layout: 'empty'
         },
         loadChildren: () => import('app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule)},
@@ -25,22 +25,22 @@ export const appRoutes: Route[] = [
     },
 
     {
-        path:'lead',
+        path:'crm',
         // canActivate: [AuthGuard],
         // component: LeadsComponent
         children: [
-            // {path: 'lead_list',component: LeadsComponent},
+            {path: 'lead_list',component: LeadsComponent},
             {path: '',loadChildren :()=>import('app/modules/leads/leads.module').then(m => m.LeadsModule)},
-            ]
-
+        ]
     },
+
     {
         path:'users',
         // canActivate: [AuthGuard],
         // component: LeadsComponent
         children: [
             {path: '',loadChildren :()=>import('app/modules/users/users.module').then(m => m.UsersModule)},
-            ]
+        ]
 
     },
     // Auth routes for guests
