@@ -14,15 +14,16 @@ import { LeadsService } from '../leads.service';
     ]
 })
 export class LeadsFilterComponent implements OnInit {
-
+    
     @Input() panel: string ='filter'
     constructor(private _leadService: LeadsService) {
     }
-
+    
     clearData: string = ''
     filterSearch: string = ''
     filterArray: Array<any> = []
     filteredValues: Array<any> = []
+    overviewArray: any
     filterOptions={
          'string':[
                 "is",
@@ -50,6 +51,9 @@ export class LeadsFilterComponent implements OnInit {
     ngOnInit(): void {
         this.resetAllFilters()
         console.log(this.panel)
+        this._leadService.viewCount.subscribe(res=>{
+            this.overviewArray = res
+        })
     }
 
     clearFilter() {
@@ -121,15 +125,6 @@ export class LeadsFilterComponent implements OnInit {
         this._leadService.viewFilterOpen.next(false)
     }
 
-    overviewArray=[
-        { name : 'notes', keys:'notes'},
-        { name : 'attachments',  keys:'attachments'},
-        { name : 'products', keys:'products'},
-        { name : 'Open Activities', keys:'open_activities'},
-        { name : 'Closed Activities', keys:'closed_activities'},
-        { name : 'Invited Meetings', keys:'invited_meetings'},
-        { name : 'Emails', keys:'emails'},
-    ]
     focusOnId(ele){
         document.getElementById(ele).scrollIntoView()
     }

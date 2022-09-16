@@ -17,21 +17,18 @@ import { NgForm } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LeadsService } from './leads.service';
-import { AttachmentsComponent } from "./leads_components/attachments/attachments.component";
-import { MatCardModule } from "@angular/material/card";
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { HeaderComponent } from '@pristine/components/header/header.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LeadViewComponent } from './lead-view/lead-view.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { FileUploaderComponent } from './componets/file-uploader/file-uploader.component';
+import { DragDirective } from '@pristine/directives/dragDrop.directive';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatOptionModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { ScheduleCallComponent } from './leads_components/schedule-call/schedule-call.component';
-import { CallLogComponent } from './leads_components/call-log/call-log.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CallInformationComponent } from './leads_components/call-information/call-information.component';
-import { MeetingComponent } from './leads_components/meeting/meeting.component';
+import { MatSelectModule } from '@angular/material/select';
+
 
 const route: Routes = [{
   path: 'lead_list',
@@ -44,41 +41,33 @@ const route: Routes = [{
 @NgModule({
   declarations: [
     LeadsComponent,
-    LeadsFilterComponent,
-    LeadsListComponent,
-    CreateEditLeadsComponent,
-    AttachmentsComponent,
-    ScheduleCallComponent,
-    CallLogComponent,
-    CallInformationComponent,
-    MeetingComponent
+      LeadsFilterComponent,
+      LeadsListComponent,
+      CreateEditLeadsComponent,
+      LeadViewComponent,
+      FileUploaderComponent,
+      DragDirective
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    MatButtonModule,
-    HeaderModule,
-    MatSidenavModule,
-    PristineDrawerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatGridListModule,
-    MatSnackBarModule,
-    MatDialogModule,
-    BrowserAnimationsModule,
-    MatDialogModule,
-    MatDatepickerModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-    RouterModule.forChild(route)
-  ], 
-  providers: [LeadsService]
-  
+    imports: [
+        CommonModule,
+        SharedModule,
+        MatButtonModule,
+        HeaderModule,
+        MatSidenavModule,
+        PristineDrawerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatCheckboxModule,
+        NgxSpinnerModule,
+        MatMenuModule,
+        MatDialogModule,
+        MatOptionModule,
+        MatSelectModule,
+        MatAutocompleteModule,
+        RouterModule.forChild(route)
+    ], providers:[LeadsService, DatePipe]
+
 })
 export class LeadsModule { }

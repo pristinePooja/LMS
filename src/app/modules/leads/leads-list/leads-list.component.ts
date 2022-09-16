@@ -1,4 +1,6 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+
+import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+
 import { slideInLeft, slideInRight } from '@pristine/animations/slide';
 import { leadListModel } from 'app/model/LeadsModel';
 import { PristineAnimationCurves, PristineAnimationDurations } from '@pristine/animations/defaults';
@@ -15,7 +17,7 @@ import { HeaderService } from '@pristine/components/header/header.service';
   animations: [
     slideInLeft]
 })
-export class LeadsListComponent implements OnInit {
+export class LeadsListComponent implements OnInit, OnDestroy {
 
   constructor(private _leadService: LeadsService, private _headerService: HeaderService) { }
   view: string = 'list';
@@ -37,8 +39,14 @@ export class LeadsListComponent implements OnInit {
     this._headerService.switchView.next({ type: 'edit', value: true })
   }
 
-  viewDetails(ele) {
+  viewDetails(ele){
+    console.log(ele)
+
     this._leadService.getLeadDetails(ele)
     this._leadService.pageType.next('view')
+  }
+
+  ngOnDestroy(){
+ 
   }
 }

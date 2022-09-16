@@ -20,8 +20,18 @@ export class LeadsService {
   selectedLead: BehaviorSubject<any> = new BehaviorSubject<any>({})
   toaster: BehaviorSubject<{type:string,message: string}> =  new BehaviorSubject<{type:string,message: string}>({type:'',message: ''})
   filters: any={}
-  viewFilterOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  viewFilterOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
   pageType: BehaviorSubject<'list'|'create'|'view'|'edit'> = new BehaviorSubject<'list'|'create'|'view'|'edit'> ('list')
+  viewCount :BehaviorSubject<Array<{name:string,keys:string,count:number|string, options:Array<{name:string, key:string}>}>> = new BehaviorSubject([
+    { name : 'notes', keys:'notes', count:0, options:[]},
+    { name : 'attachments',  keys:'attachments', count:0, options:[{name:'Attach File', key:'file'},{name:'Attach Url', key:'URL'}]},
+    { name : 'products', keys:'products', count:5, options:[]},
+    { name : 'Open Activities', keys:'open_activities', count:0, options:[{name:'Meetings', key:'Meeting'},{name:'Schedule Call', key:'schedule_call'}, {name:'Log Call', key:'log_call'}]},
+    { name : 'Closed Activities', keys:'closed_activities', count:0, options:[]},
+    { name : 'Invited Meetings', keys:'invited_meetings', count:0, options:[]},
+    { name : 'Emails', keys:'emails', count:0, options:[]},
+]) 
+
   constructor(private _session: SessionManagement, 
               private _webAPi: WebApiHttp,
               private _header: HeaderService
@@ -153,10 +163,89 @@ export class LeadsService {
   }
 
   getLeadDetails(details){
-    this.selectedLead.next ({header:{
-      user_name: details?.first_name +' '+ details?.last_name,
-      company: details?.company
-    }, all:details})
+    this.loading.next(true)
+    let json={sorting_column: "lead_code", lead_code : " = '"+ details.lead_code+"'"} 
+    
+    this._webAPi.Post(this._webAPi.ApiURLArray.getLeads+'0'+'&pageSize='+'1', json).then(res=>{
+      console.log(res)
+      if(Number(res?.totalCount)>0){
+        this.selectedLead.next ({header:{
+          user_name: res?.items[0]?.first_name +' '+ res?.items[0]?.last_name,
+          company: res?.items[0]?.company
+        }, all:res?.items[0]})
+      }else{
+        if(res?.length>0 && res[0]?.hasOwnProperty('condition')  && res[0]?.condition.toLowerCase() =='false'){
+          console.log('error')
+          this.toaster.next({type:'error', message:res[0]?.message})
+        }
+     
+      }
+      console.log(res,res?.length , res[0]?.hasOwnProperty('condition')  , res[0]?.condition.toLowerCase() =='false')
+    },err=>{console.log(err)}).catch(err=>{
+      console.log(err)
+    }).finally(()=>{
+      this.loading.next(false)
+    })
+    
   }
 
+  async getLeadNotes(lead_code, flag): Promise<any>{
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getLeadNotes+lead_code+'&flag='+flag)
+  }
+
+  async insertNotes(json: FormData): Promise<any|string>{
+
+    console.log(json)
+    json.forEach((e,k)=>console.log(k +':' +e))
+    return await this._webAPi.PostFormData(this._webAPi.ApiURLArray.insertUpdateNote,json)
+
+  }
+
+  async UploadAttachment(json: FormData): Promise<any|string>{
+    console.log(json)
+    json.forEach((e,k)=>console.log(k +':' +e))
+    return await this._webAPi.PostFormData(this._webAPi.ApiURLArray.insertAttachmnet,json)
+  }
+
+  async getAttachment(lead_code): Promise<any|string>{
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getLeadAttachment+lead_code)
+  }
+  
+  async deleteAttachment(json){
+    return await this._webAPi.Post(this._webAPi.ApiURLArray.deleteLeadAttachment, json)
+  }
+
+  async getCountry(){
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getCountryMst)
+  }
+
+  async getCity(state_code){
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getCityMst+state_code)
+  }
+
+  
+  async getState(country_code){
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getStateMst + country_code)
+  }
+  async getLeadStatus(){
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getLeadStatusMst)
+  }
+  async getRating(){
+    return await this._webAPi.Get(this._webAPi.ApiURLArray.getRatingMst)
+  }
+
+  async uploadProfileImage(formdata){
+    return await this._webAPi.PostFormData(this._webAPi.ApiURLArray.uploadLeadProfile, formdata)
+  }
+
+
+  viewFilterCountUpdate(key,value){
+    let temp_json = this.viewCount.value
+    temp_json.map(ele=>{
+      if(ele.keys ==key){
+        ele.count = value
+      }
+    })
+
+  }
 }

@@ -25,8 +25,29 @@ export class WebApiHttp {
     notificationData: '/api/User/NotificationListData',
 
     LoginWindowsByToken: '/api/User/LoginWindowsByToken',
+
+    // Leads
     createLead: '/api/Lead/LeadInsert',
-    getLeads: '/api/Lead/LeadListData?page='
+    getLeads: '/api/Lead/LeadListData?page=',
+    uploadLeadProfile:'/api/Lead/LeadPicUpload',
+
+    // Notes
+    insertUpdateNote: '/api/Lead/NoteInsertUpdate',
+    getLeadNotes:'/api/Lead/NoteGet?lead_code=',
+    deleteLeadNote: '/api/Lead/NoteDelete',
+
+    // Attachment
+    insertAttachmnet:'/api/Lead/AttachmentMstInsert',
+    getLeadAttachment:'/api/Lead/AttachmentMstGet?lead_code=',
+    deleteLeadAttachment: '/api/Lead/AttachmentMstDelete',
+
+    // Masters
+    getCountryMst:'/api/Masters/CountryMstGet',
+    getStateMst: '/api/Masters/StateMstGet?country_code=',
+    getCityMst:'/api/Masters/CityMstGet?state_code=',
+    getIndustryMst:'/api/Masters/IndustryMstGet',
+    getLeadStatusMst:'/api/Masters/LeadStatusMstGet',
+    getRatingMst:'/api/Masters/RatingMstGet',
   };
 
 

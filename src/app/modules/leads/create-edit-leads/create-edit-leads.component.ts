@@ -2,13 +2,13 @@ import { AfterContentInit, Component, ElementRef, Input, OnInit, Output, ViewChi
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SessionManagement } from '@pristine/process/SessionManagement';
+import { WebApiHttp } from '@pristine/process/WebApiHttp.services';
+import { CityMstModel, CountryMstModel, StateMstModel } from 'app/model/AddressMstModel';
 import { leadListModel } from 'app/model/LeadsModel';
+import { IndustryMstModel, LeadSourceMstModel, LeadStatusMstModel } from 'app/model/LeadStatusModel';
 import { LeadsService } from '../leads.service';
-import { AttachmentsComponent } from '../leads_components/attachments/attachments.component';
-import { CallLogComponent } from '../leads_components/call-log/call-log.component';
-import { MeetingComponent } from '../leads_components/meeting/meeting.component';
-import { ScheduleCallComponent } from '../leads_components/schedule-call/schedule-call.component';
 
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'create-edit-leads',
@@ -20,22 +20,45 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
   constructor(
     private _fb: FormBuilder,
     private _session: SessionManagement,
-    private leadService: LeadsService,
-    public dialog: MatDialog
+
+    private _webApiHttp: WebApiHttp,
+    private _dom: DomSanitizer,
+    private leadService: LeadsService
+
     ) { }
-  image: string ='mat_solid:person'
+
+  image: string ='' //mat_solid:person
   uploadedImage: any
   LeadCreate: FormGroup
   email_opt_out: boolean=false
   isSubmitted: boolean = false;
   leadCode:string=''
+  countryList: Array<CountryMstModel> =[]
+  fiteredCountryList: Array<CountryMstModel> =[]
+  stateList: Array<StateMstModel> =[]
+  fiteredstateList: Array<StateMstModel> =[]
+  cityList: Array<CityMstModel> =[]
+  fiteredcityList: Array<CityMstModel> =[]
+  statusList: Array<LeadStatusMstModel> =[]
+  fiteredStatusList: Array<LeadStatusMstModel> =[]
+  sourceList: Array<LeadSourceMstModel> =[]
+  fiteredSourceList: Array<LeadSourceMstModel> =[]
+  industryList: Array<IndustryMstModel> =[]
+  fiteredIndustryList: Array<IndustryMstModel> =[]
+  ratingList: Array<string> =[]
+  fiteredRatingList: Array<string> =[]
+  profileImg:string =''
+
   @Input() data: Array<leadListModel>
   @ViewChild('top', {static:false}) top: ElementRef ;
+
   ngOnInit(): void {
     this.isSubmitted = false;
     this.leadCode =''
-    
-
+    this.getCountry()
+    this.getLeadStatus()
+    this.getLeadRating()
+    this.getLeadSource()
     this.LeadCreate = this._fb.group({
       lead_owner: [this._session.getEmail],
       company: ['',{validators: [Validators.required],updateOn: 'blur'}],
@@ -62,7 +85,9 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       state: [''],
       zipcode: [''],
       country: [''],
-      description: ['']
+      description: [''],
+      campaign_code: [''],
+      campaign_name: ['']
     })
 
     this.leadService.saveFile.subscribe(res=>{
@@ -73,7 +98,7 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       }
     })
 
-    console.log(this.data)
+
     if(this.data?.length>0){
       this.LeadCreate.get('lead_owner').setValue(this.data[0]?.lead_owner)
       this.LeadCreate.get('company').setValue(this.data[0]?.company)
@@ -100,18 +125,42 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       this.LeadCreate.get('zipcode').setValue(this.data[0]?.zipcode)
       this.LeadCreate.get('country').setValue(this.data[0]?.country)
       this.LeadCreate.get('description').setValue(this.data[0]?.description)
+      this.LeadCreate.get('campaign_code').setValue(this.data[0]?.campaign_code)
+      this.LeadCreate.get('campaign_name').setValue(this.data[0]?.campaign_name)
+      this.profileImg = this.data[0]?.image_url
       this.email_opt_out = this.data[0]?.email_opt_out==1
       this.leadCode= this.data[0]?.lead_code
+      this.getState(this.LeadCreate.get('country').value)
+      this.getCity(this.LeadCreate.get('state').value)
     }
+  }
+
+  get getProfileImage(){
+    let res = JSON.stringify(this._webApiHttp.globalurl + '/' +this.profileImg)
+    return (res);
+  }
+
+  setFocus(ele){
+    this.fiteredCountryList = this.countryList;
+    this.fiteredcityList = this.cityList;
+    this.fiteredstateList = this.stateList;
+    setTimeout(()=>{
+    ele.focus();console.log(ele.nativeElement)},100)
+    
+  }
+
+  displayFnCountry(val) {
+    console.log(val)
+     let m = this.fiteredCountryList?.find(_ => {console.log(_); return _.country_code.toLowerCase() === this.LeadCreate.get('country').value.toLowerCase()})
+     console.log(m,this.LeadCreate?.get('country')?.value.toLowerCase())
+
+    return  val?this.fiteredCountryList.find(_ => _.country_code.toLowerCase() === val)?.country_name:undefined ;
   }
 
   ngAfterContentInit(): void {
     let element =document.getElementById("top");
     element.scrollIntoView();
   
-  }
-  openDrawer(contain){
-
   }
 
   checkValidation(label): boolean{
@@ -127,18 +176,29 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
   uploadImage(){
     let fileInput = document.createElement('input')
     fileInput.setAttribute('type','file')
+    fileInput.setAttribute('accept','image/*')
+    // fileInput.setAttribute('multiple','false')
     fileInput.click()
     fileInput.addEventListener('change', event =>{
-      var file = (<HTMLInputElement>event.target).files[0];
-      let fileReader = new FileReader();
-          fileReader.onload = (e) => {
-            this.uploadedImage = fileReader.result;
-            console.log(this.uploadImage)
-          }
-       
+      var file = fileInput.files[0];
+      this.uploadedImage=file;
+      console.log(this.uploadedImage)
+      let formdata: FormData= new FormData()
+      formdata.append('image',file)
+      formdata.append('lead_code', this.data.length>0?this.data[0]?.lead_code:'')
+      formdata.append('old_url', '')
+      this.leadService.uploadProfileImage(formdata).then(res=>{
+        this.profileImg = res[0]?.image_url
+      })
+      // let fileReader = new FileReader();
+      //     fileReader.onload = (e) => {
+      //       this.uploadedImage = fileReader.result;
+      //     console.log(this.uploadedImage)
+      //     }
     })
   }
 
+ 
   SubmitChanges(){
     this.isSubmitted = true
     if(this.LeadCreate.invalid){
@@ -174,6 +234,8 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
       zipcode: this.LeadCreate.get('zipcode').value.toString(),
       country: this.LeadCreate.get('country').value.toString(),
       description: this.LeadCreate.get('description').value.toString(),
+      campaign_code: this.LeadCreate.get('campaign_code')?.value?.toString(),
+      campaign_name: this.LeadCreate.get('campaign_name')?.value?.toString(),
       created_by: this._session.getEmail
     }
     if(this.data.length>0){
@@ -182,36 +244,137 @@ export class CreateEditLeadsComponent implements OnInit, AfterContentInit {
     this.leadService.createLead(json)
   }
 
-  openScheduleDialog() {
-    const buttonClick:string='schedule'
-    this.dialog.open(ScheduleCallComponent, {
-      panelClass: 'custom-dialog-container',
-      disableClose: false,
-      height:"500px",
-      data: {
-        dataKey:buttonClick
+  ngOnDestroy(){
+
+  }
+
+  dropDownSearchFilter(value, array_name){
+    if(array_name=='country'){
+      if(value==''){
+      this.fiteredCountryList = this.countryList
+      }else{
+        this.fiteredCountryList = this.countryList.filter(ele=>{
+         
+          return ele?.country_name.toLowerCase().includes(value.toLowerCase() )
+        })
+      }
+    }else if(array_name=='state'){
+      if(value==''){
+      this.fiteredstateList = this.stateList
+      }else{
+        this.fiteredstateList = this.stateList.filter(ele=>{
+         
+          return ele?.state_name.toLowerCase().includes(value.toLowerCase() )
+        })
+      }
+    }else if(array_name=='city'){
+      if(value==''){
+      this.fiteredcityList = this.cityList
+        return
+      }else{
+        this.fiteredcityList = this.cityList.filter(ele=>{
+          return ele?.city_name.toLowerCase().includes(value.toLowerCase() )
+        })
+      }
+    }else if(array_name=='status'){
+      if(value==''){
+      this.fiteredStatusList = this.statusList
+        return
+      }else{
+        this.fiteredStatusList = this.statusList.filter(ele=>{
+          return ele?.name.toLowerCase().includes(value.toLowerCase() )
+        })
+      }
+    }else if(array_name=='source'){
+      if(value==''){
+      this.fiteredStatusList = this.statusList
+        return
+      }else{
+        this.fiteredStatusList = this.statusList.filter(ele=>{
+          return ele?.name.toLowerCase().includes(value.toLowerCase() )
+        })
+      }
+    }else if(array_name=='rating'){
+      if(value==''){
+      this.fiteredRatingList = this.ratingList
+        return
+      }else{
+        this.fiteredRatingList = this.ratingList.filter(ele=>{
+          return ele.toLowerCase().includes(value.toLowerCase() )
+        })
+      }
+    }
+  }
+  getCountry(){
+    this.countryList =[]
+    this.leadService.getCountry().then(res=>{
+      if(res.length>0 && res[0]?.condition.toLowerCase()=='true'){
+        console.log('country')
+        this.countryList = res
+        this.fiteredCountryList = res
       }
     })
   }
 
-  openLogDialog(){
-    const buttonClick:string='savelog'
-    this.dialog.open(CallLogComponent, {
-      panelClass: 'custom-dialog-container',
-      disableClose: false,
-      height:"500px",
-      data: {
-        dataKey:buttonClick
+  getState(val){
+    console.log(val,this.LeadCreate.get('country').value)
+    this.stateList =[]
+    this.cityList =[]
+    this.leadService.getState(val).then(res=>{
+      if(res.length>0 && res[0]?.condition.toLowerCase()=='true'){
+        console.log('state')
+        this.stateList = res
+        this.fiteredstateList = res
+
       }
     })
   }
 
-  openMeetingDialog(){
-    this.dialog.open(MeetingComponent,{
-      panelClass: 'custom-dialog-container',
-      disableClose: false,
-      height:"500px",
+
+  getLeadStatus(){
+    this.statusList =[]
+    this.leadService.getLeadStatus().then(res=>{
+      if(res.length>0 && res[0]?.condition.toLowerCase()=='true'){
+        console.log('status')
+        this.statusList = res
+        this.fiteredStatusList = res
+
+      }
     })
+  }
+
+
+  getCity(val){
+    this.cityList =[]
+    this.leadService.getCity(val).then(res=>{
+      if(res.length>0 && res[0]?.condition.toLowerCase()=='true'){
+        console.log('city')
+        this.cityList = res
+        this.fiteredcityList = res
+      }
+    })
+  }
+  
+  getLeadSource(){
+
+  }
+
+  getLeadRating(){
+    this.ratingList =[]
+    this.leadService.getRating().then(res=>{
+      if(res.length>0 && res[0]?.condition.toLowerCase()=='true'){
+        console.log('rating')
+        this.ratingList = res[0]?.ratings
+        this.fiteredRatingList  = res[0]?.ratings
+      }
+    })
+  }
+
+  resetDropDowns(ele){
+    ele.value=''
+    this.fiteredCountryList= this.countryList
+    this.fiteredstateList=this.stateList;;
+    this.fiteredcityList=this.cityList
   }
 
 }

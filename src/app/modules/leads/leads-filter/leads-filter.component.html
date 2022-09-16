@@ -58,9 +58,24 @@
     <div class="h-4/5  my-2 block overflow-auto">
         <ng-container >
             <span class="h-3/4 w-full overflow-auto overscroll-contain">
-                 <div class="p-2 hover:bg-blue-200" *ngFor="let ele of overviewArray" (click)="focusOnId(ele.keys)">{{ele?.name| titlecase}}</div>      
+                 <div class=" flex justify-between pl-4 cursor-default items-center rounded-r-full hover:bg-primary-50 overflow-hidden" *ngFor="let ele of overviewArray" >
+                    <span class="flex basis-full items-center leading-tight" (click)="focusOnId(ele.keys)">
+                        <span class="flex self-baseline py-2">{{ele?.name| titlecase}}</span>
+                        <span *ngIf="ele.count>0" class="mx-2 rounded-md flex items-center justify-center w-5 max-h-5  p-1 bg-primary-200">{{ele.count}}</span>
+                    </span>
+                    <div class="w-10 h-10 px-2 cursor-pointer flex items-center justify-center hover:bg-primary-300" [matMenuTriggerFor]="ele?.options.length>0?filterOptionsMenu:null"
+                         [matMenuTriggerData]="ele?.options.length>0?ele?.options:''"  (click)="ele?.options.length<1?opneInsertPopUp(ele.keys):''"><mat-icon svgIcon="add"></mat-icon></div>
+                </div>      
             </span>
         </ng-container>
 
     </div>
 </div>
+
+
+<mat-menu  #filterOptionsMenu="matMenu">
+    <ng-template matMenuContent let-aliasMenuItems="menuItems">
+        <button mat-menu-item>heeey</button>
+    </ng-template>
+
+</mat-menu>

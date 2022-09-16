@@ -13,6 +13,7 @@ body{
     border-style: solid;
     border-radius:8px;
     padding: 8px;
+    min-width: 256px!important;
     &:focus, &:focus-within{
         border-color: black;
         border-width: 1px;
@@ -26,6 +27,10 @@ body{
     &.error{
         border-color: orangered;
     }
+
+    & .mat-select .mat-select-arrow-wrapper{
+        display: none !important;
+    }
 }
 .input_label{
     flex-basis: 50%;
@@ -38,7 +43,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: baseline;
+    align-items: center;
     padding: 4px;
 
     & .custom_input{

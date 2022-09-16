@@ -12,6 +12,7 @@ export interface leadListModel{
   website:string,
   lead_source:string,
   lead_status:string,
+  image_url:string,
   industry:string,
   no_of_employees:string|number,
   annual_revenue:string|number,
@@ -27,5 +28,7 @@ export interface leadListModel{
   country:string,
   description:string,
   created_by:string,
-  lead_code?: string
+  lead_code?: string,
+  campaign_code?: string,
+  campaign_name?: string,
 }
