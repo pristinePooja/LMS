@@ -48,6 +48,9 @@ export class WebApiHttp {
     getIndustryMst:'/api/Masters/IndustryMstGet',
     getLeadStatusMst:'/api/Masters/LeadStatusMstGet',
     getRatingMst:'/api/Masters/RatingMstGet',
+
+
+    getGoogleToken: '/api/GoogleMeet/GenrateToken'
   };
 
 

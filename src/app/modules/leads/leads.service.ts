@@ -34,7 +34,7 @@ export class LeadsService {
     { name : 'notes', keys:'notes', count:0, options:[]},
     { name : 'attachments',  keys:'attachments', count:0, options:[{name:'Attach File', key:'file'},{name:'Attach Url', key:'URL'}]},
     { name : 'products', keys:'products', count:5, options:[]},
-    { name : 'Open Activities', keys:'open_activities', count:0, options:[{name:'Meetings', key:'Meeting'},{name:'Schedule Call', key:'schedule_call'}, {name:'Call Log', key:'call_log'}]},
+    { name : 'Open Activities', keys:'open_activities', count:0, options:[{name:'Meetings', key:'meeting'},{name:'Schedule Call', key:'schedule'}, {name:'Call Log', key:'log'}]},
     { name : 'Closed Activities', keys:'closed_activities', count:0, options:[]},
     { name : 'Invited Meetings', keys:'invited_meetings', count:0, options:[]},
     { name : 'Emails', keys:'emails', count:0, options:[]},

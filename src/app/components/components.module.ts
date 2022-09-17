@@ -8,6 +8,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DragDirective } from '@pristine/directives/dragDrop.directive';
 import { ScheduleCallComponent } from './schedule-call/schedule-call.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
+import { MatIconModule } from '@angular/material/icon';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -20,6 +22,8 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
     MatSelectModule,
     MatAutocompleteModule,
     MatDatepickerModule, 
+    MatIconModule,
+    ReactiveFormsModule 
   ]
 })
 export class ComponentsModule { }
