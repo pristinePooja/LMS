@@ -12,6 +12,8 @@ import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { ComponentsModule } from './components/components.module';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -26,6 +28,8 @@ const routerConfig: ExtraOptions = {
     imports     : [
         BrowserModule,
         BrowserAnimationsModule,
+        MatMomentDateModule,
+        ComponentsModule,
         RouterModule.forRoot(appRoutes, routerConfig),
 
         // Pristine, PristineConfig & PristineMockAPI

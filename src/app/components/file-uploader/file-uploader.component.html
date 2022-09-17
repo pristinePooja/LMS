@@ -1,0 +1,56 @@
+
+<!-- <ng-template  #addAttachmentRef @slideInTop> -->
+    <div class="mt-2 flex-col">
+        <div class="font-semibold text-2xl mb-2">Attach {{attachmentType | titlecase}}</div>
+
+        <ng-container *ngIf="attachmentType=='file'">
+            <div *ngIf="!files?.length" class="flex-col" appDrag (files)="filesDropped($event)" (click)="addAttachment('attachment')">
+                <div class="flex justify-center text-lg  items-center h-30 w-full bg-accent-50 hover:bg-accent-100 text-hint rounded-2xl overflow-hidden
+                border-dashed border-2 border-accent-200">
+                    <div class="">Click here or drop files here to attach.</div>
+                </div>
+            </div>
+            <div class="p-2 mt-6 mb-3 max-h-50  overflow-auto" *ngIf="attachmentsUploadList?.length>0">
+                <div class="flex justify-between w-full items-center pb-2 px-3 text-sm" *ngFor="let ele of attachmentsUploadList; let i = index">        
+                    <div class="flex">
+                        <div class="flex space-x-2"><mat-icon class="icon-size-4" [svgIcon]="splitText(ele.name,'icon')"></mat-icon>
+                        </div>
+                        <span class="text-sky-600">{{ele.name}}</span> ({{bytesToSize(ele.size)}})
+                    </div>
+                    <mat-icon svgIcon="clear" class="icon-size-4 hover:text-sky-500" (click)="removeFile('attachment',i)"></mat-icon>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="attachmentType=='URL'">
+            <div class="flex flex-col space-y-2">
+                <div class="field_container justify-start">
+                    <p class="input_label basis-1/5">Link Title</p>
+                    <span class="basis-4/5 flex required  input_field {{validAttachmentLink && attachmnetLink?.attachment_title ==''?'error':''}}">
+                      <input  [(ngModel)]="attachmnetLink.attachment_title" class="basis-full"/>
+                      <mat-icon class="text-red-500"
+                      [matTooltip]="validAttachmentLink && attachmnetLink?.attachment_title==''?'Invalid Link Name':''"
+                       svgIcon="{{validAttachmentLink && attachmnetLink?.attachment_title ==''?'feather:info':''}}"></mat-icon>
+                </span>
+                </div>
+               
+                <div class="field_container justify-start">
+                    <p class="input_label basis-1/5">Enter URL</p>
+                    <span class="basis-4/5 flex required  input_field {{validAttachmentLink && attachmnetLink?.attachment_url ==''?'error':''}}">
+                      <input  [(ngModel)]="attachmnetLink.attachment_url" class="basis-full"/>
+                      <mat-icon class="text-red-500"
+                      [matTooltip]="validAttachmentLink && attachmnetLink?.attachment_url==''?'Invalid URL':''"
+                       svgIcon="{{validAttachmentLink && attachmnetLink?.attachment_url ==''?'feather:info':''}}"></mat-icon>
+                </span>
+                </div>
+               
+            </div>
+        </ng-container>
+
+        <div class="flex justify-end space-x-2 mt-3">
+            <button matripple class="mat-focus-indicator mat-raised-button mat-button-base bg-inherit border-2 border-primary-500 border-solid" mat-dialog-close>Cancel</button>
+            <button matripple class="mat-focus-indicator mat-raised-button mat-button-base mat-primary disabled:bg-accent-200 disabled:text-primary disabled:shadow-none disabled:pointer-events-none"
+                [disabled]="(attachmentType=='file' && attachmentsUploadList.length<1) || (attachmentType=='URL' && (attachmnetLink?.attachment_url=='' || attachmnetLink?.attachment_title==''))" [mat-dialog-close]="upload()">Attach</button>
+        </div>
+    </div>
+<!-- </ng-template> -->

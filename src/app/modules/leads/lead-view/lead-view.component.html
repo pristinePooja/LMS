@@ -409,6 +409,34 @@
                 No Record Found
             </div>
         </div>
+
+        <!-- Open Activities -->
+        <div class="basis-2/3 card p-0 " id="open_activities">
+            <div class="font-bold px-5  py-3 border-b cursor-default flex items-center justify-between">
+                <span class="text-xl ">Open Activities</span>
+                <div class="border-sky-600 bg-sky-100 hover:bg-sky-200 border p-1 px-3 rounded-lg flex justify-center items-center" [matMenuTriggerFor]="addActivityMenu">
+                    <mat-icon class="icon-size-4 text-sky-600" svgIcon="mat_solid:add"></mat-icon>
+                    <span class="text-sm text-sky-600">Add New</span>
+                </div>
+            </div>
+           
+            <div class="flex">
+                <div class="flex flex-col max-h-100 basis-1/2">
+                    <div class="w-full font-bold">
+                        <p class="pl-5 py-1">
+                            Open Meetings
+                        </p>
+                    </div>
+                    <div></div>
+                    <div class="p-4  mt-0 border-y text-center text-gray-500 text-md">
+                        No Record Found
+                    </div>
+                </div>
+
+            </div>
+            
+            
+        </div>
     </div>
     </ng-container>
 
@@ -426,13 +454,11 @@
                     No upcoming actions
                 </div>
             </div>
-
         <!-- History -->
         <div class="p-5  card">
             <div class="font-bold pb-4 cursor-default flex items-center text-xl">
                 History
             </div>
-            
         </div>
         </div>
         </ng-container>
@@ -443,12 +469,12 @@
 </mat-menu>
 
 <ng-template #createNote let-note>
-    <div class="input_field flex mx-6 basis-full flex-col px-0 py-3 {{addNotes?'border-sky-700 border-solid shadow-md shadow-sky-700':''}}" >
-        <span class="flex flex-col" (click)="addNotes=true">
-            <input *ngIf="(addNotes && addTitle)||(titleText!='')" [(ngModel)]="titleText"  [readonly]="edit_note_code==note?.note_id"
+    <div id="notes_input" class="input_field flex mx-6 basis-full flex-col px-0 py-3 {{addNotes?'border-sky-700 border-solid shadow-md shadow-sky-700':''}}" >
+        <span class="flex flex-col" (click)="noteToggle(true)">
+            <input  *ngIf="(addNotes && addTitle)||(titleText!='')" [(ngModel)]="titleText"  [readonly]="edit_note_code==note?.note_id"
             (focusout)="titleText==''?addTitle=false:''" 
             class="placeholder:text-slate-600 font-semibold mx-6" placeholder="Add Title"  #titleRef/>
-            <textarea [(ngModel)]="remarkText" class="mx-6 resize-y  overflow-hidden {{addNotes?'min-h-15':'min-h-5'}} leading-5"
+            <textarea  [(ngModel)]="remarkText" class="mx-6 resize-y  overflow-hidden {{addNotes?'min-h-15':'min-h-5'}} leading-5"
             cdkTextareaAutosize [placeholder]="addNotes?'Add note':'Add note...'"></textarea>
         </span>
         <div  *ngIf="addNotes" class="flex justify-between mt-2 px-6 py-2 pb-0 border-t">
@@ -485,62 +511,16 @@
 </ng-template>
 
 <mat-menu #documentTypeMenu>
-    <button (click)="openPopUp('file')" mat-menu-item>Upload File</button>
-    <button (click)="openPopUp('URL')" mat-menu-item>Attach URL</button>
+    <button (click)="openPopUp('file','attachent')" mat-menu-item>Upload File</button>
+    <button (click)="openPopUp('URL','attachent')" mat-menu-item>Attach URL</button>
 </mat-menu>
 
-<ng-template  #addAttachmentRef @slideInTop>
-    <div class="mt-2 flex-col">
-        <div class="font-semibold text-2xl mb-2">Attach {{attachmentType | titlecase}}</div>
+<mat-menu #addActivityMenu >
+    <button [matMenuTriggerFor]="callMenu" mat-menu-item>Call</button>
+    <button (click)="openPopUp('meeting','activity')" mat-menu-item>Meeting</button>
+</mat-menu>
 
-        <ng-container *ngIf="attachmentType=='file'">
-            <div *ngIf="!files?.length" class="flex-col" appDrag (files)="filesDropped($event)" (click)="addAttachment('attachment')">
-                <div class="flex justify-center text-lg  items-center h-30 w-full bg-accent-50 hover:bg-accent-100 text-hint rounded-2xl overflow-hidden
-                border-dashed border-2 border-accent-200">
-                    <div class="">Click here or drop files here to attach.</div>
-                </div>
-            </div>
-            <div class="p-2 mt-6 mb-3 max-h-50  overflow-auto" *ngIf="attachmentsUploadList?.length>0">
-                <div class="flex justify-between w-full items-center pb-2 px-3 text-sm" *ngFor="let ele of attachmentsUploadList; let i = index">        
-                    <div class="flex">
-                        <div class="flex space-x-2"><mat-icon class="icon-size-4" [svgIcon]="splitText(ele.name,'icon')"></mat-icon>
-                        </div>
-                        <span class="text-sky-600">{{ele.name}}</span> ({{bytesToSize(ele.size)}})
-                    </div>
-                    <mat-icon svgIcon="clear" class="icon-size-4 hover:text-sky-500" (click)="removeFile('attachment',i)"></mat-icon>
-                </div>
-            </div>
-        </ng-container>
-
-        <ng-container *ngIf="attachmentType=='URL'">
-            <div class="flex flex-col space-y-2">
-                <div class="field_container justify-start">
-                    <p class="input_label basis-1/5">Link Title</p>
-                    <span class="basis-4/5 flex required  input_field {{validAttachmentLink && attachmnetLink?.attachment_title ==''?'error':''}}">
-                      <input  [(ngModel)]="attachmnetLink.attachment_title" class="basis-full"/>
-                      <mat-icon class="text-red-500"
-                      [matTooltip]="validAttachmentLink && attachmnetLink?.attachment_title==''?'Invalid Link Name':''"
-                       svgIcon="{{validAttachmentLink && attachmnetLink?.attachment_title ==''?'feather:info':''}}"></mat-icon>
-                </span>
-                </div>
-               
-                <div class="field_container justify-start">
-                    <p class="input_label basis-1/5">Enter URL</p>
-                    <span class="basis-4/5 flex required  input_field {{validAttachmentLink && attachmnetLink?.attachment_url ==''?'error':''}}">
-                      <input  [(ngModel)]="attachmnetLink.attachment_url" class="basis-full"/>
-                      <mat-icon class="text-red-500"
-                      [matTooltip]="validAttachmentLink && attachmnetLink?.attachment_url==''?'Invalid URL':''"
-                       svgIcon="{{validAttachmentLink && attachmnetLink?.attachment_url ==''?'feather:info':''}}"></mat-icon>
-                </span>
-                </div>
-               
-            </div>
-        </ng-container>
-
-        <div class="flex justify-end space-x-2 mt-3">
-            <button matripple class="mat-focus-indicator mat-raised-button mat-button-base bg-inherit border-2 border-primary-500 border-solid" mat-dialog-close>Cancel</button>
-            <button matripple class="mat-focus-indicator mat-raised-button mat-button-base mat-primary disabled:bg-accent-200 disabled:text-primary disabled:shadow-none disabled:pointer-events-none"
-                [disabled]="(attachmentType=='file' && attachmentsUploadList.length<1) || (attachmentType=='URL' && (attachmnetLink?.attachment_url=='' || attachmnetLink?.attachment_title==''))" [mat-dialog-close]="'save'">Attach</button>
-        </div>
-    </div>
-</ng-template>
+<mat-menu #callMenu>
+    <button (click)="openPopUp('schedule_call','call')" mat-menu-item>Schedule a Call</button>
+    <button (click)="openPopUp('call_log','call')" mat-menu-item>Call Log</button>
+</mat-menu>

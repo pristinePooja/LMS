@@ -6,7 +6,9 @@ import { WebApiHttp } from '@pristine/process/WebApiHttp.services';
 import { messages } from 'app/mock-api/apps/chat/data';
 import { leadListModel } from 'app/model/LeadsModel';
 import { BehaviorSubject, Observable } from 'rxjs';
-
+import { MatDialog } from '@angular/material/dialog';
+import { FileUploaderComponent } from '../../components/file-uploader/file-uploader.component';
+import { ComponentsService } from 'app/components/components.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,14 +21,20 @@ export class LeadsService {
   loading : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   selectedLead: BehaviorSubject<any> = new BehaviorSubject<any>({})
   toaster: BehaviorSubject<{type:string,message: string}> =  new BehaviorSubject<{type:string,message: string}>({type:'',message: ''})
-  filters: any={}
+  filters: any={};
+  attachmentType:'file'|'URL'|''=''
+  attachmentsUploadList: Array<any>=[]
+  attachmnetLink: {attachment_url:string,attachment_title:string}={attachment_url:'',attachment_title:''}
+  getAttachmentList: BehaviorSubject<any> = new BehaviorSubject<any>('')
+
+  addNotes: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   viewFilterOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
   pageType: BehaviorSubject<'list'|'create'|'view'|'edit'> = new BehaviorSubject<'list'|'create'|'view'|'edit'> ('list')
   viewCount :BehaviorSubject<Array<{name:string,keys:string,count:number|string, options:Array<{name:string, key:string}>}>> = new BehaviorSubject([
     { name : 'notes', keys:'notes', count:0, options:[]},
     { name : 'attachments',  keys:'attachments', count:0, options:[{name:'Attach File', key:'file'},{name:'Attach Url', key:'URL'}]},
     { name : 'products', keys:'products', count:5, options:[]},
-    { name : 'Open Activities', keys:'open_activities', count:0, options:[{name:'Meetings', key:'Meeting'},{name:'Schedule Call', key:'schedule_call'}, {name:'Log Call', key:'log_call'}]},
+    { name : 'Open Activities', keys:'open_activities', count:0, options:[{name:'Meetings', key:'Meeting'},{name:'Schedule Call', key:'schedule_call'}, {name:'Call Log', key:'call_log'}]},
     { name : 'Closed Activities', keys:'closed_activities', count:0, options:[]},
     { name : 'Invited Meetings', keys:'invited_meetings', count:0, options:[]},
     { name : 'Emails', keys:'emails', count:0, options:[]},
@@ -34,6 +42,8 @@ export class LeadsService {
 
   constructor(private _session: SessionManagement, 
               private _webAPi: WebApiHttp,
+              private _dialog: MatDialog,
+              private _commonComponents: ComponentsService,
               private _header: HeaderService
     ) {
 
@@ -187,6 +197,34 @@ export class LeadsService {
       this.loading.next(false)
     })
     
+  }
+
+  openAttachmentPopUp(type){
+    this.attachmentType = type
+    let d  
+     console.log(this.attachmentType)
+     this._dialog.open(FileUploaderComponent,{
+      maxWidth:'680px',
+      width:'680px',
+      minWidth:'480px',
+      position: {'top':'3rem'}, 
+      panelClass:'top-popUp-panel',
+      data:{attachmentType:type, lead_data: this.selectedLead.value?.all}}
+      ).afterClosed().subscribe(ele=>{
+        console.log(ele)
+        if(ele?.type=='save'){
+           this.UploadAttachment(ele?.data).then(res=>{
+            this.getAttachmentList.next(res)
+           }).catch(err=>{}).finally(()=>{console.log(d)})
+        }
+        this.attachmentsUploadList =[]
+        this.attachmentType =''
+        this.attachmnetLink={attachment_url:'',attachment_title:''}
+      })
+  }
+
+  openMeetingPopUp(type){
+    this._commonComponents.openMeetingPopUp(type)
   }
 
   async getLeadNotes(lead_code, flag): Promise<any>{

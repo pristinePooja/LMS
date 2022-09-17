@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Subject } from '@microsoft/signalr';
 import { slideInTop } from '@pristine/animations/slide';
 import { FileHandle } from '@pristine/directives/dragDrop.directive';
 import { SessionManagement } from '@pristine/process/SessionManagement';
@@ -10,6 +11,7 @@ import { PristineConfirmationDialogComponent } from '@pristine/services/confirma
 import { notesModel } from 'app/model/NotesModel';
 
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject } from 'rxjs';
 import { LeadsService } from '../leads.service';
 
 @Component({
@@ -62,6 +64,11 @@ export class LeadViewComponent implements OnInit {
     this._leadService.viewFilterOpen.subscribe(res=>{
       this.sidePanelOpen = res
     })
+    this._leadService.addNotes.subscribe(res=>{
+      console.log(res)
+      this.addNotes = res;
+       if(!res){this.resetNotes();}
+      })
     this._leadService.selectedLead.subscribe(res=>{
       this.viewDetailsData = res?.all
       if(this.viewDetailsData?.lead_code){
@@ -99,38 +106,32 @@ export class LeadViewComponent implements OnInit {
     setTimeout(()=>{this.titelRef.nativeElement.focus()},300)
   }
 
-  openPopUp(type){
-    this.attachmentType = type
-    console.log(this.attachmentType)
-    this.attachmentDialog = this._dialog.open(this.addAttachmentRef,{
-      maxWidth:'680px',
-      width:'680px',
-      minWidth:'480px',
-      position: {'top':'3rem'}, 
-      panelClass:'rounded-t-none',
+  openPopUp(type,src){
+    if(src=='attachent'){
+      this._leadService.openAttachmentPopUp(type)
     }
-      ).afterClosed().subscribe(ele=>{
-        if(ele=='save'){
-         
-          this.UploadAttachments(this.attachmentType, this.attachmnetLink, this.attachmentsUploadList)
-        }
-        this.attachmentsUploadList =[]
-        this.attachmentType =''
-        this.attachmnetLink={attachment_url:'',attachment_title:''}
-      })
+    else if(src=='call'){ 
+      this._leadService.openMeetingPopUp(type)
+    }
   }
 
 
+  noteToggle(val){
+    this._leadService.addNotes.next(val)
+  }
+
   editNote(element){
-    this.addNotes = true
+    this._leadService.addNotes.next(true)
     this.remarkText = element.remarks;
     this.titleText = element.note_title;
     this.edit_note_code = element.note_id
   }
 
   resetNotes(){
+    if(this.addNotes){
+      this._leadService.addNotes.next(false)
+    }
     this.addTitle=false;
-    this.addNotes=false;
     this.titleText=''
     this.remarkText =''
     this.edit_note_code =''
@@ -155,17 +156,20 @@ export class LeadViewComponent implements OnInit {
   }
 
   getAttachments(){
+    this._leadService.getAttachmentList.subscribe(res=>{
+      console.log(res)
+      if(res.length>0 && res[0]?.condition?.toString()?.toLowerCase() =='true'){
+        this.AttachmentList = res
+        this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
+      }else{
+        this.AttachmentList =[]
+        this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
+      }
+    },err=>{console.log(err)})
     try{
       this._leadService.getAttachment(this.viewDetailsData?.lead_code).then(res=>{
-        console.log(res)
-        if(res.length>0 && res[0]?.condition?.toString()?.toLowerCase() =='true'){
-          this.AttachmentList = res
-          this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
-        }else{
-          this.AttachmentList =[]
-          this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
-        }
-      },err=>{console.log(err)}).catch(err=>{}).finally(()=>{})
+        this._leadService.getAttachmentList.next(res)
+       }).catch(err=>{}).finally(()=>{})
     }catch(err){
 
     }
@@ -287,29 +291,7 @@ export class LeadViewComponent implements OnInit {
     console.log(this.attachmentsUploadList)
   }
 
-  UploadAttachments(type,link,file ){
-    let formData: FormData = new FormData()
-    console.log(type,JSON.stringify([link]),file)
-    formData.append('lead_code', this.viewDetailsData.lead_code)
-    formData.append('attachment_type', type)
-    formData.append('created_by',this._session.getEmail)
-    file.map(ele=>{
-      formData.append('attachments',ele.data)
-    })
-    formData.append('attachmentStringList', JSON.stringify([link]))
-    formData.forEach((e,k)=>console.log(k +':'+ e))
-    
-    this._leadService.UploadAttachment(formData).then(res=>{
-      if(res.length>0 && res[0]?.condition?.toString()?.toLowerCase() =='true'){
-      
-        this.AttachmentList = res
-        this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
-      }else{
-        this.AttachmentList =[]
-        this._leadService.viewFilterCountUpdate('attachments', this.AttachmentList?.length)
-      }
-    },err=>{console.log(err)}).catch(err=>{}).finally(()=>{})
-  }
+  
 
   deleteAttachment(ele){
     console.log(ele)

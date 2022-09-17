@@ -1,6 +1,5 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {expandCollapse} from '@pristine/animations/expand-collapse';
-import { products } from 'app/mock-api/apps/ecommerce/inventory/data';
 import { LeadsService } from '../leads.service';
 
 
@@ -128,4 +127,18 @@ export class LeadsFilterComponent implements OnInit {
     focusOnId(ele){
         document.getElementById(ele).scrollIntoView()
     }
+
+    openPopUp(value, keys){
+        console.log(value, keys)
+        if(keys=='attachments'){
+            this._leadService.openAttachmentPopUp(value)
+        }else if(keys=='notes'){
+            this.focusOnId(keys+'_input')
+            this._leadService.addNotes.next(true);
+        }else if(value=='call_log'){
+            this._leadService.openMeetingPopUp(value)
+        }
+    }
+
+    addAttachment(){}
 }

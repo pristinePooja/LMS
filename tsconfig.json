@@ -21,6 +21,8 @@
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
-        "strictTemplates": false
+        "strictTemplates": false,
+        "resolveJsonModule":true,
+        "allowSyntheticDefaultImports": true,
     }
 }

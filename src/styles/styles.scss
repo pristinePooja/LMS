@@ -23,6 +23,9 @@ body{
         border-left-color: orangered   ;
         border-left-width: 4px;
     }
+    &:hover{
+        box-shadow:0px 0px 5px 1px #aaa;
+    }
 
     &.error{
         border-color: orangered;
@@ -70,5 +73,11 @@ body{
     border-width: 1px;
     border-style: solid;
     padding: 8px;
+}
+
+
+.top-popUp-panel .mat-dialog-container{
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
 }
 

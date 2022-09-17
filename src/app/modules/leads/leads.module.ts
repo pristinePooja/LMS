@@ -13,20 +13,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatTableModule } from '@angular/material/table'
-import { NgForm } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LeadsService } from './leads.service';
-import { HeaderComponent } from '@pristine/components/header/header.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LeadViewComponent } from './lead-view/lead-view.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { FileUploaderComponent } from './componets/file-uploader/file-uploader.component';
+import { FileUploaderComponent } from '../../components/file-uploader/file-uploader.component';
 import { DragDirective } from '@pristine/directives/dragDrop.directive';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatOptionModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker'
 
 const route: Routes =[{
   path:'lead_list',
@@ -51,8 +50,6 @@ const route: Routes =[{
       LeadsListComponent,
       CreateEditLeadsComponent,
       LeadViewComponent,
-      FileUploaderComponent,
-      DragDirective
   ],
     imports: [
         CommonModule,
@@ -67,11 +64,8 @@ const route: Routes =[{
         MatTableModule,
         MatCheckboxModule,
         NgxSpinnerModule,
-        MatMenuModule,
-        MatDialogModule,
-        MatOptionModule,
         MatSelectModule,
-        MatAutocompleteModule,
+        MatMenuModule,
         RouterModule.forChild(route)
     ], providers:[LeadsService, DatePipe]
 })
