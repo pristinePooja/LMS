@@ -113,6 +113,9 @@ export class LeadViewComponent implements OnInit {
     else if(src=='call'){ 
       this._leadService.openMeetingPopUp(type)
     }
+    else if(src=='meeting'){ 
+      this._leadService.openMeetingPopUp(type)
+    }
   }
 
 

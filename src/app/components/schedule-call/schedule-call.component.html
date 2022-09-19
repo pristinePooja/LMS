@@ -85,7 +85,7 @@
                     <span class=" flex required input_field basis-8/12">
                         <input formControlName="call_start_date" matInput [matDatepicker]="picker" class="w-0" #inputDate autocomplete="off" >
                         <p class="basis-1/2 border-r border-gray-400 px-4" (click)="picker.open()">{{inputDate.value | date:'MMM dd, YYYY'}}</p>
-                        <mat-select formControlName="call_start_time" class="basis-1/2 px-4">
+                        <mat-select formControlName="call_start_time" disableOptionCentering class="basis-1/2 px-4">
                             <mat-option *ngFor="let ele of timeArray" [value]="ele">{{ele}}</mat-option>
                         </mat-select>
                         <mat-icon svgIcon=""></mat-icon>
@@ -99,7 +99,7 @@
                         <mat-select formControlName="call_owner" class="basis-full" (closed)="resetDropDowns(sourceSearch)"   (opened)="setFocus(sourceSearch)">
                             <span class="sticky flex self-stretch bg-white top-2 w-[90%] m-2 space-x-2 border border-accent-500 rounded-md py-2 px-2">
                                 <mat-icon svgIcon="search"></mat-icon>
-                                <input  #sourceSearch (input)="dropDownSearchFilter(sourceSearch.value,'source')">
+                                <input  #sourceSearch (input)="dropDownSearchFilter(sourceSearch.value,'owner')">
                             </span>
                                 <div class="w-full px-2 py-4 max-h-48 overflow-x-auto">
                                     <mat-option *ngIf="callToArray.length<1"  disabled>No matching record</mat-option>

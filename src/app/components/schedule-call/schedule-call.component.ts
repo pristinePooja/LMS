@@ -13,6 +13,7 @@ export class ScheduleCallComponent implements OnInit {
   jsonData= data
   type: 'log'|'schedule'|'create' ='log'
   callToArray: Array<any> =[]
+  callToArrayfiltered: Array<any> =[]
   timeArray: Array<string> =[]
   callOwnerList: Array<any> =[]
   callToList: Array<any> =[]
@@ -84,10 +85,21 @@ export class ScheduleCallComponent implements OnInit {
   }
 
   dropDownSearchFilter(value, source){
-    
+    if(source=='owner'){
+      if(value==''){
+      this.callToArrayfiltered = this.callToArray
+      }else{
+        this.callToArrayfiltered = this.callToArray.filter(ele=>{
+         
+          return ele?.country_name.toLowerCase().includes(value.toLowerCase() )
+        })
+      }
+    }else{}
   }
 
-  resetDropDowns(ele){}
+  resetDropDowns(ele){
+    ele.value=''
+  }
 
 
   validateNumericValue(event){

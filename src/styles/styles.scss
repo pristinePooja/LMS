@@ -14,7 +14,8 @@ body{
     border-radius:8px;
     padding: 8px;
     min-width: 256px!important;
-    &:focus, &:focus-within{
+    font-size: 15px;
+    &:focus, &:focus-within:not(.no_hover){
         border-color: black;
         border-width: 1px;
         box-shadow: 0 0 8px skyblue;
@@ -23,7 +24,7 @@ body{
         border-left-color: orangered   ;
         border-left-width: 4px;
     }
-    &:hover{
+    &:hover:not(.no_hover){
         box-shadow:0px 0px 5px 1px #aaa;
     }
 
@@ -34,13 +35,29 @@ body{
     & .mat-select .mat-select-arrow-wrapper{
         display: none !important;
     }
+
+    &.underline_view{
+        border: none !important;
+        border-bottom: 1px solid lightgray!important;
+        border-radius: 0!important;
+        padding-bottom: 0;
+        &:focus, &:focus-within:not(.no_hover){
+            border-bottom: #0284C7  1px solid !important;
+            box-shadow: none!important;
+        }
+        &:not(.no_hover):hover{
+            box-shadow: none;
+            border-bottom-color: rgb(37, 37, 37) !important;
+        }
+    
+    }
 }
 .input_label{
     flex-basis: 50%;
     font-weight: 500;
     text-align: right;
-   padding-right: 1.5em;
-    
+    padding-right: 1.5em;
+    font-size: 15px ;
 }
 .field_container{
     display: flex;
@@ -63,6 +80,34 @@ body{
             display: flex!important;
             align-items: stretch!important;
         }
+    }
+
+}
+
+.field_container_underline{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 8px;
+    
+    border-radius: 0!important;
+    align-items: flex-end !important;
+    & .input_label{
+        flex-basis: 30% !important;
+        font-weight: 500;
+        text-align: left !important;
+        padding: 0 0 4px 0!important;
+        border-bottom: 1px solid lightgray!important; 
+    }
+    & .input_label.required::after {
+        background: #f27b77;
+        bottom: -1px;
+        content: "";
+        display: inline-block;
+        height: 2px;
+        left: 0;
+        position: absolute;
+        width: 25px;
     }
 }
 

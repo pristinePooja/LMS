@@ -129,13 +129,16 @@ export class LeadsFilterComponent implements OnInit {
     }
 
     openPopUp(value, keys){
+        console.log(value,keys)
         if(keys=='attachments'){
             this._leadService.openAttachmentPopUp(value)
         }else if(keys=='notes'){
             this.focusOnId(keys+'_input')
             this._leadService.addNotes.next(true);
         }else if(keys=='open_activities' && (value == 'schedule' ||value == 'log' )){
-            this._leadService.openMeetingPopUp(value)
+            this._leadService.openCallPopUp(value)
+        }else if(value == 'meeting'){
+            this._leadService.openMeetingPopUp('')
         }
     }
 

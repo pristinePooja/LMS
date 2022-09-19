@@ -34,7 +34,7 @@ export class LeadsService {
     { name : 'notes', keys:'notes', count:0, options:[]},
     { name : 'attachments',  keys:'attachments', count:0, options:[{name:'Attach File', key:'file'},{name:'Attach Url', key:'URL'}]},
     { name : 'products', keys:'products', count:5, options:[]},
-    { name : 'Open Activities', keys:'open_activities', count:0, options:[{name:'Meetings', key:'meeting'},{name:'Schedule Call', key:'schedule'}, {name:'Call Log', key:'log'}]},
+    { name : 'Open Activities', keys:'open_activities', count:0, options:[{name:'Schedule Meeting', key:'meeting'},{name:'Schedule Call', key:'schedule'}, {name:'Call Log', key:'log'}]},
     { name : 'Closed Activities', keys:'closed_activities', count:0, options:[]},
     { name : 'Invited Meetings', keys:'invited_meetings', count:0, options:[]},
     { name : 'Emails', keys:'emails', count:0, options:[]},
@@ -225,6 +225,9 @@ export class LeadsService {
 
   openMeetingPopUp(type){
     this._commonComponents.openMeetingPopUp(type)
+  }
+  openCallPopUp(type){
+    this._commonComponents.openCallPopUp(type)
   }
 
   async getLeadNotes(lead_code, flag): Promise<any>{

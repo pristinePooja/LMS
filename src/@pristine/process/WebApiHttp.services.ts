@@ -26,6 +26,10 @@ export class WebApiHttp {
 
     LoginWindowsByToken: '/api/User/LoginWindowsByToken',
 
+
+    // Users
+    getAllUsers:'/api/User/AllUser',
+
     // Leads
     createLead: '/api/Lead/LeadInsert',
     getLeads: '/api/Lead/LeadListData?page=',
