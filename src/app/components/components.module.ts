@@ -9,7 +9,7 @@ import { DragDirective } from '@pristine/directives/dragDrop.directive';
 import { ScheduleCallComponent } from './schedule-call/schedule-call.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { MatIconModule } from '@angular/material/icon';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ScheduleMeetingComponent } from './schedule_meeting/schedule_meeting.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
@@ -26,7 +26,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDatepickerModule, 
     MatIconModule,
     ReactiveFormsModule,
-    MatCheckboxModule 
+    MatCheckboxModule ,
+    FormsModule
   ]
 })
 export class ComponentsModule { }

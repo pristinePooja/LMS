@@ -31,4 +31,6 @@ export interface leadListModel{
   lead_code?: string,
   campaign_code?: string,
   campaign_name?: string,
+  is_ui_query?: number,
+  middle_query?: string
 }

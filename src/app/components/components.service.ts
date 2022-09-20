@@ -21,8 +21,8 @@ export class ComponentsService {
   openCallPopUp(type){
     console.log(type)
     this._dialog.open(ScheduleCallComponent,{
-      maxWidth:'680px',
-      width:'680px',
+      maxWidth:'580px',
+      width:'580px',
       minWidth:'480px',
       position: {'top':'3rem'}, 
       panelClass:'top-popUp-panel', data:{type:type}})
@@ -30,8 +30,8 @@ export class ComponentsService {
   openMeetingPopUp(type){
     console.log(type +'fghjkl')
     this._dialog.open(ScheduleMeetingComponent,{
-      maxWidth:'680px',
-      width:'680px',
+      maxWidth:'580px',
+      width:'580px',
       minWidth:'480px',
       position: {'top':'3rem'}, 
       panelClass:'top-popUp-panel', data:{type:type}})
@@ -63,6 +63,51 @@ export class ComponentsService {
       }else{
         this.userList.next([]);
       }
+    })
+  }
+
+  getLeadList(val){
+    let json={sorting_column: "lead_code",is_ui_query:1, middle_query:"and first_name like  '%" +val+"%' or last_name like  '%" +val+ "%' or email like  '%" +val+"%'"} 
+    
+    this._webApiHttp.Post(this._webApiHttp.ApiURLArray.getLeads+'0'+'&pageSize='+'20', json).then(res=>{
+
+      if(Number(res?.totalCount)>0){
+       this.LeadList.next(res?.items)
+       console.log(res)
+      }else{
+        if(res?.length>0 && res[0]?.hasOwnProperty('condition')  && res[0]?.condition.toLowerCase() =='false'){
+         this.LeadList.next([])
+        }
+      }
+    },err=>{console.log(err)}).catch(err=>{
+      console.log(err)
+    }).finally(()=>{
+    })
+  }
+
+  getAccountList(){
+    this._webApiHttp.Get(this._webApiHttp.ApiURLArray.getAllUsers).then(res=>{
+      if(res[0]?.condition.toLowerCase()=='true'){
+        this.userList.next(res);
+      }else{
+        this.userList.next([]);
+      }
+    }).catch(err=>{
+      console.log(err)
+    }).finally(()=>{
+    })
+  }
+
+  getContactList(){
+    this._webApiHttp.Get(this._webApiHttp.ApiURLArray.getAllUsers).then(res=>{
+      if(res[0]?.condition.toLowerCase()=='true'){
+        this.userList.next(res);
+      }else{
+        this.userList.next([]);
+      }
+    }).catch(err=>{
+      console.log(err)
+    }).finally(()=>{
     })
   }
 

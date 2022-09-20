@@ -99,16 +99,16 @@ body{
         padding: 0 0 4px 0!important;
         border-bottom: 1px solid lightgray!important; 
     }
-    & .input_label.required::after {
-        background: #f27b77;
-        bottom: -1px;
-        content: "";
-        display: inline-block;
-        height: 2px;
-        left: 0;
-        position: absolute;
-        width: 25px;
-    }
+    // & .input_label.required::before {
+    //     background: #f27b77;
+    //     bottom: -1px;
+    //     content: "";
+    //     display: inline-block;
+    //     height: 2px;
+    //     left: 0;
+    //     position: absolute;
+    //     width: 25px;
+    // }
 }
 
 .card{
