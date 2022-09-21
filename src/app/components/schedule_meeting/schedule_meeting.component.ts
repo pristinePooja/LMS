@@ -21,13 +21,18 @@ export class ScheduleMeetingComponent implements OnInit {
   calltoList: Array<string> =['contact','lead']
   formGroup: FormGroup
   today: Date = new Date()
-  activeTemp:string ='participant'
+  activeTemp:string =''
   userEmail: string =this._session.getEmail
   participantsList=[]
+  participantsDetailsList=[]
   participantsShowList=[]
   selectedParticipantType:string ='lead'
   participantSearchKey: string =''
   leadList:Array<any>=[]
+  filterdLeadList:Array<any>=[]
+  contactList:Array<any>=[]
+  showSelectedParticipant='all'
+  dealOrAcc:string = 'account'
   constructor(
     private _fb: FormBuilder,
     private _session: SessionManagement,
@@ -40,8 +45,11 @@ export class ScheduleMeetingComponent implements OnInit {
   ngOnInit(): void {  
     this.componentService.userList.subscribe(res=>{
       this.userListFiltered=[]
+      this.userList=[]
       for(let i=0; i< res?.length; i++){
         this.userListFiltered.push({email:res[i]['email'],name:res[i]['name']})
+        this.userList.push({email:res[i]['email'],name:res[i]['name'], source:'', 
+        checked:this.participantsList?.indexOf(res[i]['email'])>=0})
       }
       
     })
@@ -49,22 +57,39 @@ export class ScheduleMeetingComponent implements OnInit {
       this.leadList=[]
       console.log(this.participantsList)
       for(let i=0; i< res?.length; i++){
-        this.leadList.push({email:res[i]['email'],name:res[i]['first_name']+' '+res[i]['last_name'], source:res[i]['company'], 
+        
+        this.leadList.push({email:res[i]['email'],name:res[i]['first_name']+' '+res[i]['last_name'], source:res[i]['company'], lead_code:res[i]['lead_code'],
         checked:this.participantsList?.indexOf(res[i]['email'])>=0})
+        
+        this.filterdLeadList.push({email:res[i]['email'],name:res[i]['first_name']+' '+res[i]['last_name'], source:res[i]['company']})
+        console.log(this.participantsList?.indexOf(res[i]['email'])>=0)
       }
       console.log( this.leadList)
       this.participantsShowList= this.leadList
     })
+
+    console.log(this.getCurrentClosestTime)
     this.componentService.getUsersList ()
+    console.log(this._session.getName)
     this.formGroup = this._fb.group({
       title: [''],
       location: [''],
       allDay:[false],
       meeting_start_date: [this.today, Validators.required],
-      meeting_start_time: [],
+      meeting_start_time: [this.getCurrentClosestTime],
       meeting_end_date: [this.today, Validators.required],
-      meeting_end_time: [],
-      meeting_host: [],
+      meeting_end_time: [this.getCurrentClosestTime],
+      meeting_host: [{email:this._session.getEmail,name:this._session.getName}],
+      meeting_related_to:[''],
+      meeting_related_to_email:[''],
+      dealOrAcc:[''],
+      deal_account:[],
+      repeat:[],
+      repeat_all_day:[false],
+      repeat_from_date:[this.today],
+      repeat_to_date:[this.today],
+      repeat_from_time:[this.getCurrentClosestTime],
+      repeat_to_time:[this.getCurrentClosestTime],
     })
     this.componentService.getUsersList()
     this.componentService.getLeadList('')
@@ -76,11 +101,29 @@ export class ScheduleMeetingComponent implements OnInit {
     
   }
 
-  switchParticipantList(){
-    if(this.selectedParticipantType=='lead'){
-      this.participantsShowList= this.leadList
-    }
 
+  get getCurrentClosestTime(){
+    let x = new Date()
+    return (("0"+(x.getHours()-Number((x.getMinutes()<30?12:11)))).toString().slice(-2)+':'+(x.getMinutes()<30?'30':'00')+' '+((x.getHours()>=12)?'PM':'AM'))
+
+  }
+
+  switchParticipantList(type){
+    this.showSelectedParticipant = type
+    if(this.showSelectedParticipant=='selected'){
+      this.participantsShowList= this.participantsDetailsList
+      return
+    }
+    console.log(this.selectedParticipantType)
+    if(this.selectedParticipantType=='lead'){
+      this.componentService.getLeadList(this.participantSearchKey)
+      // this.participantsShowList= this.leadList
+    }else if(this.selectedParticipantType=='contact'){
+      this.participantsShowList= this.contactList
+    }else if(this.selectedParticipantType=='user'){
+      this.participantsShowList= this.userList
+    }
+    this.participantSearchKey=''
   }
 
   getValues(){
@@ -88,8 +131,20 @@ export class ScheduleMeetingComponent implements OnInit {
   }
 
 
-  addParticipants(){
-
+  addParticipants(element){
+    let ind =this.participantsList.indexOf(element.email)
+    if(ind<0){
+      this.participantsList.push(element?.email)
+      this.participantsDetailsList.push(element)
+    }else if(!element.checked){
+      this.participantsList.splice(ind,1)
+      this.participantsDetailsList.splice(ind,1)
+    }
+    else{
+      this.participantsList.splice(ind,1)
+      this.participantsDetailsList.splice(ind,1)
+    }
+    console.log(this.participantsList)
   }
 
 
@@ -112,6 +167,8 @@ export class ScheduleMeetingComponent implements OnInit {
       if(this.selectedParticipantType=='lead'){
         this.componentService.getLeadList(this.participantSearchKey)
       }
+    }else  if(source=='lead'){
+      this.componentService.getLeadList(value)
     }
   }
 

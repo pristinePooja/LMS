@@ -21,8 +21,8 @@ export class ComponentsService {
   openCallPopUp(type){
     console.log(type)
     this._dialog.open(ScheduleCallComponent,{
-      maxWidth:'580px',
-      width:'580px',
+      maxWidth:'500px',
+      width:'500px',
       minWidth:'480px',
       position: {'top':'3rem'}, 
       panelClass:'top-popUp-panel', data:{type:type}})
@@ -30,8 +30,8 @@ export class ComponentsService {
   openMeetingPopUp(type){
     console.log(type +'fghjkl')
     this._dialog.open(ScheduleMeetingComponent,{
-      maxWidth:'580px',
-      width:'580px',
+      maxWidth:'500px',
+      width:'500px',
       minWidth:'480px',
       position: {'top':'3rem'}, 
       panelClass:'top-popUp-panel', data:{type:type}})
@@ -69,7 +69,7 @@ export class ComponentsService {
   getLeadList(val){
     let json={sorting_column: "lead_code",is_ui_query:1, middle_query:"and first_name like  '%" +val+"%' or last_name like  '%" +val+ "%' or email like  '%" +val+"%'"} 
     
-    this._webApiHttp.Post(this._webApiHttp.ApiURLArray.getLeads+'0'+'&pageSize='+'20', json).then(res=>{
+    this._webApiHttp.Post(this._webApiHttp.ApiURLArray.getLeads+'0'+'&pageSize='+'50', json).then(res=>{
 
       if(Number(res?.totalCount)>0){
        this.LeadList.next(res?.items)
