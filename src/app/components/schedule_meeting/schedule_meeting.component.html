@@ -1,14 +1,16 @@
     <div class="mt-2 flex-col ">
-        <div class="font-semibold text-2xl mb-2">{{activeTemp=='participant'?'Add Participants':activeTemp=='repeat'?'Repeat':'Meeting Information'}}</div>
+        <div class="font-semibold text-2xl mb-2">{{activeTemp=='participant'?'Add Participants':'Meeting Information'}}</div>
         <div class="h-100 overflow-y-auto">
             <ng-container *ngTemplateOutlet="activeTemp=='participant'?participantsTemp:addMeetingTemp"></ng-container>
         </div>
         <div class="flex justify-end space-x-2 mt-3" *ngIf="activeTemp==''">
             <button matripple class="mat-focus-indicator mat-raised-button mat-button-base bg-inherit border-2 border-primary-500 border-solid" mat-dialog-close>Cancel</button>
             <button matripple class="mat-focus-indicator mat-raised-button mat-button-base mat-primary disabled:bg-accent-200 disabled:text-primary disabled:shadow-none disabled:pointer-events-none"
-                [mat-dialog-close]="">Attach</button>
+            (click)="SaveMeeting()"
+                [mat-dialog-close]="">Save</button>
         </div>
-        <div class="flex justify-end space-x-2 mt-3" *ngIf="activeTemp=='participant'">
+
+        <div class="flex justify-end space-x-2 mt-3" *ngIf="activeTemp!=''">
             <button matripple class="mat-focus-indicator mat-raised-button mat-button-base mat-primary" (click)="activeTemp=''">Done</button>
         </div>
     </div>
@@ -38,7 +40,7 @@
                 <div class="field_container_underline">
                     <p class="input_label">All Day</p>
                     <span class=" flex underline_view input_field no_hover basis-full px-0">
-                        <mat-checkbox [color]="'primary'" formControlName="allDay"></mat-checkbox>
+                        <mat-checkbox [color]="'primary'" (change)="toggleAllday($event?.checked)" formControlName="allDay"></mat-checkbox>
                         <mat-icon svgIcon=""></mat-icon>
                     </span>
                 </div>
@@ -54,6 +56,7 @@
                         </mat-select>
                         <mat-icon class="" matTooltip="Required" svgIcon="info"></mat-icon>
                     </span>
+                    <mat-datepicker #pickerstart></mat-datepicker>
                 </div>
                  
                 <!-- To Time -->
@@ -67,13 +70,36 @@
                         </mat-select>
                         <mat-icon class="" matTooltip="Required" svgIcon="info"></mat-icon>
                     </span>
+                    
+                    <mat-datepicker #pickerend></mat-datepicker>
+                </div>
+
+                 <!-- Repeat -->
+                 <div class="field_container_underline">
+                    <p class="input_label">Repeat</p>
+                    <span class=" flex input_field underline_view basis-full px-0">
+                        <mat-select formControlName="repeat" class="basis-full" 
+                        panelClass="mt-7"
+                        disableOptionCentering >
+                            <mat-option value="">None</mat-option>
+                            <mat-option value="lead">Daily</mat-option>
+                            <mat-option value="weekly">Weekly</mat-option>
+                            <mat-option value="monthly">Monthly</mat-option>
+                            <mat-option value="yearly">Yearly</mat-option>
+                        </mat-select>
+                    </span>
+                    <!-- <span class=" flex underline_view input_field  basis-full px-0">
+                        <span class="w-[30%]">{{participantsList?.length>0?participantsList?.length +'  Selected':'None'}}</span>
+                        <div (click)="activeTemp='repeat'" class="w-[30%] flex cursor-pointer ml-4 text-primary-500 items-center"><mat-icon class="mr-1 icon-size-4 text-primary-500" svgIcon="mat_solid:add"></mat-icon>Add</div>
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span> -->
                 </div>
 
                 <!-- host -->
                 <div class="field_container_underline ">
-                    <p class="input_label required">Host</p>
+                    <p class="input_label required">Host </p>
                     <span class=" flex input_field underline_view basis-full px-0">
-                        <mat-select formControlName="meeting_host" class="basis-full" #hostSelect (closed)="resetDropDowns(hostSearch)"
+                        <mat-select formControlName="meeting_host" class="basis-full" #hostSelect  (closed)="resetDropDowns(hostSearch)"
                         panelClass="mt-7"
                         disableOptionCentering (opened)="setFocus(hostSearch)">
                             <mat-select-trigger>{{formGroup.get('meeting_host').value?.name}}</mat-select-trigger>
@@ -83,12 +109,12 @@
                             </span>
                             <div class="w-full px-2 py-4 max-h-48 overflow-x-auto">
                                 <mat-option *ngIf="userListFiltered.length<1"  disabled>No matching record</mat-option>
-                                <mat-option [selected]="userEmail == option.email" *ngFor="let option of userListFiltered" [value]="option">
-                                    <div>
+                                <mat-option *ngFor="let option of userListFiltered" [value]="option">
+                                    <!-- <div> -->
                                         {{option.name}} &nbsp;
                                     
                                     (<span class="text-secondary text-sm mx-2">{{option.email}}</span>)
-                                    </div>
+                                    <!-- </div> -->
                                 </mat-option>
                             </div>
                         </mat-select>
@@ -134,7 +160,7 @@
                                 <input  #relatedLeadSearch (input)="dropDownSearchFilter(relatedLeadSearch.value,formGroup.get('meeting_related_to').value)">
                             </span>
                             <div class="w-full px-2 py-4 max-h-48 overflow-x-auto" *ngIf="formGroup.get('meeting_related_to').value=='lead'">
-                                <mat-option *ngIf="userListFiltered.length<1"  disabled>No matching record</mat-option>
+                                <mat-option *ngIf="leadList.length<1"  disabled>No matching record</mat-option>
                                 <mat-option [selected]="userEmail == option.email" *ngFor="let option of leadList" [value]="option">
                                     <div>
                                         <span class="font-extrabold">{{option.name}} </span>&nbsp;
@@ -144,7 +170,7 @@
                                 </mat-option>
                             </div>
                             <div class="w-full px-2 py-4 max-h-48 overflow-x-auto" *ngIf="formGroup.get('meeting_related_to').value=='contact'">
-                                <mat-option *ngIf="userListFiltered.length<1"  disabled>No matching record</mat-option>
+                                <mat-option *ngIf="contactList.length<1"  disabled>No matching record</mat-option>
                                 <mat-option [selected]="userEmail == option.email" *ngFor="let option of contactList" [value]="option">
                                     <div>
                                         <span class="font-extrabold">{{option.name}} </span>&nbsp;
@@ -156,7 +182,15 @@
                         </mat-select>
                     </span>
                 </div>
-                 <!-- Related to Type  -->
+                <!-- Add as participant -->
+                <div class="field_container_underline" *ngIf="formGroup.get('meeting_related_to_email').value">
+                    <p class="input_label"> </p>
+                    <span class=" flex underline_view text-secondary text-sm input_field no_hover basis-full px-0">
+                        <mat-checkbox [color]="'primary'" (change)="addParticipants(formGroup.get('meeting_related_to_email').value)">Add {{formGroup.get('meeting_related_to_email').value?.name}} as a participant</mat-checkbox>
+                        <mat-icon svgIcon=""></mat-icon>
+                    </span>
+                </div>
+                 <!-- Related to Contact  -->
                  <div class="field_container_underline " *ngIf="formGroup.get('meeting_related_to').value=='contact'">
                     <mat-select class="input_label" formControlName="dealOrAcc">
                         <mat-option  value="account">Account</mat-option>
@@ -194,23 +228,40 @@
                         </mat-select>
                     </span>
                 </div>
-                <!-- Repeat -->
-                <div class="field_container_underline">
-                    <p class="input_label">Repeat</p>
-                    <span class=" flex underline_view input_field  basis-full px-0">
-                        <span class="w-[30%]">{{participantsList?.length>0?participantsList?.length +'  Selected':'None'}}</span>
-                        <div (click)="activeTemp='repeat'" class="w-[30%] flex cursor-pointer ml-4 text-primary-500 items-center"><mat-icon class="mr-1 icon-size-4 text-primary-500" svgIcon="mat_solid:add"></mat-icon>Add</div>
-                        <mat-icon svgIcon=""></mat-icon>
+
+                <!-- Participants Reminder -->
+                <div class="field_container_underline ">
+                    <p class="input_label required">Participants Reminder</p>
+                    <span class=" flex input_field underline_view basis-full px-0">
+                        <mat-select formControlName="remind_participant" class="basis-full" 
+                        panelClass="mt-7"
+                        disableOptionCentering >
+                            <mat-option value="">None</mat-option>
+                            <mat-option value="0">At time of meeting</mat-option>
+                            <mat-option value="5">5 minutes before</mat-option>
+                            <mat-option value="10">10 minutes before</mat-option>
+                            <mat-option value="15">15 minutes before</mat-option>
+                            <mat-option value="30">30 minutes before</mat-option>
+                            <mat-option value="60">1 hour before</mat-option>
+                            <mat-option value="120">2 hours before</mat-option>
+                        </mat-select>
                     </span>
                 </div>
                 
+
+                 <!-- Description -->
+                 <div class="field_container_underline ">
+                    <p class="input_label required">Description</p>
+                    <span class=" flex input_field underline_view basis-full px-0">
+                        <textarea cdkTextareaAutosize formControlName="description"  
+                        class="basis-full mx-6 resize-y leading-5 min-h-15 max-h-200 h-20" ></textarea>
+                    </span>
+                </div>
             </div>
         </div>
        
 </ng-template>
 
-<mat-datepicker #pickerstart></mat-datepicker>
-<mat-datepicker #pickerend></mat-datepicker>
 
 <ng-template #participantsTemp>
    
@@ -241,8 +292,4 @@
            
         </div>
     </div>
-</ng-template>
-
-<ng-template #repeatTemp>
-
 </ng-template>

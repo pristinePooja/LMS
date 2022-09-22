@@ -111,4 +111,8 @@ export class ComponentsService {
     })
   }
 
+  newMeeting(json){
+    this._webApiHttp.Post(this._webApiHttp.ApiURLArray.insertMeeting, json).then(res=>console.log(res))
+  }
+
 }

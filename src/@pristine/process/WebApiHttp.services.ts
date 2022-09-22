@@ -54,7 +54,10 @@ export class WebApiHttp {
     getRatingMst:'/api/Masters/RatingMstGet',
 
 
-    getGoogleToken: '/api/GoogleMeet/GenrateToken'
+    getGoogleToken: '/api/GoogleMeet/GenrateToken',
+
+    // Meeting
+    insertMeeting:'/api/Call/MeetHeaderInsert'
   };
 
 
