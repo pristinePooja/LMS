@@ -270,7 +270,7 @@
         </div>
 
           <!-- Notes -->
-          <div class="basis-2/3 card p-0 " id="notes">
+          <div class=" card p-0 " id="notes">
             <div class="font-bold px-5 py-3 border-b-2 cursor-default flex items-center">
                 <span class="text-xl ">Notes</span>
             </div>
@@ -348,7 +348,7 @@
         </div>
 
         <!-- Attachments -->
-        <div class="basis-2/3 card p-0 pb-2" id="attachments">
+        <div class=" card p-0 pb-2" id="attachments">
             <div class="font-bold px-5 mb-4 py-3 border-b cursor-default flex items-center justify-between">
                 <span class="text-xl ">Attachments</span>
                 <div class="border-sky-600 bg-sky-100 hover:bg-sky-200 border p-1 px-3 rounded-lg flex justify-center items-center" [matMenuTriggerFor]="documentTypeMenu">
@@ -400,7 +400,7 @@
         </div>
 
           <!-- Products -->
-          <div class="basis-2/3 card p-0 " id="products">
+          <div class="card p-0 " id="products">
             <div class="font-bold px-5 py-3 border-b cursor-default flex items-center">
                 <span class="text-xl ">Products</span>
             </div>
@@ -411,7 +411,7 @@
         </div>
 
         <!-- Open Activities -->
-        <div class="basis-2/3 card p-0 " id="open_activities">
+        <div class=" card p-0 " id="open_activities">
             <div class="font-bold px-5  py-3 border-b cursor-default flex items-center justify-between">
                 <span class="text-xl ">Open Activities</span>
                 <div class="border-sky-600 bg-sky-100 hover:bg-sky-200 border p-1 px-3 rounded-lg flex justify-center items-center" [matMenuTriggerFor]="addActivityMenu">
@@ -435,6 +435,32 @@
 
             </div>
             
+        </div>
+        
+        <!-- Emails -->
+        <div class=" card p-0 " id="emails">
+            <div class="font-bold px-5  py-3 border-b cursor-default flex items-center justify-between">
+                <span class="text-xl ">Emails</span>
+                <div class="border-sky-600 bg-sky-100 hover:bg-sky-200 border p-1 px-3 rounded-lg flex justify-center items-center" (click)="ComposeNewMail()">
+                    <!-- <mat-icon class="icon-size-4 text-sky-600" svgIcon="mat_solid:add"></mat-icon> -->
+                    <span class="text-sm text-sky-600">Compose Email</span>
+                </div>
+            </div>
+           
+            <div class="flex">
+                <div class="flex flex-col max-h-100 basis-1/2">
+                    <div class="w-full font-bold">
+                        <p class="pl-5 py-1">
+                            Open Meetings
+                        </p>
+                    </div>
+                    <div></div>
+                    <div class="p-4  mt-0 border-y text-center text-gray-500 text-md">
+                        No Record Found
+                    </div>
+                </div>
+
+            </div>
             
         </div>
     </div>

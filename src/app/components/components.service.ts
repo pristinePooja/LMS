@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { WebApiHttp } from '@pristine/process/WebApiHttp.services';
 import { BehaviorSubject } from 'rxjs';
+import { EmailsComponent } from './emails/emails.component';
 import { ScheduleCallComponent } from './schedule-call/schedule-call.component';
 import { ScheduleMeetingComponent } from './schedule_meeting/schedule_meeting.component';
 
@@ -35,6 +36,16 @@ export class ComponentsService {
       minWidth:'480px',
       position: {'top':'3rem'}, 
       panelClass:'top-popUp-panel', data:{type:type}})
+  }
+
+  openEmailPopUp(data){
+    this._dialog.open(EmailsComponent,{
+      maxWidth:'70%',
+      width:'70%',
+      minWidth:'480px',
+      height:'calc(100% - 3rem)',
+      position: {'right':'0', 'bottom':'0'}, 
+      panelClass:'non-card', data:data})
   }
 
   getLeads(name){

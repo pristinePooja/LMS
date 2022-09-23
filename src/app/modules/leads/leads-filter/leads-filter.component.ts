@@ -139,6 +139,8 @@ export class LeadsFilterComponent implements OnInit {
             this._leadService.openCallPopUp(value)
         }else if(value == 'meeting'){
             this._leadService.openMeetingPopUp('')
+        }else if(keys == 'emails'){
+            this._leadService.ComposeNewMailServieFunction()
         }
     }
 

@@ -31,13 +31,13 @@ export class LeadsService {
   viewFilterOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
   pageType: BehaviorSubject<'list'|'create'|'view'|'edit'> = new BehaviorSubject<'list'|'create'|'view'|'edit'> ('list')
   viewCount :BehaviorSubject<Array<{name:string,keys:string,count:number|string, options:Array<{name:string, key:string}>}>> = new BehaviorSubject([
-    { name : 'notes', keys:'notes', count:0, options:[]},
-    { name : 'attachments',  keys:'attachments', count:0, options:[{name:'Attach File', key:'file'},{name:'Attach Url', key:'URL'}]},
-    { name : 'products', keys:'products', count:5, options:[]},
-    { name : 'Open Activities', keys:'open_activities', count:0, options:[{name:'Schedule Meeting', key:'meeting'},{name:'Schedule Call', key:'schedule'}, {name:'Call Log', key:'log'}]},
-    { name : 'Closed Activities', keys:'closed_activities', count:0, options:[]},
-    { name : 'Invited Meetings', keys:'invited_meetings', count:0, options:[]},
-    { name : 'Emails', keys:'emails', count:0, options:[]},
+    { name : 'notes', keys:'notes', count:0, options:[], hover:false, hasOptions:true, optionType:'click'},
+    { name : 'attachments',  keys:'attachments', count:0, options:[{name:'Attach File', key:'file'},{name:'Attach Url', key:'URL'}], hover:false, hasOptions:true, optionType:'menu'},
+    { name : 'products', keys:'products', count:5, options:[], hover:false, hasOptions:false, optionType:'none'},
+    { name : 'Open Activities', keys:'open_activities', count:0, options:[{name:'Schedule Meeting', key:'meeting'},{name:'Schedule Call', key:'schedule'}, {name:'Call Log', key:'log'}], hover:false, hasOptions:true, optionType:'menu'},
+    { name : 'Closed Activities', keys:'closed_activities', count:0, options:[], hover:false, hasOptions:false, optionType:'none'},
+    { name : 'Invited Meetings', keys:'invited_meetings', count:0, options:[], hover:false, hasOptions:false, optionType:'none'},
+    { name : 'Emails', keys:'emails', count:0, options:[], hover:false, hasOptions:true, optionType:'click'},
 ]) 
 
   constructor(private _session: SessionManagement, 
@@ -228,6 +228,10 @@ export class LeadsService {
   }
   openCallPopUp(type){
     this._commonComponents.openCallPopUp(type)
+  }
+
+  ComposeNewMailServieFunction(){
+    this._commonComponents.openEmailPopUp(this.selectedLead.value)
   }
 
   async getLeadNotes(lead_code, flag): Promise<any>{

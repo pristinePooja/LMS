@@ -12,11 +12,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ScheduleMeetingComponent } from './schedule_meeting/schedule_meeting.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { EmailsComponent } from './emails/emails.component';
+import { MatChipsModule } from '@angular/material/chips'
 
 
 @NgModule({
-  declarations: [DragDirective, FileUploaderComponent, ScheduleCallComponent, ScheduleMeetingComponent],
+  declarations: [DragDirective, FileUploaderComponent, ScheduleCallComponent, ScheduleMeetingComponent, EmailsComponent],
   imports: [
     CommonModule,
     MatDialogModule,
@@ -27,7 +28,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatIconModule,
     ReactiveFormsModule,
     MatCheckboxModule ,
-    FormsModule
+    FormsModule,
+    MatChipsModule
+    
   ], providers:[DatePipe]
 })
 export class ComponentsModule { }

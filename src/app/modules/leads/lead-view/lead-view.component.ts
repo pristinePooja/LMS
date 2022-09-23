@@ -343,5 +343,8 @@ export class LeadViewComponent implements OnInit {
     
   }
 
+  ComposeNewMail(){
+    this._leadService.ComposeNewMailServieFunction()
+  }
 
 }
