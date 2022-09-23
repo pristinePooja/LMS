@@ -1,0 +1,46 @@
+<div class="w-full h-full flex flex-col">
+    <div class="h-12 px-5 py-4 border-b border-gray-300  flex justify-between">
+        <div class="basis-full flex justify-start">
+            New Message
+        </div>
+        <div>
+            <button><mat-icon svgIcon="clear"></mat-icon></button>
+        </div>
+    </div>
+    <div class="h-full flex-col">
+        <div class="h-fit px-5 py-3 border-b pointer-events-none border-gray-200">
+            ABCD<span>&lt;abcdsdjg@gmail.com &gt;</span>
+        </div>
+        <div class="h-fit flex  px-5 py-3 border-b pointer-events-none border-gray-200">
+            To: 
+            <mat-chip-list aria-label="" #chipList>
+                <mat-chip>
+                  <!-- <img matChipAvatar src="" alt="Photo of a Shiba Inu"/> -->
+                  <mat-icon svgIcon="contact" matChipAvatar></mat-icon>
+                  Dog one
+                </mat-chip>
+                <mat-chip color="primary">
+                  <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
+                  Dog two
+                </mat-chip>
+                <mat-chip color="accent">
+                  <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
+                  Dog three
+                </mat-chip>
+              <input
+      placeholder="New fruit..."
+      #fruitInput
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="['ENTER', 'COMMA']">
+  </mat-chip-list>
+  <!-- [matAutocomplete]="auto" -->
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="''">
+    <mat-option *ngFor="let fruit of userEmails | async" [value]="fruit">
+      {{fruit}}
+    </mat-option>
+  </mat-autocomplete>
+        </div>
+
+
+    </div>
+</div>
