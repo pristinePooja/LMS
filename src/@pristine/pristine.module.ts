@@ -15,8 +15,8 @@ import {SignalR} from "./process/SignalR";
 import {DatePipe} from "@angular/common";
 import {AuthGuard} from "./process/AuthGuard";
 import {SessionManagement} from "./process/SessionManagement";
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-import { FileDragNDropDirective } from './directives/drag-drop/file-drag-n-drop.directive';
+// import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+// import { FileDragNDropDirective } from './directives/drag-drop/file-drag-n-drop.directive';
 
 @NgModule({
     imports  : [
@@ -54,10 +54,9 @@ import { FileDragNDropDirective } from './directives/drag-drop/file-drag-n-drop.
         }
     ],
     declarations: [
-      ConfirmDialogComponent,
-      FileDragNDropDirective
+      
     ],
-    entryComponents: [ ConfirmDialogComponent ]
+    entryComponents: [  ]
 })
 export class PristineModule
 {

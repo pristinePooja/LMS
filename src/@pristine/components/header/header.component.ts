@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { pristineAnimations } from "../../animations";
 import { HeaderService } from './header.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AttachmentsComponent } from 'app/modules/leads/leads_components/attachments/attachments.component';
+
 
 @Component({
   selector: 'app-header',

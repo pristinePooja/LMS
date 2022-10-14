@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { LeadsComponent } from './leads.component';
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { SharedModule } from "../../shared/shared.module";
@@ -22,7 +22,6 @@ import { HeaderComponent } from '@pristine/components/header/header.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LeadViewComponent } from './lead-view/lead-view.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { FileUploaderComponent } from './componets/file-uploader/file-uploader.component';
 import { DragDirective } from '@pristine/directives/dragDrop.directive';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatOptionModule } from '@angular/material/core';
@@ -45,7 +44,6 @@ const route: Routes = [{
       LeadsListComponent,
       CreateEditLeadsComponent,
       LeadViewComponent,
-      FileUploaderComponent,
       DragDirective
   ],
     imports: [

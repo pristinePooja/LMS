@@ -43,6 +43,13 @@ export const appRoutes: Route[] = [
         ]
 
     },
+    {
+        path:'crm', 
+        children: [
+            {path: '',loadChildren :()=>import('app/modules/masters/masters.module').then(m => m.MastersModule)},
+        ]
+
+    },
     // Auth routes for guests
     // {
     //     path: '',

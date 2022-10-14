@@ -48,6 +48,12 @@ export class WebApiHttp {
     getIndustryMst:'/api/Masters/IndustryMstGet',
     getLeadStatusMst:'/api/Masters/LeadStatusMstGet',
     getRatingMst:'/api/Masters/RatingMstGet',
+
+    //Items
+    getGStSetup:'/api/Item/GStSetupGet',
+    getGstHsnMst:'/api/Item/GstHsnMstGet',
+
+    
   };
 
 
